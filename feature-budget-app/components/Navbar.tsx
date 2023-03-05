@@ -13,7 +13,7 @@ import budgetLogo from '../public/budgetLogo.svg';
 const Navbar = () => {
     return (
         <div>
-            <AppBar position="static" sx={{ backgroundColor: '#FF5733 ', padding: '20px' }}>
+            <AppBar position="static" sx={{ backgroundColor: '#C8E6C9', padding: '20px' }}>
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                     {/* <Typography>Logo</Typography> */}
                     <Image
@@ -22,8 +22,13 @@ const Navbar = () => {
                         width={100}
                         height={35}
                     />
-                    <Typography variant='h5' component='h1'>Tech Twig Budget App</Typography>
-                    <Typography>Profile</Typography>
+                    <Typography variant='h5'
+                                component='h1'
+                                color={'#212121'}
+                                fontWeight={'700'}>
+                        Budget App
+                    </Typography>
+                    <Typography variant='body1' color={'#212121'} fontWeight={'700'}>Profile</Typography>
                 </Box>
 
             </AppBar>

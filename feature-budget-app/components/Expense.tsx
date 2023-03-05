@@ -1,38 +1,42 @@
-import { InputLabel, NativeSelect, Typography } from '@mui/material';
-import Paper from '@mui/material/Paper';
-import { Box } from '@mui/system';
 import React from 'react';
+import {Box, Button, MenuItem, Paper, Select, Typography} from "@mui/material";
+import InputLabel from "@mui/material/InputLabel";
+import moment from "moment/moment";
+import AddIcon from "@mui/icons-material/Add";
 
 const Expense = () => {
+    const currentMonth = moment().format('MMMM').toLowerCase();
     return (
-        <Box mt={2}>
-            <Paper sx={{ backgroundColor: '#D4F1F4', padding: '4px',margin:'10px' }}>
-                <Typography align='center' color={'#326cec'} variant='h5' component='h2'>Expense</Typography>
-                <InputLabel variant="standard" htmlFor="uncontrolled-native">
-                    <Typography variant='body1' component='p' fontWeight={550} color={'#657cb3'}>Month</Typography>
+        <Box>
+            <Paper elevation={1} sx={{padding:'10px'}}>
+                <Typography align='center' variant='h5' color='#388E3C' fontWeight={550}>Expense</Typography>
+                <InputLabel>
+                    <Typography variant='body1'>Month</Typography>
                 </InputLabel>
-                <NativeSelect
-                    // sx={{ width: '50%' }}
-                    defaultValue={'january'}
-                    inputProps={{
-                        name: 'remaining',
-                    }}
+                <Select
+                    fullWidth
+                    defaultValue={currentMonth}
                 >
-                    <option value={'january'}>January</option>
-                    <option value={'february'}>February</option>
-                    <option value={'march'}>March</option>
-                    <option value={'april'}>April</option>
-                    <option value={'may'}>May</option>
-                    <option value={'june'}>June</option>
-                    <option value={'july'}>July</option>
-                    <option value={'august'}>August</option>
-                    <option value={'september'}>September</option>
-                    <option value={'october'}>October</option>
-                    <option value={'november'}>November</option>
-                    <option value={'december'}>December</option>
-                </NativeSelect>
+                    <MenuItem value={'january'}>January</MenuItem>
+                    <MenuItem value={'february'}>February</MenuItem>
+                    <MenuItem value={'march'}>March</MenuItem>
+                    <MenuItem value={'april'}>April</MenuItem>
+                    <MenuItem value={'may'}>May</MenuItem>
+                    <MenuItem value={'june'}>June</MenuItem>
+                    <MenuItem value={'july'}>July</MenuItem>
+                    <MenuItem value={'august'}>August</MenuItem>
+                    <MenuItem value={'september'}>September</MenuItem>
+                    <MenuItem value={'october'}>October</MenuItem>
+                    <MenuItem value={'november'}>November</MenuItem>
+                    <MenuItem value={'december'}>December</MenuItem>
+                </Select>
+                <Typography mt={1} display='flex' alignItems='center' justifyContent='center'>
+                    <Button
+                        variant="contained" size='small' color='success' endIcon={<AddIcon/>}>
+                        Add
+                    </Button>
+                </Typography>
             </Paper>
-
         </Box>
     );
 };

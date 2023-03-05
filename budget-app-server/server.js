@@ -5,9 +5,12 @@ const incomeRoutes = require('./incomeRoutes');
 const expenseRoutes = require('./expenseRoutes');
 const budgetRoutes = require('./budgetRoutes')
 
+const cors = require("cors");
 const app = express();
 app.use(bodyParser.json());
 dbConnect();
+
+app.use(cors());
 
 app.use("/income",incomeRoutes);
 app.use("/expense",expenseRoutes);

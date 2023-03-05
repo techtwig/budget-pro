@@ -3,56 +3,30 @@ import { Box, Container } from '@mui/system';
 import InputLabel from '@mui/material/InputLabel';
 import NativeSelect from '@mui/material/NativeSelect';
 import Grid from '@mui/material/Grid';
-import React from 'react';
+import React, {useState} from 'react';
 
-const Dropdowns = () => {
+
+
+const Dropdowns = ({handleOptions}:any) => {
+
     return (
         <div>
             <Box>
-                <Grid /* bgcolor='#84acf4' */ padding={1}>
+                <Grid container padding={1}>
                     <Grid item xs={12} md={12}>
-                        <InputLabel variant="standard" htmlFor="uncontrolled-native">
-                            Summary
+                        <InputLabel>
+                           <Typography variant='body1'>Options</Typography>
                         </InputLabel>
-                        <NativeSelect
+                        <Select
                             fullWidth
-                            defaultValue={'remaining'}
-                            inputProps={{
-                                name: 'remaining',
-                            }}
+                            defaultValue={'summary'}
+                            onChange={(e)=>handleOptions(e)}
                         >
-                            <option value={'remaining'}>Remaining</option>
-                            <option value={'budget'}>Budget</option>
-                            <option value={'income'}>Income</option>
-                            <option value={'expense'}>Expense</option>
-                        </NativeSelect>
-                    </Grid>
-                </Grid>
-                <Grid /* bgcolor='#84acf4' */ mt={1} padding={1}>
-                    <Grid item xs={12} md={12}>
-                        <InputLabel variant="standard" htmlFor="uncontrolled-native">
-                            Month
-                        </InputLabel>
-                        <NativeSelect
-                            sx={{ width: '25%' }}
-                            defaultValue={'january'}
-                            inputProps={{
-                                name: 'remaining',               
-                            }}
-                        >
-                            <option value={'january'}>January</option>
-                            <option value={'february'}>February</option>
-                            <option value={'march'}>March</option>
-                            <option value={'april'}>April</option>
-                            <option value={'may'}>May</option>
-                            <option value={'june'}>June</option>
-                            <option value={'july'}>July</option>
-                            <option value={'august'}>August</option>
-                            <option value={'september'}>September</option>
-                            <option value={'october'}>October</option>
-                            <option value={'november'}>November</option>
-                            <option value={'december'}>December</option>
-                        </NativeSelect>
+                            <MenuItem value={'summary'}>Summary</MenuItem>
+                            <MenuItem value={'budget'}>Budget</MenuItem>
+                            <MenuItem value={'income'}>Income</MenuItem>
+                            <MenuItem value={'expense'}>Expense</MenuItem>
+                        </Select>
                     </Grid>
                 </Grid>
             </Box>
