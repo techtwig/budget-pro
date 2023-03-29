@@ -19,6 +19,11 @@ const Budget = () => {
     const [budgetInfos, setBudgetInfos] = useState<Array<IGetBudgetInfos>>([]);
     const [open, setOpen] = useState<boolean>(false);
     const[deleted,setDeleted]=useState<boolean>(false);
+    const[getIndividualBudget,setIndividualBudget]=useState(null);
+    const[isEdit,setIsEdit]=useState(false);
+
+    console.log(getIndividualBudget);
+
 
 
 
@@ -28,7 +33,9 @@ const Budget = () => {
 
     }
 
-    const handleOpen = () => setOpen(true);
+    const handleOpen = () => {setOpen(true)
+    setIsEdit(false)
+    setIndividualBudget(null)};
     const handleClose = () => setOpen(false);
 
     const deleteBudget = async (_id:string) => {
@@ -43,6 +50,20 @@ const Budget = () => {
             .then(res=>setBudgetInfos(res.data));
     },[month,open,deleted]);
 
+
+    //console.log(getIndividualBudget);
+
+
+
+    const editModal= (budgetID: string)=>{
+        console.log(budgetID);
+        axios.get(`http://localhost:5000/budget/${budgetID}`)
+            .then(res=>setIndividualBudget(res.data));
+        console.log('Edit button clicked', budgetID);
+        setIsEdit(true);
+        setOpen(true);
+
+    }
 
 
 
@@ -78,7 +99,10 @@ const Budget = () => {
                         key={budgetInfo._id}
                         budgetInfo={budgetInfo}
                         deleteBudget={deleteBudget}
-                        handleOpen={handleOpen}></BudgetList>)
+                        handleOpen={handleOpen}
+                        editModal={editModal}
+                        setIndividualBudget={setIndividualBudget}
+                        getIndividualBudget={getIndividualBudget}></BudgetList>)
 
                 }
                <Typography mt={1} display='flex' alignItems='center' justifyContent='center'>
@@ -88,9 +112,10 @@ const Budget = () => {
                        Add
                    </Button>
                </Typography>
-                <BudgetModal open={open} handleClose={handleClose} budget_month={month}/>
+                <BudgetModal open={open} handleClose={handleClose} budget_month={month} getIndividualBudget={getIndividualBudget}/>
             </Paper>
         </Box>
+
     );
 };
 
