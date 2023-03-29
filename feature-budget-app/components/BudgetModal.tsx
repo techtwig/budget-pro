@@ -1,9 +1,9 @@
-import React from 'react';
-import {Box, Button, Modal, TextField, Typography} from "@mui/material";
+import React, {useState} from 'react';
+import {Box, Button, Input, Modal, TextField, Typography} from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { useForm } from "react-hook-form";
+import {Controller, useForm} from "react-hook-form";
 import axios from 'axios';
 
 
@@ -27,9 +27,16 @@ interface IBudgetModal{
     open:boolean;
     handleClose:()=>void;
     budget_month:string;
+    getIndividualBudget:any;
+
 }
 
-const BudgetModal = ({open, handleClose,budget_month}:IBudgetModal) => {
+const BudgetModal = ({open, handleClose,budget_month,getIndividualBudget}:IBudgetModal) => {
+
+
+
+    //console.log(getIndividualBudget);
+
     const schema = yup.object().shape({
         budget_item: yup.string().required('Please give a description of your budget')
             .min(10, 'Write at least 20 characters')
@@ -39,9 +46,10 @@ const BudgetModal = ({open, handleClose,budget_month}:IBudgetModal) => {
             .integer('Amount must be positive integer')
     });
 
-    const {register, handleSubmit, formState: {errors}, reset} = useForm({
-        resolver: yupResolver(schema),
-    });
+    const {register,control, handleSubmit, formState: {errors}, reset} = useForm({
+        resolver: yupResolver(schema)});
+
+
     const onSubmitHandler = async (budgetInfo: any) => {
         //console.log({budgetInfo});
         //console.log(month);
@@ -60,7 +68,9 @@ const BudgetModal = ({open, handleClose,budget_month}:IBudgetModal) => {
         handleClose();
 
     };
-    
+
+
+
 
     return (
             <Box>
