@@ -17,7 +17,7 @@ const InitialLoadingPage = () => {
 					<Box sx={{display:'flex', alignItems:'center',justifyContent:'center',flexDirection:'column'}}>
 						<Box sx={{display:'flex', alignItems:'center',justifyContent:'center'}}>
 							<Typography variant='h2'
-                                component='h1'
+                                component='h2'
                                 color={'#212121'}
                                 fontWeight={'700'}>
 								Budget App
