@@ -13,12 +13,11 @@ import Summary from "./Summary";
 const MainBody = () => {
     const [options,setOptions]=useState('summary');
     const handleOptions=(e:any)=>{
-        //console.log(e);
         setOptions(e.target.value);
     }
     return (
         <Container>
-            <Container sx={{ backgroundColor: 'white', paddingBottom: '10px'}}>
+            <Container sx={{ backgroundColor: 'common.white', paddingBottom: '10px'}}>
                 <Dropdowns handleOptions={handleOptions}></Dropdowns>
                 <Grid container mt={2}>
                     <Grid item xs={12} md={12}>
