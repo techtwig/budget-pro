@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const moment = require('moment');
-const month = moment().format('MMMM'); // February
+const month = moment().format('MMMM'); 
 
 const budgetSchema = new mongoose.Schema({
     budget_item: {type: String, required:true},

@@ -6,7 +6,5 @@ export default function Home() {
    	<Box mr={8} ml={8}>
 		<MainBody />
 	</Box>
-
-
   )
 }
