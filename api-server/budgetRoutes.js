@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const {Budget}= require('./schemas/budgetSchema');
 const {Expense} = require("./schemas/expenseSchema");
 const {Income} = require("./schemas/incomeSchema");
+const checkLogin = require("./middlewares/checkLogin");
 const router = express.Router();
 const app = express();
 app.use(bodyParser.json());
@@ -21,7 +22,7 @@ router.post("/", async (req, res) => {
 });
 
 //getting all budgets
-router.get("/",async (req,res)=>{
+router.get("/", checkLogin, async (req,res)=>{
     try{
         const allBudgets = await Budget.find({});
         res.send(allBudgets);

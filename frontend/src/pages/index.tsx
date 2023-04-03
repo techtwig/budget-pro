@@ -2,6 +2,7 @@ import Head from 'next/head'
 import { Suspense, lazy } from 'react';
 import { Inter } from '@next/font/google'
 import InitialLoadingPage from 'components/InitialLoadingPage'
+import SignUp from 'components/SignUp'
 import {Box} from "@mui/system";
 
 
@@ -23,12 +24,13 @@ export default function Home() {
       </Head>
 	  
 	   
-		<Suspense fallback={<InitialLoadingPage/>}>
+		{/*<Suspense fallback={<InitialLoadingPage/>}>
 				<Navbar/>
 				<Box mr={8} ml={8}>
 					<MainBody />
 				</Box>
-		</Suspense>
+		</Suspense>*/}
+		<SignUp />
 
 
 
