@@ -1,11 +1,16 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import moment from 'moment';
-import {Box, Button, MenuItem, Paper, Select, Typography} from "@mui/material";
+import {Box, Button, Card, CardContent, IconButton, MenuItem, Paper, Select, Typography} from "@mui/material";
 import InputLabel from "@mui/material/InputLabel";
 import AddIcon from '@mui/icons-material/Add';
-import BudgetModal from "./BudgetModal";
-import BudgetList from "./BudgetList";
 import axios from "axios";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import BudgetAddEditModal from "./BudgetAddEditModal";
+import axiosInstance from "@/axiosInstance";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useRouter } from 'next/router';
 
 interface IGetBudgetInfos {
         budget_item: string;
@@ -15,58 +20,45 @@ interface IGetBudgetInfos {
 
 const Budget = () => {
     const currentMonth = moment().format('MMMM');
-    const [month, setMonth] = useState(currentMonth);
+    const [month, setMonth] = useState<string>(currentMonth);
     const [budgetInfos, setBudgetInfos] = useState<Array<IGetBudgetInfos>>([]);
     const [open, setOpen] = useState<boolean>(false);
     const[deleted,setDeleted]=useState<boolean>(false);
-    const[getIndividualBudget,setIndividualBudget]=useState(null);
-    const[isEdit,setIsEdit]=useState(false);
+    const[editId, setEditId]=useState<string | null>(null);
 
-    console.log(getIndividualBudget);
-
-
-
+    const router = useRouter();
 
     const handleMonth=(e:any)=>{
         //console.log(e);
         setMonth(e.target.value);
-
     }
-
-    const handleOpen = () => {setOpen(true)
-    setIsEdit(false)
-    setIndividualBudget(null)};
+    const handleOpen = () => {
+        setOpen(true);
+        setEditId(null);
+    }
     const handleClose = () => setOpen(false);
-
-    const deleteBudget = async (_id:string) => {
-        await axios.delete(`http://localhost:5000/budget/${_id}`);
-        setDeleted(()=>!deleted);
-
-
-    }
 
     useEffect(()=>{
         axios.get(`http://localhost:5000/budget/month/?month=${month}`)
             .then(res=>setBudgetInfos(res.data));
     },[month,open,deleted]);
 
-
-    //console.log(getIndividualBudget);
-
-
-
-    const editModal= (budgetID: string)=>{
-        console.log(budgetID);
-        axios.get(`http://localhost:5000/budget/${budgetID}`)
-            .then(res=>setIndividualBudget(res.data));
-        console.log('Edit button clicked', budgetID);
-        setIsEdit(true);
-        setOpen(true);
-
+    const deleteBudget = async (_id:string) => {
+        try {
+            await axiosInstance.delete(`http://localhost:5000/budget/${_id}`);
+            setDeleted(() => !deleted);
+        }catch (e) {
+            toast.error('You are not logged in. Please login.');
+            setTimeout(() => {
+                router.push('/login');
+            }, 5000);
+        }
     }
 
-
-
+    const editBudget = (id: string | null) => {
+        setOpen(true);
+        setEditId(id);
+    };
 
 
     return (
@@ -94,17 +86,6 @@ const Budget = () => {
                     <MenuItem value={'November'}>November</MenuItem>
                     <MenuItem value={'December'}>December</MenuItem>
                 </Select>
-                {
-                    budgetInfos.map(budgetInfo=><BudgetList
-                        key={budgetInfo._id}
-                        budgetInfo={budgetInfo}
-                        deleteBudget={deleteBudget}
-                        handleOpen={handleOpen}
-                        editModal={editModal}
-                        setIndividualBudget={setIndividualBudget}
-                        getIndividualBudget={getIndividualBudget}></BudgetList>)
-
-                }
                <Typography mt={1} display='flex' alignItems='center' justifyContent='center'>
                    <Button
                        onClick={()=>handleOpen()}
@@ -112,8 +93,46 @@ const Budget = () => {
                        Add
                    </Button>
                </Typography>
-                <BudgetModal open={open} handleClose={handleClose} budget_month={month} getIndividualBudget={getIndividualBudget}/>
             </Paper>
+            <Box>
+                {
+                    budgetInfos.map(budgetInfo =>
+                        <Card key={budgetInfo._id} sx={{bgcolor: '#00CEAC', marginTop: '5px'}}>
+                            <CardContent
+                                sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
+
+                                <Typography variant="h6" component="h6" mr={1} color='#212121'>
+                                    {budgetInfo?.budget_item}
+                                </Typography>
+                                <Typography variant="h6" component="h6" mr={1} color='#212121'>
+                                    {budgetInfo?.budget_amount}
+                                </Typography>
+
+                                <IconButton
+                                    onClick={() => editBudget(budgetInfo._id)}
+                                    aria-label="edit"
+                                    size="medium"
+                                    sx={{color: '#FFFFFF'}}>
+                                    <EditIcon fontSize="inherit"/>
+                                </IconButton>
+                                <IconButton
+                                    onClick={() => deleteBudget(budgetInfo._id)}
+                                    aria-label="delete"
+                                    size="large"
+                                    sx={{color: '#FFFFFF'}}>
+                                    <DeleteIcon fontSize="medium"/>
+                                </IconButton>
+                            </CardContent>
+                        </Card>
+                    )
+                }
+                <BudgetAddEditModal id={editId}
+                                    open={open}
+                                    handleClose={handleClose}
+                                    budget_month={month}></BudgetAddEditModal>
+            </Box>
+            <ToastContainer position="top-center"
+                            theme="colored"/>
         </Box>
 
     );

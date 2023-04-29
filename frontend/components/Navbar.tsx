@@ -13,7 +13,7 @@ import budgetLogo from '../public/budgetLogo.svg';
 const Navbar = () => {
     return (
         <div>
-            <AppBar position="static" sx={{ backgroundColor: '#C8E6C9', padding: '20px' }}>
+            <AppBar position="static" sx={{ backgroundColor: '#108d85', padding: '20px' }}>
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                     {/* <Typography>Logo</Typography> */}
                     <Image

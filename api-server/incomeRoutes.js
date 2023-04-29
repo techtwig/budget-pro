@@ -3,12 +3,13 @@ const bodyParser = require('body-parser');
 const {Income}= require('./schemas/incomeSchema');
 const {Budget} = require("./schemas/budgetSchema");
 const {Expense} = require("./schemas/expenseSchema");
+const checkLogin = require("./middlewares/checkLogin");
 const router = express.Router();
 const app = express();
 app.use(bodyParser.json());
 
 //creating income
-router.post("/", async (req, res) => {
+router.post("/", checkLogin, async (req, res) => {
     try{
         const income = req.body;
         const incomeDocument =  new Income(income);
@@ -61,7 +62,7 @@ router.get("/:id",async (req,res)=>{
 });
 
 //updating an individual Income
-router.put("/:id", async (req, res)=>{
+router.put("/:id",checkLogin, async (req, res)=>{
     try{
         const updatedIncome = await Income.findByIdAndUpdate(req.params.id, req.body,
             {
@@ -74,7 +75,7 @@ router.put("/:id", async (req, res)=>{
 });
 
 //deleting an individual Income
-router.delete("/:id", async (req, res)=>{
+router.delete("/:id",checkLogin, async (req, res)=>{
     try{
         const deletedIncome = await Income.deleteOne({_id: req.params.id});
         res.send(deletedIncome);

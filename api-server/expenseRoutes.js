@@ -1,12 +1,13 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const {Expense}= require('./schemas/expenseSchema');
+const checkLogin = require("./middlewares/checkLogin");
 const router = express.Router();
 const app = express();
 app.use(bodyParser.json());
 
 //creating expense
-router.post("/", async (req, res) => {
+router.post("/", checkLogin, async (req, res) => {
     try{
         const expense = req.body;
         const expenseDocument =  new Expense(expense);
@@ -37,7 +38,7 @@ router.get("/",async (req,res)=>{
 router.get("/month",async (req,res)=>{
     try{
         const {month}= req.query;
-        const allExpenses = await Expense.find({expense_month:month});
+        const allExpenses = await Expense.find({expenseMonth:month});
         res.send(allExpenses);
         if(!allExpenses){
             res.send({message:'No expenses found for this month'});
@@ -62,7 +63,7 @@ router.get("/:id",async (req,res)=>{
 });
 
 //updating an individual expense
-router.put("/:id", async (req, res)=>{
+router.put("/:id", checkLogin, async (req, res)=>{
     try{
         const updatedExpense = await Expense.findByIdAndUpdate(req.params.id, req.body,
             {
@@ -75,7 +76,7 @@ router.put("/:id", async (req, res)=>{
 });
 
 //deleting an individual expense
-router.delete("/:id", async (req, res)=>{
+router.delete("/:id",checkLogin, async (req, res)=>{
     try{
         const deletedExpense = await Expense.deleteOne({_id: req.params.id});
         res.send(deletedExpense);

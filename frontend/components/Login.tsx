@@ -4,14 +4,17 @@ import * as yup from 'yup';
 import {yupResolver} from '@hookform/resolvers/yup';
 import {Controller, useForm} from 'react-hook-form';
 import axios from 'axios';
+import jwt from 'jsonwebtoken';
+import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
 
 
-const SignUp = () => {
+const Login = () => {
+const router = useRouter();
 const paperStyle = {
 	padding:'30px 20px',
-	width: 300,
-	margin:'auto'
+	width: '300px',
+	margin:' 50px auto'
 	};
 	
 const buttonPosition = {
@@ -28,34 +31,28 @@ const fieldMargin = {
 };
 
 const userSchema = yup.object().shape({
-	name: yup.string().required('Name is a required field').min(8, 'Name must be at least 8 characters').max(13, 'Name can be at most 13 characters'),
 	userName: yup.string().required('Username is a required filed').min(7, 'Username must be at least 7 characters').max(10, 'Username can be at most 10 characters'),
-	email: yup.string().email('Please enter a valid email').required('Email is required field'),
 	password: yup.string().required('Password is a required field').min(6, 'Password must be at least 6 charcaters'),
-	confirmPassword: yup.string().required('Confirm password is a required field').oneOf([yup.ref('password'), null], 'Mismatch with given password')
 });
 
 const {register, control, handleSubmit, formState: {errors}, reset} = useForm({resolver: yupResolver(userSchema)});
-const router = useRouter();
+
 const onSubmitHandler = async(userInfo: any) => {
 
-delete userInfo.confirmPassword;
-console.log(userInfo);
-try{
-	await axios({
-		method: 'post',
-		url: 'http://localhost:5000/user',
-		data: userInfo
-	});
+
+ try {
+    const response = await axios.post('http://localhost:5000/user/login', userInfo);
+    const { accessToken } = response.data;
+    Cookies.set('token', accessToken);
+    const decodedUser = jwt.decode(accessToken);
+	router.push('/');
+  } catch (error) {
+    console.error(error);
+
+	}
 	
-}catch(e){
-console.log(e);
+	reset();
 }
-router.push('/login');
-reset();
-}
-
-
 
 	return(
 		<Box sx={{backgroundColor:'white', height: "100%", padding: '30px'}}>
@@ -65,17 +62,13 @@ reset();
 						<Avatar sx={{backgroundColor:'#108d85'}}>
 							<CurrencyExchangeIcon/>
 						</Avatar>
-						<Typography variant='h4'>SignUp</Typography>
-						<Typography variant='caption' gutterBottom>Please fill this form to create an account</Typography>
+						<Typography variant='h4'>Login</Typography>
 					</Grid>
 					<form onSubmit={handleSubmit(onSubmitHandler)}>
-						<TextField helperText={errors?.name?.message?errors.name.message:''} variant='standard' label='Name' fullWidth {...register('name')}/>
 						<TextField helperText={errors?.userName?.message?errors.userName.message:''} style={fieldMargin} variant='standard' label='UserName' fullWidth {...register('userName')}/>
-						<TextField helperText={errors?.email?.message?errors.email.message:''} style={fieldMargin} variant='standard' label='Email' fullWidth {...register('email')}/>
 						<TextField helperText={errors?.password?.message?errors.password.message:''} style={fieldMargin} type='password' variant='standard' label='Password' fullWidth {...register('password')}/>
-						<TextField helperText={errors?.confirmPassword?.message?errors.confirmPassword.message:''} style={fieldMargin} type='password' variant='standard' label='Confirm Password' fullWidth {...register('confirmPassword')}/>
 						<Box style={buttonPosition}>
-							<Button style={buttonStyle} type='submit' variant='contained'>Sign Up</Button>
+							<Button style={buttonStyle} type='submit' variant='contained'>Login</Button>
 						</Box>
 					</form>
 				</Paper>
@@ -87,4 +80,4 @@ reset();
 
 };
 
-export default SignUp;
+export default  Login;
