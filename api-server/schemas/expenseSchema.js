@@ -3,10 +3,10 @@ const moment = require('moment');
 const month = moment().format('MMMM'); // February
 
 const expenseSchema = new mongoose.Schema({
-    expense_item: {type: String, require: true},
-    expense_amount: {type: Number, require: true},
-    expense_month: {type: String,  default: month},
-    expense_time: {type: Date, default: Date.now()},
+    expenseItem: {type: String, require: true},
+    expenseAmount: {type: Number, require: true},
+    expenseMonth: {type: String,  default: month},
+    expenseTime: {type: Date, default: Date.now()},
 });
 
 const Expense = new mongoose.model('Expense', expenseSchema);

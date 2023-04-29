@@ -9,7 +9,7 @@ const app = express();
 app.use(bodyParser.json());
 
 //creating budget
-router.post("/", async (req, res) => {
+router.post("/", checkLogin,async (req, res) => {
     try{
         const budget = req.body;
         const budgetDocument =  new Budget(budget);
@@ -22,7 +22,7 @@ router.post("/", async (req, res) => {
 });
 
 //getting all budgets
-router.get("/", checkLogin, async (req,res)=>{
+router.get("/", async (req,res)=>{
     try{
         const allBudgets = await Budget.find({});
         res.send(allBudgets);
@@ -62,7 +62,7 @@ router.get("/:id",async (req,res)=>{
 });
 
 //updating an individual budget
-router.put("/:id", async (req, res)=>{
+router.put("/:id", checkLogin, async (req, res)=>{
     try{
         const updatedBudget = await Budget.findByIdAndUpdate(req.params.id, req.body,
             {
@@ -75,7 +75,7 @@ router.put("/:id", async (req, res)=>{
 });
 
 //deleting an individual budget
-router.delete("/:id", async (req, res)=>{
+router.delete("/:id", checkLogin, async (req, res)=>{
     try{
         const deletedBudget = await Budget.deleteOne({_id: req.params.id});
         res.send(deletedBudget);
