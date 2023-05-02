@@ -7,6 +7,8 @@ import axios from 'axios';
 import jwt from 'jsonwebtoken';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
+import Link from "@mui/material/Link";
+import React from "react";
 
 
 const Login = () => {
@@ -71,6 +73,13 @@ const onSubmitHandler = async(userInfo: any) => {
 							<Button style={buttonStyle} type='submit' variant='contained'>Login</Button>
 						</Box>
 					</form>
+					<Box mt={2} display='flex' alignItems='center' justifyContent='center'>
+						<Typography variant='caption' gutterBottom fontSize='15px'>Don't have an account?
+							<Link href='/signup' underline='none'>
+								Signup
+							</Link>
+						</Typography>
+					</Box>
 				</Paper>
 			</Grid>
 		</Box>

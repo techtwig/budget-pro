@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {ReactNode, useEffect, useState} from 'react';
 import {Box, Button, Input, Modal, TextField, Typography} from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -115,17 +115,18 @@ const BudgetAddEditModal = ({id, open, handleClose, budget_month}:IBudgetModal) 
                             {...register("budget_item")}
                             sx={{marginTop: '2px'}}
                             label="Description"
-                            multiline
                             maxRows={4}
-                            helperText={errors.budget_item ? errors.budget_item.message : ''}
+                            fullWidth
+                            helperText={(errors.budget_item ? errors.budget_item.message : '') as ReactNode}
                         />
                         <TextField
                             {...register("budget_amount")}
                             sx={{marginTop: '8px'}}
                             id="outlined-multiline-flexible"
                             label="Amount"
-                            multiline
+                            type='number'
                             maxRows={1}
+                            fullWidth
                             helperText={errors.budget_amount ? errors.budget_amount.message : ''}
                         />
                         <Typography mt={1} display='flex' alignItems='center' justifyContent='center'>
