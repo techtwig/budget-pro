@@ -5,6 +5,8 @@ import {yupResolver} from '@hookform/resolvers/yup';
 import {Controller, useForm} from 'react-hook-form';
 import axios from 'axios';
 import { useRouter } from 'next/router';
+import Link from "@mui/material/Link";
+import React from "react";
 
 
 const SignUp = () => {
@@ -78,6 +80,13 @@ reset();
 							<Button style={buttonStyle} type='submit' variant='contained'>Sign Up</Button>
 						</Box>
 					</form>
+					<Box mt={2} display='flex' alignItems='center' justifyContent='center'>
+						<Typography variant='caption' gutterBottom fontSize='15px'>Already have an account?
+							<Link href='/login' underline='none'>
+								Login
+							</Link>
+						</Typography>
+					</Box>
 				</Paper>
 			</Grid>
 		</Box>

@@ -19,7 +19,7 @@ const style = {
     transform: 'translate(-50%, -50%)',
     width: 400,
     bgcolor: 'white',
-    border:'4px solid limegreen',
+    border:'2px solid #00CEAC',
     borderRadius:'2px',
     p: 4,
     display:'flex',
@@ -121,7 +121,7 @@ const ExpenseAddEditModal = ({id, open, handleClose, expenseMonth}:IExpenseModal
                             {...register("expenseItem")}
                             sx={{marginTop: '2px'}}
                             label="Description"
-                            multiline
+                            fullWidth
                             maxRows={4}
                             helperText={errors.expenseItem ? errors.expenseItem.message : ''}
                         />
@@ -130,7 +130,8 @@ const ExpenseAddEditModal = ({id, open, handleClose, expenseMonth}:IExpenseModal
                             sx={{marginTop: '8px'}}
                             id="outlined-multiline-flexible"
                             label="Amount"
-                            multiline
+                            fullWidth
+                            type='number'
                             maxRows={1}
                             helperText={errors.expenseAmount ? errors.expenseAmount.message : ''}
                         />

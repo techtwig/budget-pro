@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Box, Button, Card, CardContent, IconButton, MenuItem, Paper, Select, Typography} from "@mui/material";
+import {Box, Button, Card, CardContent, Grid, IconButton, MenuItem, Paper, Select, Typography} from "@mui/material";
 import InputLabel from "@mui/material/InputLabel";
 import moment from "moment/moment";
 import AddIcon from "@mui/icons-material/Add";
@@ -71,11 +71,12 @@ const Expense = () => {
 
     return (
         <Box>
-            <Paper elevation={1} sx={{padding:'10px'}}>
+            <Paper elevation={1} sx={{padding:'10px', backgroundColor: '#f5f5f5'}}>
                 <Typography align='center' variant='h5' color='#388E3C' fontWeight={550}>Expense</Typography>
                 <InputLabel>
                     <Typography variant='body1'>Month</Typography>
                 </InputLabel>
+                <Box display={'flex'} alignItems={'center'} justifyContent={'center'}>
                 <Select
                     fullWidth
                     defaultValue={currentMonth}
@@ -94,42 +95,44 @@ const Expense = () => {
                     <MenuItem value={'November'}>November</MenuItem>
                     <MenuItem value={'December'}>December</MenuItem>
                 </Select>
-                <Typography mt={1} display='flex' alignItems='center' justifyContent='center'>
+                <Typography ml={1} display='flex' alignItems='center' justifyContent='center'>
                     <Button
+                        sx={{fontSize: '1.5rem'}}
                         onClick={() => handleOpen()}
                         variant="contained" size='small' color='success' endIcon={<AddIcon/>}>
                         Add
                     </Button>
                 </Typography>
+                </Box>
             </Paper>
             <Box>
                 {
                     expenseInfos.map(expenseInfo =>
                         <Card key={expenseInfo._id} sx={{bgcolor: '#00CEAC', marginTop: '5px'}}>
-                            <CardContent
-                                sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
+                            <CardContent sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
 
-                                <Typography variant="h6" component="h6" mr={1} color='#212121'>
-                                    {expenseInfo?.expenseItem}
-                                </Typography>
-                                <Typography variant="h6" component="h6" mr={1} color='#212121'>
-                                    {expenseInfo?.expenseAmount}
-                                </Typography>
-
-                                <IconButton
-                                    onClick={() => editExpense(expenseInfo._id)}
-                                    aria-label="edit"
-                                    size="medium"
-                                    sx={{color: '#FFFFFF'}}>
-                                    <EditIcon fontSize="inherit"/>
-                                </IconButton>
-                                <IconButton
-                                    onClick={() => deleteExpense(expenseInfo._id)}
-                                    aria-label="delete"
-                                    size="large"
-                                    sx={{color: '#FFFFFF'}}>
-                                    <DeleteIcon fontSize="medium"/>
-                                </IconButton>
+                                    <Typography sx={{fontFamily: 'Arial, sans-serif',variant:'body1', color:'white', fontWeight:'700', fontSize:'20px'}}>
+                                        Item: {expenseInfo?.expenseItem}
+                                    </Typography>
+                                    <Typography sx={{fontFamily: 'Arial, sans-serif',variant:'body1', color:'white', fontWeight:'700', fontSize:'20px',marginLeft: '20px'}}>
+                                        Amount: {expenseInfo?.expenseAmount}
+                                    </Typography>
+                                <Box sx={{marginLeft: '20px'}}>
+                                    <IconButton
+                                        onClick={() => editExpense(expenseInfo._id)}
+                                        aria-label="edit"
+                                        size="medium"
+                                        sx={{color: '#FFFFFF'}}>
+                                        <EditIcon fontSize="inherit"/>
+                                    </IconButton>
+                                    <IconButton
+                                        onClick={() => deleteExpense(expenseInfo._id)}
+                                        aria-label="delete"
+                                        size="large"
+                                        sx={{color: '#FFFFFF'}}>
+                                        <DeleteIcon fontSize="medium"/>
+                                    </IconButton>
+                                </Box>
                             </CardContent>
                         </Card>
                     )

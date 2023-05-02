@@ -1,11 +1,10 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const bodyParser = require('body-parser');
 const {User} = require('./schemas/userSchema');
 const router = express.Router();
 const app = express();
-app.use(bodyParser.json());
+app.use(express.json());
 
 
 //creating users SIGN UP

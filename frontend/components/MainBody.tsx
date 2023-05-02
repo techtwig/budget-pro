@@ -21,13 +21,12 @@ const MainBody = () => {
                 <Dropdowns handleOptions={handleOptions}></Dropdowns>
                 <Grid container mt={2}>
                     <Grid item xs={12} md={12}>
-                        <Box display={"flex"} alignItems={"center"} justifyContent={"center"}>
+
                             {options==='summary'&&<Summary/>}
                             {options==='budget'&&<Budget/>}
                             {options==='income'&&<Income/>}
                             {options==='expense'&&<Expense/>}
 
-                        </Box>
                     </Grid>
                 </Grid>
             </Container>

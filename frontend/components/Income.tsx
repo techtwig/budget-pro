@@ -66,11 +66,12 @@ const Income = () => {
 
         return (
             <Box>
-                <Paper elevation={1} sx={{padding: '10px'}}>
+                <Paper elevation={1} sx={{padding: '10px', backgroundColor: '#f5f5f5'}}>
                     <Typography align='center' variant='h5' color='#388E3C' fontWeight={550}>Income</Typography>
                     <InputLabel>
                         <Typography variant='body1'>Month</Typography>
                     </InputLabel>
+                    <Box display={'flex'} alignItems={'center'} justifyContent={'center'}>
                     <Select
                         fullWidth
                         defaultValue={currentMonth}
@@ -89,13 +90,15 @@ const Income = () => {
                         <MenuItem value={'November'}>November</MenuItem>
                         <MenuItem value={'December'}>December</MenuItem>
                     </Select>
-                    <Typography mt={1} display='flex' alignItems='center' justifyContent='center'>
+                    <Typography ml={1} display='flex' alignItems='center' justifyContent='center'>
                         <Button
+                            sx={{fontSize: '1.5rem'}}
                             onClick={() => handleOpen()}
                             variant="contained" size='small' color='success' endIcon={<AddIcon/>}>
                             Add
                         </Button>
                     </Typography>
+                    </Box>
                 </Paper>
                 <Box>
                     {
@@ -104,13 +107,13 @@ const Income = () => {
                                 <CardContent
                                     sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
 
-                                    <Typography variant="h6" component="h6" mr={1} color='#212121'>
-                                        {incomeInfo?.income_source}
+                                    <Typography sx={{fontFamily: 'Arial, sans-serif',variant:'body1', color:'white', fontWeight:'700', fontSize:'20px'}}>
+                                        Source: {incomeInfo?.income_source}
                                     </Typography>
-                                    <Typography variant="h6" component="h6" mr={1} color='#212121'>
-                                        {incomeInfo?.income_amount}
+                                    <Typography sx={{fontFamily: 'Arial, sans-serif',variant:'body1', color:'white', fontWeight:'700', fontSize:'20px',marginLeft: '20px'}}>
+                                        Amount: {incomeInfo?.income_amount}
                                     </Typography>
-
+                                    <Box sx={{marginLeft: '20px'}}>
                                     <IconButton
                                         onClick={() => editIncome(incomeInfo._id)}
                                         aria-label="edit"
@@ -125,6 +128,7 @@ const Income = () => {
                                         sx={{color: '#FFFFFF'}}>
                                         <DeleteIcon fontSize="medium"/>
                                     </IconButton>
+                                    </Box>
                                 </CardContent>
                             </Card>
 

@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import moment from 'moment';
-import {Box, Button, Card, CardContent, IconButton, MenuItem, Paper, Select, Typography} from "@mui/material";
+import {Box, Button, Card, CardContent, Grid, IconButton, MenuItem, Paper, Select, Typography} from "@mui/material";
 import InputLabel from "@mui/material/InputLabel";
 import AddIcon from '@mui/icons-material/Add';
 import axios from "axios";
@@ -63,37 +63,40 @@ const Budget = () => {
 
     return (
         <Box>
-            <Paper elevation={1} sx={{padding:'10px'}}>
-                <Typography align='center' variant='h5' color='#388E3C' fontWeight={550}>Budget</Typography>
-                <InputLabel>
-                    <Typography variant='body1'>Month</Typography>
-                </InputLabel>
-                <Select
-                    fullWidth
-                    defaultValue={currentMonth}
-                    onChange={(e)=>handleMonth(e)}
-                >
-                    <MenuItem value={'January'}>January</MenuItem>
-                    <MenuItem value={'February'}>February</MenuItem>
-                    <MenuItem value={'March'}>March</MenuItem>
-                    <MenuItem value={'April'}>April</MenuItem>
-                    <MenuItem value={'May'}>May</MenuItem>
-                    <MenuItem value={'June'}>June</MenuItem>
-                    <MenuItem value={'July'}>July</MenuItem>
-                    <MenuItem value={'August'}>August</MenuItem>
-                    <MenuItem value={'September'}>September</MenuItem>
-                    <MenuItem value={'October'}>October</MenuItem>
-                    <MenuItem value={'November'}>November</MenuItem>
-                    <MenuItem value={'December'}>December</MenuItem>
-                </Select>
-               <Typography mt={1} display='flex' alignItems='center' justifyContent='center'>
-                   <Button
-                       onClick={()=>handleOpen()}
-                       variant="contained" size='small' color='success'  endIcon={<AddIcon/>}>
-                       Add
-                   </Button>
-               </Typography>
-            </Paper>
+                <Paper elevation={1} sx={{padding:'10px', backgroundColor: '#f5f5f5'}}>
+                    <Typography align='center' variant='h5' color='#388E3C' fontWeight={550}>Budget</Typography>
+                    <InputLabel>
+                        <Typography variant='body1'>Month</Typography>
+                    </InputLabel>
+                    <Box display={'flex'} alignItems={'center'} justifyContent={'center'}>
+                    <Select
+                        fullWidth
+                        defaultValue={currentMonth}
+                        onChange={(e)=>handleMonth(e)}
+                    >
+                        <MenuItem value={'January'}>January</MenuItem>
+                        <MenuItem value={'February'}>February</MenuItem>
+                        <MenuItem value={'March'}>March</MenuItem>
+                        <MenuItem value={'April'}>April</MenuItem>
+                        <MenuItem value={'May'}>May</MenuItem>
+                        <MenuItem value={'June'}>June</MenuItem>
+                        <MenuItem value={'July'}>July</MenuItem>
+                        <MenuItem value={'August'}>August</MenuItem>
+                        <MenuItem value={'September'}>September</MenuItem>
+                        <MenuItem value={'October'}>October</MenuItem>
+                        <MenuItem value={'November'}>November</MenuItem>
+                        <MenuItem value={'December'}>December</MenuItem>
+                    </Select>
+                    <Typography  ml={1} display='flex' alignItems='center' justifyContent='center'>
+                        <Button
+                            sx={{fontSize: '1.5rem'}}
+                            onClick={()=>handleOpen()}
+                            variant="contained" size='small' color='success'  endIcon={<AddIcon/>}>
+                            Add
+                        </Button>
+                    </Typography>
+                    </Box>
+                </Paper>
             <Box>
                 {
                     budgetInfos.map(budgetInfo =>
@@ -101,13 +104,13 @@ const Budget = () => {
                             <CardContent
                                 sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
 
-                                <Typography variant="h6" component="h6" mr={1} color='#212121'>
-                                    {budgetInfo?.budget_item}
+                                <Typography sx={{fontFamily: 'Arial, sans-serif',variant:'body1', color:'white', fontWeight:'700', fontSize:'20px'}}>
+                                    Item: {budgetInfo?.budget_item}
                                 </Typography>
-                                <Typography variant="h6" component="h6" mr={1} color='#212121'>
-                                    {budgetInfo?.budget_amount}
+                                <Typography sx={{fontFamily: 'Arial, sans-serif',variant:'body1', color:'white', fontWeight:'700', fontSize:'20px',marginLeft: '20px'}}>
+                                    Amount: {budgetInfo?.budget_amount}
                                 </Typography>
-
+                                <Box sx={{marginLeft: '20px'}}>
                                 <IconButton
                                     onClick={() => editBudget(budgetInfo._id)}
                                     aria-label="edit"
@@ -122,6 +125,7 @@ const Budget = () => {
                                     sx={{color: '#FFFFFF'}}>
                                     <DeleteIcon fontSize="medium"/>
                                 </IconButton>
+                                </Box>
                             </CardContent>
                         </Card>
                     )
