@@ -49,7 +49,7 @@ try{
 		url: 'http://localhost:5000/user',
 		data: userInfo
 	});
-	
+
 }catch(e){
 console.log(e);
 }
