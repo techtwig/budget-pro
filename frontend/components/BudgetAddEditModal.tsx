@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {ReactNode, useEffect, useState} from 'react';
 import {Box, Button, Input, Modal, TextField, Typography} from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -117,7 +117,7 @@ const BudgetAddEditModal = ({id, open, handleClose, budget_month}:IBudgetModal) 
                             label="Description"
                             maxRows={4}
                             fullWidth
-                            helperText={errors.budget_item ? errors.budget_item.message : ''}
+                            helperText={(errors.budget_item ? errors.budget_item.message : '') as ReactNode}
                         />
                         <TextField
                             {...register("budget_amount")}
