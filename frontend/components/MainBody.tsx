@@ -8,6 +8,7 @@ import IncomeExpense from './IncomeExpense';
 import Income from "./Income";
 import Expense from "./Expense";
 import Summary from "./Summary";
+import Cashbook from './Cashbook';
 
 
 const MainBody = () => {
@@ -26,6 +27,7 @@ const MainBody = () => {
                             {options==='budget'&&<Budget/>}
                             {options==='income'&&<Income/>}
                             {options==='expense'&&<Expense/>}
+                            {options==='cashbook'&&<Cashbook/>}
 
                     </Grid>
                 </Grid>

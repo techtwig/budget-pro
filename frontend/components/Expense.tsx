@@ -42,7 +42,7 @@ const Expense = () => {
     }
 
     useEffect(()=>{
-        axios.get(`http://localhost:5000/expense/month/?month=${month}`)
+        axiosInstance.get(`http://localhost:5000/expense/month/?month=${month}`)
             .then(res=>setExpenseInfos(res.data));
     },[month,open,deleted]);
     console.log(expenseInfos);

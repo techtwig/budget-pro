@@ -39,7 +39,7 @@ const Budget = () => {
     const handleClose = () => setOpen(false);
 
     useEffect(()=>{
-        axios.get(`http://localhost:5000/budget/month/?month=${month}`)
+        axiosInstance.get(`http://localhost:5000/budget/month/?month=${month}`)
             .then(res=>setBudgetInfos(res.data));
     },[month,open,deleted]);
 

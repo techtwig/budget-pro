@@ -9,6 +9,7 @@ import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
 import Link from "@mui/material/Link";
 import React from "react";
+import axiosInstance from '@/axiosInstance';
 
 
 const Login = () => {
@@ -43,7 +44,7 @@ const onSubmitHandler = async(userInfo: any) => {
 
 
  try {
-    const response = await axios.post('http://localhost:5000/user/login', userInfo);
+    const response = await axiosInstance.post('http://localhost:5000/user/login', userInfo);
     const { accessToken } = response.data;
     Cookies.set('token', accessToken);
     const decodedUser = jwt.decode(accessToken);

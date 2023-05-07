@@ -49,7 +49,10 @@ const ExpenseAddEditModal = ({id, open, handleClose, expenseMonth}:IExpenseModal
             .max(20, 'Complete in 20 characters'),
         expenseAmount: yup.number().required('Amount is required')
             .positive('Amount must be positive')
-            .integer('Amount must be positive integer')
+            .integer('Amount must be positive integer'),
+            category: yup.string().required('Category is required')
+            .min(3, 'Write at least 3 characters')
+            .max(20, 'Complete in 10 characters'),
     });
 
     const {register,control, handleSubmit, formState: {errors}, reset} = useForm({
@@ -59,7 +62,7 @@ const ExpenseAddEditModal = ({id, open, handleClose, expenseMonth}:IExpenseModal
 
     useEffect(() => {
         if(id!==null) {
-            axios.get(`http://localhost:5000/expense/${id}`)
+            axiosInstance.get(`http://localhost:5000/expense/${id}`)
                 .then(res => setFormData(res.data))
         }
     }, [id])
@@ -69,13 +72,15 @@ const ExpenseAddEditModal = ({id, open, handleClose, expenseMonth}:IExpenseModal
         if (id) {
             reset({
                 expenseItem: formData.expenseItem,
-                expenseAmount: formData.expenseAmount
+                expenseAmount: formData.expenseAmount,
+                category: formData.category,
             })
         }
         else{
             reset({
                 expenseItem: '',
-                expenseAmount: ''
+                expenseAmount: '',
+                category:''
             })
         }
     }, [id, reset, formData])
@@ -86,11 +91,12 @@ const ExpenseAddEditModal = ({id, open, handleClose, expenseMonth}:IExpenseModal
         console.log(totalExpenseInfo);
         try{
             if(!id){
-                await axiosInstance({
+              const response=  await axiosInstance({
                     method: 'post',
                     url: 'http://localhost:5000/expense',
                     data: totalExpenseInfo
                 });
+                console.log(response)
             }else {
                 await axiosInstance.put(`http://localhost:5000/expense/${id}`, totalExpenseInfo)
             }
@@ -134,6 +140,16 @@ const ExpenseAddEditModal = ({id, open, handleClose, expenseMonth}:IExpenseModal
                             type='number'
                             maxRows={1}
                             helperText={errors.expenseAmount ? errors.expenseAmount.message : ''}
+                        />
+                          <TextField
+                            {...register("category")}
+                            sx={{ marginTop: '8px' }}
+                            id="outlined-multiline-flexible"
+                            label="Category"
+                            fullWidth
+                            type='text'
+                            maxRows={1}
+                            helperText={errors.category ? errors.category.message : ''}
                         />
                         <Typography mt={1} display='flex' alignItems='center' justifyContent='center'>
                             <Button
