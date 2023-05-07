@@ -35,7 +35,7 @@ const Income = () => {
     }
 
     useEffect(()=>{
-        axios.get(`http://localhost:5000/income/month/?month=${month}`)
+        axiosInstance.get(`http://localhost:5000/income/month/?month=${month}`)
             .then(res=>setIncomeInfos(res.data));
     },[month,open,deleted]);
     console.log(incomeInfos);

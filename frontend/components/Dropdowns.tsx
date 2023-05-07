@@ -26,6 +26,7 @@ const Dropdowns = ({handleOptions}:any) => {
                             <MenuItem value={'budget'}>Budget</MenuItem>
                             <MenuItem value={'income'}>Income</MenuItem>
                             <MenuItem value={'expense'}>Expense</MenuItem>
+                            <MenuItem value={'cashbook'}>Cashbook</MenuItem>
                         </Select>
                     </Grid>
                 </Grid>

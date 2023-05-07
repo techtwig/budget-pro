@@ -45,7 +45,10 @@ const BudgetAddEditModal = ({id, open, handleClose, budget_month}:IBudgetModal) 
             .max(20, 'Complete in 20 characters'),
         budget_amount: yup.number().required('Amount is required')
             .positive('Amount must be positive')
-            .integer('Amount must be positive integer')
+            .integer('Amount must be positive integer'),
+        category: yup.string().required('Category is required')
+                .min(3, 'Write at least 3 characters')
+                .max(20, 'Complete in 10 characters'),
     });
 
     const {register,control, handleSubmit, formState: {errors}, reset} = useForm({
@@ -55,7 +58,7 @@ const BudgetAddEditModal = ({id, open, handleClose, budget_month}:IBudgetModal) 
 
     useEffect(() => {
         if(id!==null) {
-            axios.get(`http://localhost:5000/budget/${id}`)
+            axiosInstance.get(`http://localhost:5000/budget/${id}`)
                 .then(res => setFormData(res.data))
         }
     }, [id]);
@@ -64,13 +67,15 @@ const BudgetAddEditModal = ({id, open, handleClose, budget_month}:IBudgetModal) 
         if (id) {
             reset({
                 budget_item: formData.budget_item,
-                budget_amount: formData.budget_amount
+                budget_amount: formData.budget_amount,
+                category: formData.category,
             })
         }
         else{
             reset({
                 budget_item: '',
-                budget_amount: ''
+                budget_amount: '',
+                category:''
             })
         }
     }, [id, reset, formData]);
@@ -128,6 +133,16 @@ const BudgetAddEditModal = ({id, open, handleClose, budget_month}:IBudgetModal) 
                             maxRows={1}
                             fullWidth
                             helperText={errors.budget_amount ? errors.budget_amount.message : ''}
+                        />
+                        <TextField
+                            {...register("category")}
+                            sx={{ marginTop: '8px' }}
+                            id="outlined-multiline-flexible"
+                            label="Category"
+                            fullWidth
+                            type='text'
+                            maxRows={1}
+                            helperText={errors.category ? errors.category.message : ''}
                         />
                         <Typography mt={1} display='flex' alignItems='center' justifyContent='center'>
                             <Button

@@ -8,7 +8,8 @@ const incomeSchema = new mongoose.Schema({
     income_amount: {type: Number, required: true},
     income_month: {type: String,  default: month},
     income_time: {type: Date, default: Date.now()},
-
+    userId:{ type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    categoryId:{ type: mongoose.Schema.Types.ObjectId, ref: 'Category' }
 });
 
 

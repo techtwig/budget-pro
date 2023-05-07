@@ -12,7 +12,11 @@ const userSchema = new mongoose.Schema({
 		//validate: [validateEmail, 'Please fill a valid email address'],
 		match: [/^[a-zA-Z0-9._%+-]+@gmail\.com$/, 'Please fill a valid email address']
 	},
-	password: {type: String, required: true}
+	password: {type: String, required: true},
+	current_balance:{
+		type:Number,
+		min:0
+	}
 });
 
 const User = new mongoose.model('User', userSchema);
