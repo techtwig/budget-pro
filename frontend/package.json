@@ -1,5 +1,5 @@
 {
-  "name": "feature-budget-app",
+  "name": "budget-pro-app",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,31 +9,26 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@emotion/react": "^11.10.5",
-    "@emotion/styled": "^11.10.5",
-    "@hookform/resolvers": "^2.9.11",
-    "@mui/icons-material": "^5.11.9",
-    "@mui/material": "^5.11.9",
-    "@next/font": "13.1.6",
-    "@types/node": "18.13.0",
-    "@types/react": "18.0.28",
-    "@types/react-dom": "18.0.10",
-    "axios": "^1.3.5",
-    "eslint": "8.34.0",
-    "eslint-config-next": "13.1.6",
-    "js-cookie": "^3.0.5",
-    "jsonwebtoken": "^9.0.0",
-    "material-icons": "^1.13.1",
-    "moment": "^2.29.4",
-    "next": "13.1.6",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "react-hook-form": "^7.43.2",
-    "react-toastify": "^9.1.2",
-    "typescript": "4.9.5",
-    "yup": "^1.0.2"
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@hookform/resolvers": "^3.3.1",
+    "@mui/icons-material": "^5.14.11",
+    "@mui/material": "^5.14.11",
+    "next": "13.5.4",
+    "prettier": "^3.0.3",
+    "react": "^18",
+    "react-dom": "^18",
+    "react-google-login": "^5.2.2",
+    "react-hook-form": "^7.47.0",
+    "react-hook-form-resolvers": "^0.0.1",
+    "yup": "^1.3.2"
   },
   "devDependencies": {
-    "@types/js-cookie": "^3.0.3"
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "eslint": "^8",
+    "eslint-config-next": "13.5.4",
+    "typescript": "^5"
   }
 }
