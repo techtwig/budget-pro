@@ -269,7 +269,7 @@ const Signup = () => {
                 mt: 3,
                 mb: 2,
                 borderRadius: '25px',
-                backgroundColor: '#343333',
+                backgroundColor: 'primary.dark',
                 height: '50px',
               }}>
               Create Account
