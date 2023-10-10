@@ -5,12 +5,20 @@ import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import React, {useState} from 'react';
 import CustomButtonText from '@/common/addTransaction/CustomButtonText';
 import CustomBudgetCard from '@/common/budget/CustomCardBudget';
+import {useRouter} from 'next/navigation';
 
-const MonthlyTransactionPage = () => {
+const MonthlyBudgetComponent = () => {
+  const Router = useRouter();
   const [selectedIndex, setSelectedIndex] = useState(0);
   const handleWalletClick = (active: number) => {
     setSelectedIndex(active);
     return;
+  };
+  const handleBack = () => {
+    return Router.back();
+  };
+  const handleBudget = () => {
+    return Router.push('/add-new-budget', {scroll: false});
   };
 
   return (
@@ -31,7 +39,7 @@ const MonthlyTransactionPage = () => {
             display: 'flex',
             alignItems: 'self-start',
           }}>
-          <Button>
+          <Button onClick={handleBack}>
             <KeyboardBackspaceIcon
               sx={{
                 color: '#403F40',
@@ -256,6 +264,7 @@ const MonthlyTransactionPage = () => {
         </Grid>
         <Grid item xs={12} sx={{mr: '16px', position: 'fixed', bottom: '10px'}}>
           <Button
+            onClick={handleBudget}
             type='submit'
             fullWidth
             variant='contained'
@@ -276,4 +285,4 @@ const MonthlyTransactionPage = () => {
     </Container>
   );
 };
-export default MonthlyTransactionPage;
+export default MonthlyBudgetComponent;

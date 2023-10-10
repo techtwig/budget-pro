@@ -1,6 +1,6 @@
-import MyWalletPage from '@/component/MyWalletPage';
+import MyWalletComponent from '@/component/MyWalletComponent';
 
 const MyWallet = () => {
-  return <MyWalletPage />;
+  return <MyWalletComponent />;
 };
 export default MyWallet;

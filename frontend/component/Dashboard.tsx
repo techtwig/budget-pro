@@ -17,7 +17,7 @@ const DashBoard = () => {
     <Container
       maxWidth={'xs'}
       sx={{minHeight: '100vh', backgroundColor: '#FEFEFF'}}>
-      <Grid container spacing={0}>
+      <Grid container spacing={2}>
         <Grid
           item
           xs={12}
@@ -40,32 +40,85 @@ const DashBoard = () => {
                 $2,600
               </Typography>
             </Grid>
-            <Grid item xs={12} sx={{mb: '10px'}}>
-              <Box sx={{gap: '2'}}>
-                <CustomCardDashboard
-                  title={'Monobank'}
-                  amount={'$1,250'}
-                  icons={
-                    <AccountBalanceIcon
-                      sx={{color: '#fff', fontSize: '250%'}}
-                    />
-                  }
-                />
-                <CustomCardDashboard
-                  title={'Revolut'}
-                  amount={'$884.25'}
-                  icons={
-                    <FloodRoundedIcon sx={{color: '#fff', fontSize: '250%'}} />
-                  }
-                />
-                <CustomCardDashboard
-                  title={'PayPal'}
-                  amount={'$320'}
-                  icons={
-                    <InventoryIcon sx={{color: '#fff', fontSize: '250%'}} />
-                  }
-                />
-              </Box>
+            <Grid item xs={12}>
+              <Grid container spacing={2} sx={{}}>
+                <Grid xs={4}>
+                  <CustomCardDashboard
+                    title={'Monobank'}
+                    amount={'$1,250'}
+                    icons={
+                      <AccountBalanceIcon
+                        sx={{color: '#fff', fontSize: '250%'}}
+                      />
+                    }
+                  />
+                </Grid>{' '}
+                <Grid xs={4}>
+                  <CustomCardDashboard
+                    title={'Monobank'}
+                    amount={'$1,250'}
+                    icons={
+                      <AccountBalanceIcon
+                        sx={{color: '#fff', fontSize: '250%'}}
+                      />
+                    }
+                  />
+                </Grid>{' '}
+                <Grid xs={4}>
+                  <CustomCardDashboard
+                    title={'Monobank'}
+                    amount={'$1,250'}
+                    icons={
+                      <AccountBalanceIcon
+                        sx={{color: '#fff', fontSize: '250%'}}
+                      />
+                    }
+                  />
+                </Grid>{' '}
+                <Grid xs={4}>
+                  <CustomCardDashboard
+                    title={'Monobank'}
+                    amount={'$1,250'}
+                    icons={
+                      <AccountBalanceIcon
+                        sx={{color: '#fff', fontSize: '250%'}}
+                      />
+                    }
+                  />
+                </Grid>{' '}
+                <Grid xs={4}>
+                  <CustomCardDashboard
+                    title={'Monobank'}
+                    amount={'$1,250'}
+                    icons={
+                      <AccountBalanceIcon
+                        sx={{color: '#fff', fontSize: '250%'}}
+                      />
+                    }
+                  />
+                </Grid>
+                {/*<CustomCardDashboard*/}
+                {/*  title={'Revolut'}*/}
+                {/*  amount={'$884.25'}*/}
+                {/*  icons={*/}
+                {/*    <FloodRoundedIcon sx={{color: '#fff', fontSize: '250%'}} />*/}
+                {/*  }*/}
+                {/*/>*/}
+                {/*<CustomCardDashboard*/}
+                {/*  title={'PayPal'}*/}
+                {/*  amount={'$320'}*/}
+                {/*  icons={*/}
+                {/*    <InventoryIcon sx={{color: '#fff', fontSize: '250%'}} />*/}
+                {/*  }*/}
+                {/*/>*/}
+                {/*<CustomCardDashboard*/}
+                {/*  title={'PayPal'}*/}
+                {/*  amount={'$320'}*/}
+                {/*  icons={*/}
+                {/*    <InventoryIcon sx={{color: '#fff', fontSize: '250%'}} />*/}
+                {/*  }*/}
+                {/*/>*/}
+              </Grid>
             </Grid>
           </Grid>
         </Grid>

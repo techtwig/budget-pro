@@ -8,7 +8,7 @@ import CustomCardMyWallet from '@/common/CustomMyWalletCart';
 import CustomCardMyWallet2 from '@/common/CustomCardMyWallet2';
 import Footer from '@/common/footer/Footer';
 
-const MyWalletPage = () => {
+const MyWalletComponent = () => {
   return (
     <Container
       maxWidth={'xs'}
@@ -167,11 +167,9 @@ const MyWalletPage = () => {
         <Grid item xs={12}>
           <Divider />
         </Grid>
-        <Grid item xs={12}>
-          <Footer currentOption={3} />
-        </Grid>
+        <Footer currentOption={3} />
       </Grid>
     </Container>
   );
 };
-export default MyWalletPage;
+export default MyWalletComponent;

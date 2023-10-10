@@ -1,6 +1,6 @@
-import MonthlyTransactionPage from '@/component/MonthlyTransaction';
+import MonthlyBudgetComponent from '@/component/MonthlyBudgetComponent';
 
-const MonthlyTransacyion = () => {
-  return <MonthlyTransactionPage />;
+const MonthlyTransaction = () => {
+  return <MonthlyBudgetComponent />;
 };
-export default MonthlyTransacyion;
+export default MonthlyTransaction;

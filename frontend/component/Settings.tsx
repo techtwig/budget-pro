@@ -8,13 +8,12 @@ const Settings = () => {
   return (
     <Container
       maxWidth={'xs'}
-      sx={{minHeight: '102vh', backgroundColor: '#FAF8FE'}}>
+      sx={{minHeight: '100vh', backgroundColor: '#FAF8FE', pt: '36px'}}>
       <Grid container spacing={2}>
         <Grid
           item
           xs={12}
           sx={{
-            mt: '36px',
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',

@@ -13,12 +13,17 @@ import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import {timeDuration} from '@/common/ListedData';
 import React, {useState} from 'react';
 import CustomButtonText from '@/common/addTransaction/CustomButtonText';
+import {useRouter} from 'next/navigation';
 
 const RevolutWalletPage = () => {
+  const Router = useRouter();
   const [selectedIndex, setSelectedIndex] = useState(0);
   const handleWalletClick = (active: number) => {
     setSelectedIndex(active);
     return;
+  };
+  const handleBack = () => {
+    return Router.back();
   };
   return (
     <Container
@@ -32,7 +37,8 @@ const RevolutWalletPage = () => {
             mt: '36px',
           }}>
           <Button
-            sx={{p: '0px 0px', display: 'flex', justifyContent: 'initial'}}>
+            sx={{p: '0px 0px', display: 'flex', justifyContent: 'initial'}}
+            onClick={handleBack}>
             <KeyboardBackspaceIcon
               sx={{
                 color: '#403F40',

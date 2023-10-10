@@ -4,8 +4,13 @@ import ArrowDownwardRoundedIcon from '@mui/icons-material/ArrowDownwardRounded';
 import CustomHorizontalCard from '@/common/CustomHorizontalCard';
 import React from 'react';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
+import {useRouter} from 'next/navigation';
 
 const EatingOutPage = () => {
+  const Router = useRouter();
+  const handleBack = () => {
+    return Router.back();
+  };
   return (
     <Container
       maxWidth={'xs'}
@@ -18,7 +23,8 @@ const EatingOutPage = () => {
             mt: '36px',
           }}>
           <Button
-            sx={{p: '0px 0px', display: 'flex', justifyContent: 'initial'}}>
+            sx={{p: '0px 0px', display: 'flex', justifyContent: 'initial'}}
+            onClick={handleBack}>
             <KeyboardBackspaceIcon
               sx={{
                 color: '#403F40',

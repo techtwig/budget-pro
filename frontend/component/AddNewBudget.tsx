@@ -10,8 +10,13 @@ import {
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import React from 'react';
 import {budget, currencies, wallets} from '@/common/ListedData';
+import {useRouter} from 'next/navigation';
 
 const AddNewBudget = () => {
+  const Router = useRouter();
+  const handleBack = () => {
+    return Router.back();
+  };
   return (
     <Container
       maxWidth={'xs'}
@@ -24,7 +29,8 @@ const AddNewBudget = () => {
             mt: '36px',
           }}>
           <Button
-            sx={{p: '0px 0px', display: 'flex', justifyContent: 'initial'}}>
+            sx={{p: '0px 0px', display: 'flex', justifyContent: 'initial'}}
+            onClick={handleBack}>
             <KeyboardBackspaceIcon
               sx={{
                 color: '#403F40',

@@ -9,28 +9,53 @@ import {useRouter} from 'next/navigation';
 
 interface IFooter {
   currentOption?: number;
+  newPage?: boolean;
 }
-const Footer: FC<IFooter> = ({currentOption}) => {
+const Footer: FC<IFooter> = ({currentOption, newPage}) => {
   const Router = useRouter();
+  const [selectNewPage, setSelectNewPage] = useState(false);
   const [selectOption, setSelectOption] = useState(currentOption);
-  const handleWalletClick = (active: number) => {
+  const handleFooterClick = (active: number) => {
     setSelectOption(active);
     return;
   };
+  const handleAddButton = (open: boolean) => {
+    setSelectNewPage(open);
+    return;
+  };
   useEffect(() => {
-    if (selectOption === 0) {
+    console.log('Router', Router);
+    console.log('selectOption', selectOption);
+    if (selectOption === 0 && !selectNewPage) {
       Router.push('/dashboard', {scroll: false});
     }
-    if (selectOption === 1) {
+    if (selectOption === 1 && !selectNewPage) {
       Router.push('/statistics', {scroll: false});
     }
-    if (selectOption === 3) {
+    if (selectOption === 3 && !selectNewPage) {
       Router.push('/my-wallet', {scroll: false});
     }
-    if (selectOption === 4) {
+    if (selectOption === 4 && !selectNewPage) {
       Router.push('/settings', {scroll: false});
     }
-  }, [selectOption]);
+    if (selectOption === 0 && selectNewPage) {
+      Router.push('/add-transaction', {scroll: false});
+    }
+    if (selectOption === 1 && selectNewPage) {
+      Router.push('/eating-out', {scroll: false});
+    }
+    if (selectOption === 3 && selectNewPage) {
+      Router.push('/monthly-budget', {scroll: false});
+    }
+    if (selectOption === 4 && selectNewPage) {
+      Router.push('/settings', {scroll: false});
+    }
+  }, [Router, selectOption, selectNewPage]);
+
+  console.log('selectNewPage', selectNewPage);
+  console.log('Router', Router);
+  console.log('selectOption', selectOption);
+
   return (
     <>
       <Grid
@@ -58,7 +83,7 @@ const Footer: FC<IFooter> = ({currentOption}) => {
           }}>
           <CustomBottomIcon
             backGround={selectOption === 0 ? '#E7E6E6' : '#fff'}
-            onClickBtn={() => handleWalletClick(0)}
+            onClickBtn={() => handleFooterClick(0)}
             icon={<HomeRoundedIcon sx={{color: '#7F7E80', fontSize: '180%'}} />}
           />
         </Grid>
@@ -72,7 +97,7 @@ const Footer: FC<IFooter> = ({currentOption}) => {
           }}>
           <CustomBottomIcon
             backGround={selectOption === 1 ? '#E7E6E6' : '#fff'}
-            onClickBtn={() => handleWalletClick(1)}
+            onClickBtn={() => handleFooterClick(1)}
             icon={
               <PendingRoundedIcon sx={{color: '#7F7E80', fontSize: '180%'}} />
             }
@@ -89,8 +114,8 @@ const Footer: FC<IFooter> = ({currentOption}) => {
             bottom: '30px',
           }}>
           <CustomBottomIcon
-            backGround={selectOption === 2 ? '#E7E6E6' : 'transparent'}
-            onClickBtn={() => handleWalletClick(2)}
+            // backGround={selectOption === 2 ? '#E7E6E6' : 'transparent'}
+            onClickBtn={() => handleAddButton(true)}
             icon={
               <AddCircleOutlinedIcon
                 sx={{
@@ -117,7 +142,7 @@ const Footer: FC<IFooter> = ({currentOption}) => {
           }}>
           <CustomBottomIcon
             backGround={selectOption === 3 ? '#E7E6E6' : '#fff'}
-            onClickBtn={() => handleWalletClick(3)}
+            onClickBtn={() => handleFooterClick(3)}
             icon={
               <TypeSpecimenIcon
                 sx={{
@@ -138,7 +163,7 @@ const Footer: FC<IFooter> = ({currentOption}) => {
           }}>
           <CustomBottomIcon
             backGround={selectOption === 4 ? '#E7E6E6' : '#fff'}
-            onClickBtn={() => handleWalletClick(4)}
+            onClickBtn={() => handleFooterClick(4)}
             icon={
               <MemoryRoundedIcon
                 sx={{
