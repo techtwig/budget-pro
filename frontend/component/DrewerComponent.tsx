@@ -1,10 +1,8 @@
 import React from 'react';
-import {Avatar, Grid, Typography} from '@mui/material';
+import {Grid, Typography} from '@mui/material';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
-import Button from '@mui/material/Button';
 import CustomDrawerCard from '@/common/CustomDrawer';
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 
 const Drawers = ({state, setState}: any) => {
   const toggleDrawer = (anchor: any, close: any) => (event: any) => {

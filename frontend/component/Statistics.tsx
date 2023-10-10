@@ -2,11 +2,7 @@
 import {
   Box,
   Button,
-  Card,
-  CardContent,
-  CardMedia,
   Container,
-  Divider,
   Grid,
   MenuItem,
   TextField,
@@ -15,7 +11,6 @@ import {
 import ArrowDownwardRoundedIcon from '@mui/icons-material/ArrowDownwardRounded';
 import Footer from '@/common/footer/Footer';
 import React from 'react';
-import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import CustomCardForStatistics from '@/common/CustomCardStatistics';
 import CustomBottomIcons from '@/common/CustomBottomIcons';
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
@@ -23,10 +18,6 @@ import {timeDuration, wallets} from '@/common/ListedData';
 import {BarChart} from '@/component/BarChart';
 
 const Statistics = () => {
-  const handleClick = (e: any) => {
-    console.log('clocked', e);
-  };
-
   return (
     <Container
       maxWidth={'xs'}

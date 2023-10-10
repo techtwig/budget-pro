@@ -1,12 +1,12 @@
-import {Box, Card, Paper, Typography} from '@mui/material';
-import FloodRoundedIcon from '@mui/icons-material/FloodRounded';
+import {Box, Paper, Typography} from '@mui/material';
 import {FC} from 'react';
+
 interface Props {
   title?: string;
   amount?: string;
   icons?: any;
 }
-const CustomCardMyWallet: FC<Props> = ({title, amount, icons}) => {
+const CustomCardMyWallet: FC<Props> = ({title, icons}) => {
   return (
     <Paper
       elevation={0}

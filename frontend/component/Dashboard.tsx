@@ -1,14 +1,5 @@
 'use client';
-import {
-  Box,
-  Button,
-  Card,
-  CardContent,
-  CardMedia,
-  Container,
-  Grid,
-  Typography,
-} from '@mui/material';
+import {Box, Container, Grid, Typography} from '@mui/material';
 import FloodRoundedIcon from '@mui/icons-material/FloodRounded';
 import CustomCardDashboard from '@/common/CustomCardDashboard';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
@@ -19,16 +10,9 @@ import SouthWestRoundedIcon from '@mui/icons-material/SouthWestRounded';
 import TurnSlightRightRoundedIcon from '@mui/icons-material/TurnSlightRightRounded';
 import RadarRoundedIcon from '@mui/icons-material/RadarRounded';
 import CustomHorizontalCard from '@/common/CustomHorizontalCard';
-import CustomBottomIcons from '@/common/CustomBottomIcons';
-import AddSharpIcon from '@mui/icons-material/AddSharp';
-import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import Footer from '@/common/footer/Footer';
 
 const DashBoard = () => {
-  const handleClick = (e: any) => {
-    console.log('clocked', e);
-  };
-
   return (
     <Container
       maxWidth={'xs'}

@@ -27,12 +27,6 @@ const AddTransaction = () => {
     setSelectedIndex2(active);
     return;
   };
-  const handleListItemClick = (
-    event: React.MouseEvent<HTMLDivElement, MouseEvent>,
-    index: number,
-  ) => {
-    setSelectedIndex(index);
-  };
 
   const handleBack = () => {
     return Router.back();

@@ -1,31 +1,10 @@
 'use client';
-import {
-  Box,
-  Button,
-  Container,
-  Divider,
-  Grid,
-  MenuItem,
-  TextField,
-  Typography,
-} from '@mui/material';
-import ArrowDownwardRoundedIcon from '@mui/icons-material/ArrowDownwardRounded';
+import {Button, Container, Grid, Typography} from '@mui/material';
 import Footer from '@/common/footer/Footer';
 import React from 'react';
-import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
-import CustomCardForStatistics from '@/common/CustomCardStatistics';
-import CustomBottomIcons from '@/common/CustomBottomIcons';
-import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
-import {timeDuration, wallets} from '@/common/ListedData';
-import CustomCardMyWallet2 from '@/common/CustomCardMyWallet2';
 import CustomCardForSetting from '@/common/CustomCardForSettings';
-import Drawers from '@/component/DrewerComponent';
 
 const Settings = () => {
-  const handleClick = (e: any) => {
-    console.log('clocked', e);
-  };
-
   return (
     <Container
       maxWidth={'xs'}

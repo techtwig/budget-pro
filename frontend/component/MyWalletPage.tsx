@@ -1,15 +1,5 @@
 'use client';
-import {
-  Box,
-  Button,
-  Card,
-  CardContent,
-  CardMedia,
-  Container,
-  Divider,
-  Grid,
-  Typography,
-} from '@mui/material';
+import {Container, Divider, Grid, Typography} from '@mui/material';
 import ArrowDownwardRoundedIcon from '@mui/icons-material/ArrowDownwardRounded';
 import SouthWestRoundedIcon from '@mui/icons-material/SouthWestRounded';
 import TurnSlightRightRoundedIcon from '@mui/icons-material/TurnSlightRightRounded';

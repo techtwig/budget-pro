@@ -1,6 +1,6 @@
-import {Box, Card, Grid, Paper, Typography} from '@mui/material';
-import FloodRoundedIcon from '@mui/icons-material/FloodRounded';
+import {Grid, Typography} from '@mui/material';
 import {FC} from 'react';
+
 interface Props {
   title: string;
   amount: string;

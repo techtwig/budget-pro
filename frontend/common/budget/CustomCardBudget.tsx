@@ -1,7 +1,7 @@
-import {Box, Card, Divider, Grid, Paper, Typography} from '@mui/material';
-import FloodRoundedIcon from '@mui/icons-material/FloodRounded';
+import {Box, Divider, Grid, Typography} from '@mui/material';
 import {FC} from 'react';
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
+
 interface Props {
   title: string;
   amount: string;
@@ -9,13 +9,7 @@ interface Props {
   budgetTitle?: string;
   icons2: any;
 }
-const CustomBudgetCard: FC<Props> = ({
-  title,
-  amount,
-  icons,
-  icons2,
-  budgetTitle,
-}) => {
+const CustomBudgetCard: FC<Props> = ({title, amount, icons, budgetTitle}) => {
   return (
     <Grid container sx={{border: '2px solid #F3F1F4', borderRadius: '15px'}}>
       <Grid item xs={2}>

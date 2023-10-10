@@ -1,23 +1,18 @@
 import {
   Avatar,
-  Box,
-  Button,
-  Card,
   Checkbox,
   FormControlLabel,
   FormGroup,
   Grid,
-  Paper,
   Typography,
 } from '@mui/material';
-import FloodRoundedIcon from '@mui/icons-material/FloodRounded';
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import React, {FC} from 'react';
+
 interface Props {
   title: string;
   avatar?: any;
 }
-const CustomDrawerCard: FC<Props> = ({title, avatar}) => {
+const CustomDrawerCard: FC<Props> = ({title}) => {
   return (
     <>
       <Grid item xs={2}>

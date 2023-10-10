@@ -1,31 +1,16 @@
 'use client';
 import {
-  Box,
   Button,
-  Card,
-  CardContent,
-  CardMedia,
   Container,
   Grid,
   MenuItem,
   TextField,
   Typography,
 } from '@mui/material';
-import FloodRoundedIcon from '@mui/icons-material/FloodRounded';
-import CustomCardDashboard from '@/common/CustomCardDashboard';
-import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
-import InventoryIcon from '@mui/icons-material/Inventory';
-import CustomCardDashboardTwo from '@/common/CustomCardDashboardTwo';
 import ArrowDownwardRoundedIcon from '@mui/icons-material/ArrowDownwardRounded';
-import SouthWestRoundedIcon from '@mui/icons-material/SouthWestRounded';
-import TurnSlightRightRoundedIcon from '@mui/icons-material/TurnSlightRightRounded';
-import RadarRoundedIcon from '@mui/icons-material/RadarRounded';
 import CustomHorizontalCard from '@/common/CustomHorizontalCard';
-import CustomBottomIcons from '@/common/CustomBottomIcons';
-import AddSharpIcon from '@mui/icons-material/AddSharp';
-import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
-import {budget, currencies, timeDuration, wallets} from '@/common/ListedData';
+import {timeDuration} from '@/common/ListedData';
 import React, {useState} from 'react';
 import CustomButtonText from '@/common/addTransaction/CustomButtonText';
 

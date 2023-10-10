@@ -1,16 +1,14 @@
-import {Box, Button, Card, Grid, Paper, Typography} from '@mui/material';
-import FloodRoundedIcon from '@mui/icons-material/FloodRounded';
+import {Button, Grid, Typography} from '@mui/material';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import React, {FC, useState} from 'react';
 import Drawers from '@/component/DrewerComponent';
-import Footer from '@/common/footer/Footer';
+
 interface Props {
   title: string;
   subTitle?: string;
 }
 
 const CustomCardForSetting: FC<Props> = ({title, subTitle}) => {
-  const [selectedIndex, setSelectedIndex] = useState(false);
   const handleDrewer = () => {
     setState(!state);
     return;

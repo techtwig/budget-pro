@@ -1,7 +1,7 @@
-import {Box, Button, Card, Grid, Paper, Typography} from '@mui/material';
-import FloodRoundedIcon from '@mui/icons-material/FloodRounded';
+import {Button, Grid, Typography} from '@mui/material';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import {FC} from 'react';
+
 interface Props {
   title: string;
   amount: string;
@@ -9,13 +9,7 @@ interface Props {
   subTitle?: string;
   icons2: any;
 }
-const CustomCardMyWallet2: FC<Props> = ({
-  title,
-  amount,
-  icons,
-  icons2,
-  subTitle,
-}) => {
+const CustomCardMyWallet2: FC<Props> = ({title, amount, icons}) => {
   return (
     <Grid
       container

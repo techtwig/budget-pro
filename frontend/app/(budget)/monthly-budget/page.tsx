@@ -1,4 +1,3 @@
-import AddTransaction from '@/component/AddTransaction';
 import MonthlyTransactionPage from '@/component/MonthlyTransaction';
 
 const MonthlyTransacyion = () => {

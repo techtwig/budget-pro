@@ -1,14 +1,7 @@
-import {Box, Card, Grid} from '@mui/material';
+import {Box, Card} from '@mui/material';
 import React from 'react';
-import EditRoundedIcon from '@mui/icons-material/EditRounded';
 
-const CustomButtonIcon = ({
-  children,
-  onClickBtn,
-  backGround,
-  icons,
-  borderRadius,
-}: any) => {
+const CustomButtonIcon = ({children, onClickBtn, backGround, icons}: any) => {
   return (
     <Card
       elevation={0}
