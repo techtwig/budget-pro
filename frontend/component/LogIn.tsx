@@ -20,9 +20,11 @@ import {VisibilityOff} from '@mui/icons-material';
 import AppleIcon from '@mui/icons-material/Apple';
 import FacebookRoundedIcon from '@mui/icons-material/FacebookRounded';
 import GoogleIcon from '@mui/icons-material/Google';
+import {useRouter} from 'next/navigation';
 
 const defaultTheme = createTheme();
 const Login = () => {
+  const Router = useRouter();
   const userSchema = yup.object().shape({
     email: yup
       .string()
@@ -51,6 +53,9 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword(!showPassword);
   const handleMouseDownPassword = () => setShowPassword(!showPassword);
+  const handleLogin = () => {
+    return Router.push('/dashboard', {scroll: false});
+  };
 
   return (
     <>
@@ -141,7 +146,7 @@ const Login = () => {
             <Typography
               sx={{
                 fontSize: '14px',
-                fontWeight: '600',
+                fontWeight: '700',
                 textAlign: 'center',
               }}>
               OR LOG IN WITH:
@@ -223,6 +228,7 @@ const Login = () => {
           </Grid>
           <Grid item xs={12}>
             <Button
+              onClick={handleLogin}
               type='submit'
               fullWidth
               variant='contained'
@@ -230,10 +236,10 @@ const Login = () => {
                 mt: 3,
                 mb: 2,
                 borderRadius: '25px',
-                backgroundColor: 'primary.dark',
+                backgroundColor: '#343333',
                 height: '50px',
                 ':hover': {
-                  backgroundColor: 'primary.dark', // theme.palette.primary.main
+                  backgroundColor: 'primary.main', // theme.palette.primary.main
                   color: 'white',
                 },
               }}>

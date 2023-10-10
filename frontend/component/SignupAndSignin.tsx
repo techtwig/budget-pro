@@ -7,6 +7,7 @@ import {createTheme} from '@mui/material/styles';
 import Signup from '@/component/SignUp';
 import Login from '@/component/LogIn';
 
+const defaultTheme = createTheme();
 const SignupAndSignin = () => {
   const userSchema = yup.object().shape({
     email: yup
@@ -75,14 +76,14 @@ const SignupAndSignin = () => {
         <Grid container rowSpacing={6} columnSpacing={2}>
           <Grid item xs={6}>
             <CustomButton
-              backGround={selectedIndex === 0 ? 'primary.main' : '#fff'}
+              backGround={selectedIndex === 0 ? '#E7E6E6' : '#fff'}
               onClickBtn={() => handleListItemClick(0)}>
               SIGN UP
             </CustomButton>
           </Grid>
           <Grid item xs={6}>
             <CustomButton
-              backGround={selectedIndex === 1 ? 'primary.main' : '#fff'}
+              backGround={selectedIndex === 1 ? '#E7E6E6' : '#fff'}
               onClickBtn={() => handleListItemClick(1)}>
               LOG IN
             </CustomButton>

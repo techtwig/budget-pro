@@ -1,14 +1,5 @@
 'use client';
-import {
-  Box,
-  Button,
-  Card,
-  CardContent,
-  CardMedia,
-  Container,
-  Grid,
-  Typography,
-} from '@mui/material';
+import {Box, Container, Grid, Typography} from '@mui/material';
 import FloodRoundedIcon from '@mui/icons-material/FloodRounded';
 import CustomCardDashboard from '@/common/CustomCardDashboard';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
@@ -19,27 +10,14 @@ import SouthWestRoundedIcon from '@mui/icons-material/SouthWestRounded';
 import TurnSlightRightRoundedIcon from '@mui/icons-material/TurnSlightRightRounded';
 import RadarRoundedIcon from '@mui/icons-material/RadarRounded';
 import CustomHorizontalCard from '@/common/CustomHorizontalCard';
-import CustomBottomIcons from '@/common/CustomBottomIcons';
-import AddSharpIcon from '@mui/icons-material/AddSharp';
-import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
+import Footer from '@/common/footer/Footer';
 
 const DashBoard = () => {
-  const handleClick = (e: any) => {
-    console.log('clocked', e);
-  };
-
   return (
-    <Container maxWidth={'xs'}>
-      <Grid
-        container
-        spacing={2}
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          minHeight: '100vh',
-          backgroundColor: '#FEFEFF',
-        }}>
+    <Container
+      maxWidth={'xs'}
+      sx={{minHeight: '100vh', backgroundColor: '#FEFEFF'}}>
+      <Grid container spacing={2}>
         <Grid
           item
           xs={12}
@@ -62,32 +40,85 @@ const DashBoard = () => {
                 $2,600
               </Typography>
             </Grid>
-            <Grid item xs={12} sx={{mb: '10px'}}>
-              <Box sx={{gap: '2'}}>
-                <CustomCardDashboard
-                  title={'Monobank'}
-                  amount={'$1,250'}
-                  icons={
-                    <AccountBalanceIcon
-                      sx={{color: '#fff', fontSize: '250%'}}
-                    />
-                  }
-                />
-                <CustomCardDashboard
-                  title={'Revolut'}
-                  amount={'$884.25'}
-                  icons={
-                    <FloodRoundedIcon sx={{color: '#fff', fontSize: '250%'}} />
-                  }
-                />
-                <CustomCardDashboard
-                  title={'PayPal'}
-                  amount={'$320'}
-                  icons={
-                    <InventoryIcon sx={{color: '#fff', fontSize: '250%'}} />
-                  }
-                />
-              </Box>
+            <Grid item xs={12}>
+              <Grid container spacing={2} sx={{}}>
+                <Grid xs={4}>
+                  <CustomCardDashboard
+                    title={'Monobank'}
+                    amount={'$1,250'}
+                    icons={
+                      <AccountBalanceIcon
+                        sx={{color: '#fff', fontSize: '250%'}}
+                      />
+                    }
+                  />
+                </Grid>{' '}
+                <Grid xs={4}>
+                  <CustomCardDashboard
+                    title={'Monobank'}
+                    amount={'$1,250'}
+                    icons={
+                      <AccountBalanceIcon
+                        sx={{color: '#fff', fontSize: '250%'}}
+                      />
+                    }
+                  />
+                </Grid>{' '}
+                <Grid xs={4}>
+                  <CustomCardDashboard
+                    title={'Monobank'}
+                    amount={'$1,250'}
+                    icons={
+                      <AccountBalanceIcon
+                        sx={{color: '#fff', fontSize: '250%'}}
+                      />
+                    }
+                  />
+                </Grid>{' '}
+                <Grid xs={4}>
+                  <CustomCardDashboard
+                    title={'Monobank'}
+                    amount={'$1,250'}
+                    icons={
+                      <AccountBalanceIcon
+                        sx={{color: '#fff', fontSize: '250%'}}
+                      />
+                    }
+                  />
+                </Grid>{' '}
+                <Grid xs={4}>
+                  <CustomCardDashboard
+                    title={'Monobank'}
+                    amount={'$1,250'}
+                    icons={
+                      <AccountBalanceIcon
+                        sx={{color: '#fff', fontSize: '250%'}}
+                      />
+                    }
+                  />
+                </Grid>
+                {/*<CustomCardDashboard*/}
+                {/*  title={'Revolut'}*/}
+                {/*  amount={'$884.25'}*/}
+                {/*  icons={*/}
+                {/*    <FloodRoundedIcon sx={{color: '#fff', fontSize: '250%'}} />*/}
+                {/*  }*/}
+                {/*/>*/}
+                {/*<CustomCardDashboard*/}
+                {/*  title={'PayPal'}*/}
+                {/*  amount={'$320'}*/}
+                {/*  icons={*/}
+                {/*    <InventoryIcon sx={{color: '#fff', fontSize: '250%'}} />*/}
+                {/*  }*/}
+                {/*/>*/}
+                {/*<CustomCardDashboard*/}
+                {/*  title={'PayPal'}*/}
+                {/*  amount={'$320'}*/}
+                {/*  icons={*/}
+                {/*    <InventoryIcon sx={{color: '#fff', fontSize: '250%'}} />*/}
+                {/*  }*/}
+                {/*/>*/}
+              </Grid>
             </Grid>
           </Grid>
         </Grid>
@@ -192,21 +223,7 @@ const DashBoard = () => {
             </Grid>
           </Grid>
         </Grid>
-        <Grid item xs={12} sx={{display: 'flex'}}>
-          <CustomBottomIcons
-            icon={<HomeRoundedIcon sx={{color: '#7F7E80'}} />}
-          />
-          <CustomBottomIcons
-            icon={<ArrowDownwardRoundedIcon sx={{color: '#7F7E80'}} />}
-          />
-          <CustomBottomIcons icon={<AddSharpIcon sx={{color: '#7F7E80'}} />} />
-          <CustomBottomIcons
-            icon={<ArrowDownwardRoundedIcon sx={{color: '#7F7E80'}} />}
-          />
-          <CustomBottomIcons
-            icon={<ArrowDownwardRoundedIcon sx={{color: '#7F7E80'}} />}
-          />
-        </Grid>
+        <Footer currentOption={0} />
       </Grid>
     </Container>
   );

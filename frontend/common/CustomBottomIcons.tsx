@@ -1,23 +1,28 @@
-import {Box, Card, Paper, Typography} from '@mui/material';
-import FloodRoundedIcon from '@mui/icons-material/FloodRounded';
-import {FC} from 'react';
+import {Box} from '@mui/material';
+import React, {FC} from 'react';
+
 interface Props {
   icon?: any;
+  backgroundColor?: any;
+  children?: any;
+  onClickBtn?: any;
+  backGround?: any;
+  icons?: any;
+  borderRadius?: any;
 }
-const CustomBottomIcons: FC<Props> = ({icon}) => {
+
+const CustomBottomIcons: FC<Props> = ({icon, onClickBtn, backGround}) => {
   return (
     <Box
+      onClick={onClickBtn}
       sx={{
-        height: '36px',
-        width: '36px',
-        m: '18px',
+        backgroundColor: backGround,
+        textAlign: 'center',
+        fontWeight: '600',
+        cursor: 'pointer',
         borderRadius: '10px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        fontWeight: '700',
       }}>
-      {icon}
+      <Box>{icon}</Box>
     </Box>
   );
 };
