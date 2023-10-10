@@ -22,6 +22,7 @@ import CustomHorizontalCard from '@/common/CustomHorizontalCard';
 import CustomBottomIcons from '@/common/CustomBottomIcons';
 import AddSharpIcon from '@mui/icons-material/AddSharp';
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
+import Footer from '@/common/footer/Footer';
 
 const DashBoard = () => {
   const handleClick = (e: any) => {
@@ -29,17 +30,10 @@ const DashBoard = () => {
   };
 
   return (
-    <Container maxWidth={'xs'}>
-      <Grid
-        container
-        spacing={2}
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          minHeight: '100vh',
-          backgroundColor: '#FEFEFF',
-        }}>
+    <Container
+      maxWidth={'xs'}
+      sx={{minHeight: '100vh', backgroundColor: '#FEFEFF'}}>
+      <Grid container spacing={0}>
         <Grid
           item
           xs={12}
@@ -192,21 +186,7 @@ const DashBoard = () => {
             </Grid>
           </Grid>
         </Grid>
-        <Grid item xs={12} sx={{display: 'flex'}}>
-          <CustomBottomIcons
-            icon={<HomeRoundedIcon sx={{color: '#7F7E80'}} />}
-          />
-          <CustomBottomIcons
-            icon={<ArrowDownwardRoundedIcon sx={{color: '#7F7E80'}} />}
-          />
-          <CustomBottomIcons icon={<AddSharpIcon sx={{color: '#7F7E80'}} />} />
-          <CustomBottomIcons
-            icon={<ArrowDownwardRoundedIcon sx={{color: '#7F7E80'}} />}
-          />
-          <CustomBottomIcons
-            icon={<ArrowDownwardRoundedIcon sx={{color: '#7F7E80'}} />}
-          />
-        </Grid>
+        <Footer currentOption={0} />
       </Grid>
     </Container>
   );
