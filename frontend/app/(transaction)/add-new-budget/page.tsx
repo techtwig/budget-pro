@@ -1,6 +1,6 @@
 import AddNewBudget from '@/component/AddNewBudget';
 
-const addNewBudget = () => {
+const AddNewBudgetPage = () => {
   return <AddNewBudget />;
 };
-export default addNewBudget;
+export default AddNewBudgetPage;

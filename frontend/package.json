@@ -15,6 +15,7 @@
     "@hookform/resolvers": "^3.3.1",
     "@mui/icons-material": "^5.14.11",
     "@mui/material": "^5.14.11",
+    "logrocket": "^6.0.0",
     "next": "13.5.4",
     "prettier": "^3.0.3",
     "react": "^18",
