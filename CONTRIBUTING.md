@@ -4,6 +4,9 @@ We welcome contributions from the open-source community to help make Budget Pro 
 
 Before you get started, please take a moment to review the following guidelines.
 
+## Resources
+1. [ERD](erd.md)
+
 ## Getting Started
 
 1. Fork the [Budget Pro repository](https://github.com/techtwig/budget-pro/issues) on GitHub.
