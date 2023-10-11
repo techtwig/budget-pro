@@ -119,7 +119,7 @@ const Statistics = () => {
         </Grid>
         <Grid item xs={12}>
           <Typography sx={{fontSize: '17px', fontWeight: '700'}}>
-            Expenses category
+            Expenses catagory
           </Typography>
         </Grid>
         <Grid item xs={12}>

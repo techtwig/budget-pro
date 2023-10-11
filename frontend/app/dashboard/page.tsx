@@ -1,6 +1,6 @@
 import DashBoard from '@/component/Dashboard';
 
-const DashBoardPage = () => {
+const dashbaord = () => {
   return <DashBoard />;
 };
-export default DashBoardPage;
+export default dashbaord;
