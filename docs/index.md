@@ -1,6 +1,6 @@
 # Welcome to Budget Pro
 
-![Budget Pro Logo](logo.png)
+![Budget Pro Logo](logo.jpg)
 
 Budget Pro is your all-in-one solution for personal finance management, expense tracking, and budget planning.
 
@@ -19,8 +19,8 @@ Ready to take control of your finances? Download Budget Pro today!
 
 ## Screenshots
 
-![Screenshot 1](logo.png)
-![Screenshot 2](logo.png)
+![Screenshot 1](logo.jpg)
+![Screenshot 2](logo.jpg)
 
 ## Contact Us
 
