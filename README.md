@@ -8,7 +8,7 @@
 - [Code of Conduct](CODE_OF_CONDUCT.md)
 
 ## Overview
-![Budget Pro Logo](docs/logo.png)
+![Budget Pro Logo](docs/logo.jpg)
 
 Budget Pro is a user-friendly application for personal finance management, expense tracking, and budget planning. With Budget Pro, you can take control of your finances and make informed decisions about your money.
 
