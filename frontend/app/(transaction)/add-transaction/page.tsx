@@ -1,6 +1,6 @@
 import AddTransaction from '@/component/AddTransaction';
 
-const addTransaction = () => {
+const AddTransactionPage = () => {
   return <AddTransaction />;
 };
-export default addTransaction;
+export default AddTransactionPage;

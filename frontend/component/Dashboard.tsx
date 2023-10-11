@@ -1,9 +1,7 @@
 'use client';
 import {Box, Container, Grid, Typography} from '@mui/material';
-import FloodRoundedIcon from '@mui/icons-material/FloodRounded';
 import CustomCardDashboard from '@/common/CustomCardDashboard';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
-import InventoryIcon from '@mui/icons-material/Inventory';
 import CustomCardDashboardTwo from '@/common/CustomCardDashboardTwo';
 import ArrowDownwardRoundedIcon from '@mui/icons-material/ArrowDownwardRounded';
 import SouthWestRoundedIcon from '@mui/icons-material/SouthWestRounded';

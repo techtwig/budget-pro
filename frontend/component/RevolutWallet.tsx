@@ -22,9 +22,11 @@ const RevolutWalletPage = () => {
     setSelectedIndex(active);
     return;
   };
+
   const handleBack = () => {
     return Router.back();
   };
+
   return (
     <Container
       maxWidth={'xs'}
