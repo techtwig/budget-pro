@@ -5,7 +5,9 @@ We welcome contributions from the open-source community to help make Budget Pro 
 Before you get started, please take a moment to review the following guidelines.
 
 ## Resources
-1. [ERD](erd.md)
+1. [ERD](docs/erd.md)
+2. [logo.jpg](docs/logo.jpg)
+3. [logo.png](docs/logo.png)
 
 ## Getting Started
 
