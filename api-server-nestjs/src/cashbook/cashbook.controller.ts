@@ -1,8 +1,7 @@
-import { Controller, Get, Req, Res } from "@nestjs/common";
-import { IncomeService } from "../income/income.service";
-import { CashbookService } from "./cashbook.service";
-import { CustomRequest } from "../middleware/Auth.middleware";
-import { Response } from "express";
+import {Controller, Get, Req, Res} from "@nestjs/common";
+import {Response} from "express";
+import {CustomRequest} from "../middleware/Auth.middleware";
+import {CashbookService} from "./cashbook.service";
 
 @Controller("cashbook")
 export class CashbookController {

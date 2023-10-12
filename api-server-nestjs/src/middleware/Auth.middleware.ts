@@ -1,7 +1,6 @@
-import { Injectable, NestMiddleware } from "@nestjs/common";
-import { NextFunction, Request, Response } from "express";
-import { verify } from "jsonwebtoken";
-import * as process from "process";
+import {Injectable, NestMiddleware} from "@nestjs/common";
+import {NextFunction, Request, Response} from "express";
+import {verify} from "jsonwebtoken";
 
 export interface CustomRequest extends Request {
   userId?: string;
