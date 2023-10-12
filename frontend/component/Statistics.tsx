@@ -16,18 +16,27 @@ import CustomBottomIcons from '@/common/CustomBottomIcons';
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import {timeDuration, wallets} from '@/common/ListedData';
 import {BarChart} from '@/component/BarChart';
+import {CustomStyles} from '@/core/enums';
 
 const Statistics = () => {
   return (
     <Container
       maxWidth={'xs'}
-      sx={{minHeight: '100vh', backgroundColor: '#FEFEFF'}}>
-      <Grid container spacing={2}>
+      disableGutters={true}
+      sx={{
+        minHeight: '100vh',
+        backgroundColor: '#FEFEFF',
+        pt: CustomStyles.CONTAINER_TOP,
+        pl: CustomStyles.CONTAINER_LEFT,
+        pr: CustomStyles.CONTAINER_RIGHT,
+        pb: '100px',
+        position: 'relative',
+      }}>
+      <Grid container rowSpacing={1}>
         <Grid
           item
           xs={12}
           sx={{
-            mt: '36px',
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
@@ -58,45 +67,49 @@ const Statistics = () => {
             />
           </Box>
         </Grid>
-        <Grid item xs={6}>
-          <TextField
-            sx={{width: '100%'}}
-            id='currency'
-            select
-            defaultValue='wallets'
-            InputProps={{
-              sx: {
-                borderRadius: '15px',
-                border: '2px solid #F4F2F3',
-                height: '42px',
-              },
-            }}>
-            {wallets.map((option) => (
-              <MenuItem key={option.title} value={option.title}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </TextField>
-        </Grid>
-        <Grid item xs={6}>
-          <TextField
-            sx={{width: '100%'}}
-            id='currency'
-            select
-            defaultValue='2'
-            InputProps={{
-              sx: {
-                borderRadius: '15px',
-                border: '2px solid #F4F2F3',
-                height: '42px',
-              },
-            }}>
-            {timeDuration.map((option) => (
-              <MenuItem key={option.title} value={option.title}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </TextField>
+        <Grid item xs={12}>
+          <Grid container columnSpacing={2}>
+            <Grid item xs={6}>
+              <TextField
+                sx={{width: '100%'}}
+                id='currency'
+                select
+                defaultValue='wallets'
+                InputProps={{
+                  sx: {
+                    borderRadius: '15px',
+                    border: '2px solid #F4F2F3',
+                    height: '42px',
+                  },
+                }}>
+                {wallets.map((option) => (
+                  <MenuItem key={option.title} value={option.title}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </TextField>
+            </Grid>
+            <Grid item xs={6}>
+              <TextField
+                sx={{width: '100%'}}
+                id='currency'
+                select
+                defaultValue='2'
+                InputProps={{
+                  sx: {
+                    borderRadius: '15px',
+                    border: '2px solid #F4F2F3',
+                    height: '42px',
+                  },
+                }}>
+                {timeDuration.map((option) => (
+                  <MenuItem key={option.title} value={option.title}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </TextField>
+            </Grid>
+          </Grid>
         </Grid>
         <Grid item xs={12}>
           <BarChart />
@@ -110,9 +123,15 @@ const Statistics = () => {
               mt: 3,
               mb: 2,
               borderRadius: '25px',
-              backgroundColor: '#E9E7E8',
+              backgroundColor: 'common.black',
               height: '50px',
-              color: 'black',
+              bottom: '30px',
+              minWidth: '415px',
+              fontWeight: '700',
+              ':hover': {
+                backgroundColor: 'common.black',
+                color: 'common.white',
+              },
             }}>
             DETAILED ANALYTICS
           </Button>
@@ -138,6 +157,69 @@ const Statistics = () => {
             icons2={<ArrowDownwardRoundedIcon sx={{color: '#7F7E80'}} />}
             amount={'-$5000'}
             percentage={'22%'}
+          />
+        </Grid>{' '}
+        <Grid item xs={12}>
+          <CustomCardForStatistics
+            title={'Uber'}
+            icons={<ArrowDownwardRoundedIcon sx={{color: '#7F7E80'}} />}
+            icons2={<ArrowDownwardRoundedIcon sx={{color: '#7F7E80'}} />}
+            amount={'-$500990'}
+            percentage={'33%'}
+          />
+        </Grid>{' '}
+        <Grid item xs={12}>
+          <CustomCardForStatistics
+            title={'Uber'}
+            icons={<ArrowDownwardRoundedIcon sx={{color: '#7F7E80'}} />}
+            icons2={<ArrowDownwardRoundedIcon sx={{color: '#7F7E80'}} />}
+            amount={'-$500990'}
+            percentage={'33%'}
+          />
+        </Grid>{' '}
+        <Grid item xs={12}>
+          <CustomCardForStatistics
+            title={'Uber'}
+            icons={<ArrowDownwardRoundedIcon sx={{color: '#7F7E80'}} />}
+            icons2={<ArrowDownwardRoundedIcon sx={{color: '#7F7E80'}} />}
+            amount={'-$500990'}
+            percentage={'33%'}
+          />
+        </Grid>{' '}
+        <Grid item xs={12}>
+          <CustomCardForStatistics
+            title={'Uber'}
+            icons={<ArrowDownwardRoundedIcon sx={{color: '#7F7E80'}} />}
+            icons2={<ArrowDownwardRoundedIcon sx={{color: '#7F7E80'}} />}
+            amount={'-$500990'}
+            percentage={'33%'}
+          />
+        </Grid>{' '}
+        <Grid item xs={12}>
+          <CustomCardForStatistics
+            title={'Uber'}
+            icons={<ArrowDownwardRoundedIcon sx={{color: '#7F7E80'}} />}
+            icons2={<ArrowDownwardRoundedIcon sx={{color: '#7F7E80'}} />}
+            amount={'-$500990'}
+            percentage={'33%'}
+          />
+        </Grid>{' '}
+        <Grid item xs={12}>
+          <CustomCardForStatistics
+            title={'Uber'}
+            icons={<ArrowDownwardRoundedIcon sx={{color: '#7F7E80'}} />}
+            icons2={<ArrowDownwardRoundedIcon sx={{color: '#7F7E80'}} />}
+            amount={'-$500990'}
+            percentage={'33%'}
+          />
+        </Grid>{' '}
+        <Grid item xs={12}>
+          <CustomCardForStatistics
+            title={'Uber'}
+            icons={<ArrowDownwardRoundedIcon sx={{color: '#7F7E80'}} />}
+            icons2={<ArrowDownwardRoundedIcon sx={{color: '#7F7E80'}} />}
+            amount={'-$500990'}
+            percentage={'33%'}
           />
         </Grid>{' '}
         <Grid item xs={12}>

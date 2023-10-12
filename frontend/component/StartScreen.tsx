@@ -1,68 +1,80 @@
-
-"use client"
-import {Card, CardActions, CardContent, CardMedia, Button, Typography, Grid} from "@mui/material";
-import {Container} from "@mui/material";
-import {useRouter} from "next/navigation";
-
+'use client';
+import {
+  Card,
+  CardContent,
+  CardMedia,
+  Container,
+  Grid,
+  Typography,
+} from '@mui/material';
+import {useRouter} from 'next/navigation';
+import CustomActionButtonComponent from '@/common/button/CustomActionButtonComponent';
 
 const StartScreen = () => {
-    const Router = useRouter()
-    const handleRouting =(event: any)=>{
-        Router.push('/registration-login', { scroll: false })
-        console.log("ecc",event)
-    }
-    return (
-        <Container maxWidth={'xl'} disableGutters={true}>
-            <Grid
-                container
-                spacing={0}
-                direction="column"
-                alignItems="center"
-                justifyContent="center"
-            >
-                <Grid item xs={12} md={5}>
-                    <Card elevation={0} sx={{
-                        background: '#fff',
-                        height: '100vh',
-                        display: 'flex', alignItems: 'center', flexDirection: 'column',
-                        textAlign: 'center',
-                        position: 'relative',
-                        width:'360px'
-                    }}>
-                        <CardMedia
-                            component="img"
-                            alt="green iguana"
-                            width="100%"
-                            image="/images/start-screen-1.png"
-                        />
-                        <CardContent
-                            sx={{
-                                background: '#FEFEFF',
-                                borderRadius: '10px',
-                                position: 'absolute',
-                                bottom: 0,
-                                height: '380px'
-                            }}>
-                            <CardContent>
-                                <Typography gutterBottom variant="h5" component="div">
-                                    See all of your money in one phone
-                                </Typography>
-                                <Typography variant="body2" color="text.secondary">
-                                    Add expense and income and see your statistics
-                                </Typography>
-                            </CardContent>
-
-                            <CardActions sx={{background: '#eeefff'}}>
-                                <Button fullWidth={true} variant={"contained"} size={'large'}
-                                        onClick={handleRouting
-                                }
-                                        color={"secondary"} sx={{borderRadius: '20px'}}>Start</Button>
-                            </CardActions>
-                        </CardContent>
-                    </Card>
-                </Grid>
-            </Grid>
-        </Container>
-    )
-}
+  const Router = useRouter();
+  const handleRouting = (event: any) => {
+    Router.push('/registration-login', {scroll: false});
+    console.log('ecc', event);
+  };
+  return (
+    <Container
+      maxWidth={'xl'}
+      sx={{mr: '-10px', ml: '-10px', position: 'relative'}}>
+      <Grid
+        container
+        rowSpacing={2}
+        direction='column'
+        alignItems='center'
+        justifyContent='center'>
+        <Grid item xs={12} md={5}>
+          <Card
+            elevation={0}
+            sx={{
+              background: '#fff',
+              height: '100vh',
+              display: 'flex',
+              alignItems: 'center',
+              flexDirection: 'column',
+              textAlign: 'center',
+              position: 'relative',
+              width: '444px',
+            }}>
+            <CardMedia
+              component='img'
+              alt='green iguana'
+              width='100%'
+              image='/images/start-screen-1.png'
+            />
+            <CardContent
+              sx={{
+                background: '#FAF8FE',
+                borderRadius: '20px',
+                position: 'fiexd',
+                bottom: '0px',
+                height: '500px',
+              }}>
+              <CardContent>
+                <Typography
+                  sx={{fontWeight: '700', p: '0px 40px'}}
+                  gutterBottom
+                  variant='h5'
+                  component='div'>
+                  See all of your money in one phone
+                </Typography>
+                <Typography
+                  sx={{fontWeight: '500', p: '0px 40px'}}
+                  component='div'>
+                  Add expense and income and see your statistics
+                </Typography>
+              </CardContent>
+            </CardContent>
+          </Card>
+        </Grid>
+        <CustomActionButtonComponent onClickBtn={handleRouting}>
+          START
+        </CustomActionButtonComponent>
+      </Grid>
+    </Container>
+  );
+};
 export default StartScreen;

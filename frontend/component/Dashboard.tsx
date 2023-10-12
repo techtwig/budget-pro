@@ -1,9 +1,7 @@
 'use client';
 import {Box, Container, Grid, Typography} from '@mui/material';
-import FloodRoundedIcon from '@mui/icons-material/FloodRounded';
 import CustomCardDashboard from '@/common/CustomCardDashboard';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
-import InventoryIcon from '@mui/icons-material/Inventory';
 import CustomCardDashboardTwo from '@/common/CustomCardDashboardTwo';
 import ArrowDownwardRoundedIcon from '@mui/icons-material/ArrowDownwardRounded';
 import SouthWestRoundedIcon from '@mui/icons-material/SouthWestRounded';
@@ -11,23 +9,37 @@ import TurnSlightRightRoundedIcon from '@mui/icons-material/TurnSlightRightRound
 import RadarRoundedIcon from '@mui/icons-material/RadarRounded';
 import CustomHorizontalCard from '@/common/CustomHorizontalCard';
 import Footer from '@/common/footer/Footer';
+import {CustomStyles} from '@/core/enums';
 
 const DashBoard = () => {
   return (
     <Container
       maxWidth={'xs'}
-      sx={{minHeight: '100vh', backgroundColor: '#FEFEFF'}}>
-      <Grid container spacing={2}>
+      disableGutters={true}
+      sx={{
+        minHeight: '100vh',
+        backgroundColor: '#FEFEFF',
+        // pt: CustomStyles.CONTAINER_TOP,
+        // pl: CustomStyles.CONTAINER_LEFT,
+        // pr: CustomStyles.CONTAINER_RIGHT,
+        pb: '100px',
+        position: 'relative',
+      }}>
+      <Grid container rowSpacing={1}>
         <Grid
           item
           xs={12}
           sx={{
             backgroundColor: '#D1CED8',
+            // backgroundColor: 'red',
             width: '100%',
+            pt: CustomStyles.CONTAINER_TOP,
+            pl: CustomStyles.CONTAINER_LEFT,
+            pr: CustomStyles.CONTAINER_RIGHT,
             borderBottomRightRadius: '20px',
             borderBottomLeftRadius: '20px',
           }}>
-          <Grid container>
+          <Grid container spacing={1}>
             <Grid item xs={12}>
               <Typography
                 sx={{fontSize: '18px', fontWeight: '700', mt: '40px'}}>
@@ -40,53 +52,9 @@ const DashBoard = () => {
                 $2,600
               </Typography>
             </Grid>
-            <Grid item xs={12}>
-              <Grid container spacing={2} sx={{}}>
-                <Grid xs={4}>
-                  <CustomCardDashboard
-                    title={'Monobank'}
-                    amount={'$1,250'}
-                    icons={
-                      <AccountBalanceIcon
-                        sx={{color: '#fff', fontSize: '250%'}}
-                      />
-                    }
-                  />
-                </Grid>{' '}
-                <Grid xs={4}>
-                  <CustomCardDashboard
-                    title={'Monobank'}
-                    amount={'$1,250'}
-                    icons={
-                      <AccountBalanceIcon
-                        sx={{color: '#fff', fontSize: '250%'}}
-                      />
-                    }
-                  />
-                </Grid>{' '}
-                <Grid xs={4}>
-                  <CustomCardDashboard
-                    title={'Monobank'}
-                    amount={'$1,250'}
-                    icons={
-                      <AccountBalanceIcon
-                        sx={{color: '#fff', fontSize: '250%'}}
-                      />
-                    }
-                  />
-                </Grid>{' '}
-                <Grid xs={4}>
-                  <CustomCardDashboard
-                    title={'Monobank'}
-                    amount={'$1,250'}
-                    icons={
-                      <AccountBalanceIcon
-                        sx={{color: '#fff', fontSize: '250%'}}
-                      />
-                    }
-                  />
-                </Grid>{' '}
-                <Grid xs={4}>
+            <Grid item xs={12} sx={{mb: '15px'}}>
+              <Grid container spacing={2}>
+                <Grid item xs={4}>
                   <CustomCardDashboard
                     title={'Monobank'}
                     amount={'$1,250'}
@@ -97,33 +65,63 @@ const DashBoard = () => {
                     }
                   />
                 </Grid>
-                {/*<CustomCardDashboard*/}
-                {/*  title={'Revolut'}*/}
-                {/*  amount={'$884.25'}*/}
-                {/*  icons={*/}
-                {/*    <FloodRoundedIcon sx={{color: '#fff', fontSize: '250%'}} />*/}
-                {/*  }*/}
-                {/*/>*/}
-                {/*<CustomCardDashboard*/}
-                {/*  title={'PayPal'}*/}
-                {/*  amount={'$320'}*/}
-                {/*  icons={*/}
-                {/*    <InventoryIcon sx={{color: '#fff', fontSize: '250%'}} />*/}
-                {/*  }*/}
-                {/*/>*/}
-                {/*<CustomCardDashboard*/}
-                {/*  title={'PayPal'}*/}
-                {/*  amount={'$320'}*/}
-                {/*  icons={*/}
-                {/*    <InventoryIcon sx={{color: '#fff', fontSize: '250%'}} />*/}
-                {/*  }*/}
-                {/*/>*/}
+                <Grid item xs={4}>
+                  <CustomCardDashboard
+                    title={'Monobank'}
+                    amount={'$1,250'}
+                    icons={
+                      <AccountBalanceIcon
+                        sx={{color: '#fff', fontSize: '250%'}}
+                      />
+                    }
+                  />
+                </Grid>
+                <Grid item xs={4}>
+                  <CustomCardDashboard
+                    title={'Monobank'}
+                    amount={'$1,250'}
+                    icons={
+                      <AccountBalanceIcon
+                        sx={{color: '#fff', fontSize: '250%'}}
+                      />
+                    }
+                  />
+                </Grid>
+                <Grid item xs={4}>
+                  <CustomCardDashboard
+                    title={'Monobank'}
+                    amount={'$1,250'}
+                    icons={
+                      <AccountBalanceIcon
+                        sx={{color: '#fff', fontSize: '250%'}}
+                      />
+                    }
+                  />
+                </Grid>
+                <Grid item xs={4}>
+                  <CustomCardDashboard
+                    title={'Monobank'}
+                    amount={'$1,250'}
+                    icons={
+                      <AccountBalanceIcon
+                        sx={{color: '#fff', fontSize: '250%'}}
+                      />
+                    }
+                  />
+                </Grid>
               </Grid>
             </Grid>
           </Grid>
         </Grid>
         <Grid item xs={12}>
-          <Grid container spacing={2}>
+          <Grid
+            container
+            spacing={2}
+            sx={{
+              pt: CustomStyles.CONTAINER_TOP,
+              pl: CustomStyles.CONTAINER_LEFT,
+              pr: CustomStyles.CONTAINER_RIGHT,
+            }}>
             <Grid item xs={6}>
               <CustomCardDashboardTwo
                 title={'Monthly Budget'}
@@ -155,7 +153,14 @@ const DashBoard = () => {
           </Grid>
         </Grid>
         <Grid item xs={12}>
-          <Grid container rowSpacing={1}>
+          <Grid
+            container
+            rowSpacing={1}
+            sx={{
+              pt: CustomStyles.CONTAINER_TOP,
+              pl: CustomStyles.CONTAINER_LEFT,
+              pr: CustomStyles.CONTAINER_RIGHT,
+            }}>
             <Grid
               item
               xs={12}
@@ -185,7 +190,7 @@ const DashBoard = () => {
                 See all {'>'}
               </Box>
             </Grid>
-            <Grid item xs={12} sx={{mr: '12px'}}>
+            <Grid item xs={12}>
               <CustomHorizontalCard
                 title={'Burger'}
                 subTitle={'Food'}
@@ -194,7 +199,7 @@ const DashBoard = () => {
                 amount={'$1000'}
               />
             </Grid>
-            <Grid item xs={12} sx={{mr: '12px'}}>
+            <Grid item xs={12}>
               <CustomHorizontalCard
                 title={'Burger'}
                 subTitle={'Food'}
@@ -203,7 +208,7 @@ const DashBoard = () => {
                 amount={'$1000'}
               />
             </Grid>
-            <Grid item xs={12} sx={{mr: '12px'}}>
+            <Grid item xs={12}>
               <CustomHorizontalCard
                 title={'Burger'}
                 subTitle={'Food'}
@@ -212,7 +217,7 @@ const DashBoard = () => {
                 amount={'$1000'}
               />
             </Grid>
-            <Grid item xs={12} sx={{mr: '12px'}}>
+            <Grid item xs={12}>
               <CustomHorizontalCard
                 title={'Burger'}
                 subTitle={'Food'}
@@ -223,8 +228,8 @@ const DashBoard = () => {
             </Grid>
           </Grid>
         </Grid>
-        <Footer currentOption={0} />
       </Grid>
+      <Footer currentOption={0} />
     </Container>
   );
 };

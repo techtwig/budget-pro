@@ -1,47 +1,31 @@
 'use client';
-import {
-  Button,
-  Container,
-  Grid,
-  MenuItem,
-  TextField,
-  Typography,
-} from '@mui/material';
-import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
+import {Container, Grid, MenuItem, TextField, Typography} from '@mui/material';
 import React from 'react';
 import {budget, currencies, wallets} from '@/common/ListedData';
-import {useRouter} from 'next/navigation';
+import CustomActionButtonComponent from '@/common/button/CustomActionButtonComponent';
+import {CustomStyles} from '@/core/enums';
+import CustomBackButton from '@/common/button/CustomBackButton';
 
 const AddNewBudget = () => {
-  const Router = useRouter();
-  const handleBack = () => {
-    return Router.back();
+  const handleClick = () => {
+    return console.log('Add a budget page');
   };
   return (
     <Container
       maxWidth={'xs'}
-      sx={{minHeight: '100vh', backgroundColor: '#FEFEFF', pt: '40px'}}>
-      <Grid container spacing={2}>
-        <Grid
-          item
-          xs={12}
-          sx={{
-            mt: '36px',
-          }}>
-          <Button
-            sx={{p: '0px 0px', display: 'flex', justifyContent: 'initial'}}
-            onClick={handleBack}>
-            <KeyboardBackspaceIcon
-              sx={{
-                color: '#403F40',
-                backgroundColor: '#fff',
-                borderRadius: '8px',
-                fontSize: '240%',
-                border: '2px solid #EEEDEE',
-                p: '3px',
-              }}
-            />
-          </Button>
+      disableGutters={true}
+      sx={{
+        minHeight: '100vh',
+        backgroundColor: '#FEFEFF',
+        pt: CustomStyles.CONTAINER_TOP,
+        pl: CustomStyles.CONTAINER_LEFT,
+        pr: CustomStyles.CONTAINER_RIGHT,
+        pb: '100px',
+        position: 'relative',
+      }}>
+      <Grid container rowSpacing={2}>
+        <Grid item xs={12}>
+          <CustomBackButton />
         </Grid>
 
         <Grid item xs={12}>
@@ -55,9 +39,9 @@ const AddNewBudget = () => {
             Budget Name
           </Typography>
           <TextField
-            sx={{width: '95%'}}
+            sx={{width: '100%'}}
             id='budget-name'
-            label='Budget Name'
+            placeholder='Budget Name'
             type='budget-name'
             autoComplete='current-password'
             InputProps={{
@@ -68,52 +52,57 @@ const AddNewBudget = () => {
             }}
           />
         </Grid>
-        <Grid item xs={6}>
-          <Typography sx={{fontSize: '16px', fontWeight: '700', pb: '3px'}}>
-            Amount
-          </Typography>
-          <TextField
-            sx={{width: '95%'}}
-            id='budget-name'
-            label='$0'
-            type='budget-name'
-            autoComplete='current-password'
-            InputProps={{
-              sx: {
-                borderRadius: '15px',
-                border: '2px solid #F4F2F3',
-              },
-            }}
-          />
+        <Grid item xs={12}>
+          <Grid container columnSpacing={1.4}>
+            <Grid item xs={6}>
+              <Typography sx={{fontSize: '16px', fontWeight: '700', pb: '3px'}}>
+                Amount
+              </Typography>
+              <TextField
+                sx={{width: '100%'}}
+                id='budget-name'
+                placeholder='$0'
+                type='budget-name'
+                autoComplete='current-password'
+                InputProps={{
+                  sx: {
+                    borderRadius: '15px',
+                    border: '2px solid #F4F2F3',
+                  },
+                }}
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <Typography sx={{fontSize: '16px', fontWeight: '700', pb: '3px'}}>
+                Budget Name
+              </Typography>
+              <TextField
+                sx={{width: '100%'}}
+                id='currency'
+                select
+                defaultValue='EUR'
+                InputProps={{
+                  sx: {
+                    borderRadius: '15px',
+                    border: '2px solid #F4F2F3',
+                  },
+                }}>
+                {currencies.map((option) => (
+                  <MenuItem key={option.title} value={option.title}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </TextField>
+            </Grid>
+          </Grid>
         </Grid>
-        <Grid item xs={6}>
-          <Typography sx={{fontSize: '16px', fontWeight: '700', pb: '3px'}}>
-            Budget Name
-          </Typography>
-          <TextField
-            sx={{width: '95%'}}
-            id='currency'
-            select
-            defaultValue='EUR'
-            InputProps={{
-              sx: {
-                borderRadius: '15px',
-                border: '2px solid #F4F2F3',
-              },
-            }}>
-            {currencies.map((option) => (
-              <MenuItem key={option.title} value={option.title}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </TextField>
-        </Grid>
+
         <Grid item xs={12}>
           <Typography sx={{fontSize: '16px', fontWeight: '700', pb: '3px'}}>
             Budget Name
           </Typography>
           <TextField
-            sx={{width: '95%'}}
+            sx={{width: '100%'}}
             id='currency'
             select
             defaultValue='wallets'
@@ -135,7 +124,7 @@ const AddNewBudget = () => {
             Budget Name
           </Typography>
           <TextField
-            sx={{width: '95%'}}
+            sx={{width: '100%'}}
             id='currency'
             select
             defaultValue='expenses'
@@ -152,23 +141,10 @@ const AddNewBudget = () => {
             ))}
           </TextField>
         </Grid>
-        <Grid item xs={12} sx={{mr: '16px', position: 'fixed', bottom: '10px'}}>
-          <Button
-            type='submit'
-            fullWidth
-            variant='contained'
-            sx={{
-              mt: 3,
-              mb: 2,
-              borderRadius: '25px',
-              backgroundColor: '#343333',
-              height: '50px',
-              position: 'fixed',
-              bottom: '0px',
-              width: '399px',
-            }}>
+        <Grid item xs={12} sx={{bottom: '10px', position: 'sticky'}}>
+          <CustomActionButtonComponent onClickBtn={handleClick}>
             ADD A BUDGET
-          </Button>
+          </CustomActionButtonComponent>
         </Grid>
       </Grid>
     </Container>

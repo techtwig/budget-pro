@@ -1,6 +1,7 @@
 import {Box, Divider, Grid, Typography} from '@mui/material';
 import {FC} from 'react';
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
+import {CardBorder} from '@/core/enums';
 
 interface Props {
   title: string;
@@ -11,8 +12,8 @@ interface Props {
 }
 const CustomBudgetCard: FC<Props> = ({title, amount, icons, budgetTitle}) => {
   return (
-    <Grid container sx={{border: '2px solid #F3F1F4', borderRadius: '15px'}}>
-      <Grid item xs={2}>
+    <Grid container sx={{border: CardBorder.TWO_PX, borderRadius: '15px'}}>
+      <Grid item xs={2} sx={{display: 'flex', alignItems: 'center'}}>
         {icons}
       </Grid>
       <Grid item xs={10}>
@@ -22,7 +23,7 @@ const CustomBudgetCard: FC<Props> = ({title, amount, icons, budgetTitle}) => {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            pr: '12px',
+            pr: '16px',
           }}>
           <Grid item xs={6}>
             <Typography sx={{fontSize: '14px', fontWeight: '700'}}>
@@ -48,7 +49,7 @@ const CustomBudgetCard: FC<Props> = ({title, amount, icons, budgetTitle}) => {
             }}>
             <Box>
               <EditRoundedIcon
-                sx={{color: '#7F7E80', fontSize: '120%', mt: '5px'}}
+                sx={{color: '#E1E0E0', fontSize: '120%', mt: '5px'}}
               />
             </Box>
 
@@ -57,13 +58,20 @@ const CustomBudgetCard: FC<Props> = ({title, amount, icons, budgetTitle}) => {
                 fontSize: '14px',
                 mt: '1px',
                 fontWeight: '700',
-                opacity: '.5',
+                opacity: '.3',
               }}>
               {amount}
             </Typography>
           </Grid>
           <Grid item xs={12}>
-            <Divider />
+            <Divider
+              sx={{
+                height: '2px',
+                width: '100%',
+                fontWeight: 'bold',
+                backgroundColor: '#E7E4ED',
+              }}
+            />
           </Grid>
         </Grid>
       </Grid>

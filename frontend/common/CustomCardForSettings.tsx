@@ -33,7 +33,14 @@ const CustomCardForSetting: FC<Props> = ({title, subTitle}) => {
         <Typography sx={{opacity: '.3'}}>{subTitle}</Typography>
         <Button
           onClick={handleDrewer}
-          sx={{color: '#000', p: '0px 0px', maxWidth: '20px'}}
+          sx={{
+            p: '0px 0px',
+            maxWidth: '20px',
+            color: 'common.white',
+            ':hover': {
+              backgroundColor: 'common.white',
+            },
+          }}
           endIcon={<PlayArrowIcon sx={{color: '#000'}} />}></Button>
 
         <Drawers state={state} setState={setState} />

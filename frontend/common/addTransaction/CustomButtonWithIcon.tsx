@@ -15,14 +15,13 @@ const CustomButtonIcon1 = ({
         background: '#fff',
         flexDirection: 'column',
         borderRadius: borderRadius ? borderRadius : '10px',
-        m: '10px',
       }}>
       <Box
         onClick={onClickBtn}
         sx={{
           backgroundColor: backGround,
           color: '#040303',
-          padding: '5px 5px',
+          padding: '10px',
           borderRadius: '15px',
           textAlign: 'center',
           fontWeight: '600',

@@ -1,55 +1,22 @@
-import React from 'react';
-import {useState} from 'react';
+import React, {useState} from 'react';
 
-import {Box, Container} from '@mui/material';
-import {useForm} from 'react-hook-form';
-import {yupResolver} from '@hookform/resolvers/yup';
-import * as yup from 'yup';
 import {
-  Button,
-  CssBaseline,
+  Box,
   Grid,
+  IconButton,
+  InputAdornment,
   TextField,
   Typography,
-  InputAdornment,
-  IconButton,
 } from '@mui/material';
-import {createTheme, ThemeProvider} from '@mui/material/styles';
-import {Visibility} from '@mui/icons-material';
-import {VisibilityOff} from '@mui/icons-material';
+import {Visibility, VisibilityOff} from '@mui/icons-material';
 import AppleIcon from '@mui/icons-material/Apple';
 import FacebookRoundedIcon from '@mui/icons-material/FacebookRounded';
 import GoogleIcon from '@mui/icons-material/Google';
 import {useRouter} from 'next/navigation';
+import CustomActionButtonComponent from '@/common/button/CustomActionButtonComponent';
 
-const defaultTheme = createTheme();
 const Login = () => {
   const Router = useRouter();
-  const userSchema = yup.object().shape({
-    email: yup
-      .string()
-      .email('Please enter a valid email')
-      .required('Email is required field'),
-    password: yup
-      .string()
-      .required('Password is a required field')
-      .min(6, 'Password must be at least 6 charcaters'),
-  });
-
-  const onSubmitHandler = (event: any) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-  };
-  const {
-    handleSubmit,
-    formState: {errors},
-    reset,
-  } = useForm({resolver: yupResolver(userSchema)});
-
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword(!showPassword);
   const handleMouseDownPassword = () => setShowPassword(!showPassword);
@@ -227,24 +194,9 @@ const Login = () => {
             </Grid>
           </Grid>
           <Grid item xs={12}>
-            <Button
-              onClick={handleLogin}
-              type='submit'
-              fullWidth
-              variant='contained'
-              sx={{
-                mt: 3,
-                mb: 2,
-                borderRadius: '25px',
-                backgroundColor: '#343333',
-                height: '50px',
-                ':hover': {
-                  backgroundColor: 'primary.main', // theme.palette.primary.main
-                  color: 'white',
-                },
-              }}>
+            <CustomActionButtonComponent onClickBtn={handleLogin}>
               Login
-            </Button>
+            </CustomActionButtonComponent>
           </Grid>
         </Grid>
       </Grid>

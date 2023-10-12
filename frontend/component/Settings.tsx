@@ -3,12 +3,22 @@ import {Button, Container, Grid, Typography} from '@mui/material';
 import Footer from '@/common/footer/Footer';
 import React from 'react';
 import CustomCardForSetting from '@/common/CustomCardForSettings';
+import {CustomStyles} from '@/core/enums';
 
 const Settings = () => {
   return (
     <Container
       maxWidth={'xs'}
-      sx={{minHeight: '100vh', backgroundColor: '#FAF8FE', pt: '36px'}}>
+      disableGutters={true}
+      sx={{
+        minHeight: '100vh',
+        backgroundColor: '#FAF8FE',
+        pt: CustomStyles.CONTAINER_TOP,
+        pl: CustomStyles.CONTAINER_LEFT,
+        pr: CustomStyles.CONTAINER_RIGHT,
+        pb: '100px',
+        position: 'relative',
+      }}>
       <Grid container spacing={2}>
         <Grid
           item
@@ -61,8 +71,8 @@ const Settings = () => {
             Log Out
           </Button>
         </Grid>
-        <Footer currentOption={4} />
       </Grid>
+      <Footer currentOption={4} />
     </Container>
   );
 };

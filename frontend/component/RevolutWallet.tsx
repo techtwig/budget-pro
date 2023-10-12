@@ -1,55 +1,35 @@
 'use client';
-import {
-  Button,
-  Container,
-  Grid,
-  MenuItem,
-  TextField,
-  Typography,
-} from '@mui/material';
+import {Container, Grid, MenuItem, TextField, Typography} from '@mui/material';
 import ArrowDownwardRoundedIcon from '@mui/icons-material/ArrowDownwardRounded';
 import CustomHorizontalCard from '@/common/CustomHorizontalCard';
-import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import {timeDuration} from '@/common/ListedData';
 import React, {useState} from 'react';
 import CustomButtonText from '@/common/addTransaction/CustomButtonText';
-import {useRouter} from 'next/navigation';
+import CustomBackButton from '@/common/button/CustomBackButton';
+import {CustomStyles} from '@/core/enums';
 
 const RevolutWalletPage = () => {
-  const Router = useRouter();
   const [selectedIndex, setSelectedIndex] = useState(0);
   const handleWalletClick = (active: number) => {
     setSelectedIndex(active);
     return;
   };
-  const handleBack = () => {
-    return Router.back();
-  };
   return (
     <Container
       maxWidth={'xs'}
-      sx={{minHeight: '100vh', backgroundColor: '#FEFEFF'}}>
+      disableGutters={true}
+      sx={{
+        minHeight: '100vh',
+        backgroundColor: '#FEFEFF',
+        pt: CustomStyles.CONTAINER_TOP,
+        pl: CustomStyles.CONTAINER_LEFT,
+        pr: CustomStyles.CONTAINER_RIGHT,
+        pb: '100px',
+        position: 'relative',
+      }}>
       <Grid container spacing={1}>
-        <Grid
-          item
-          xs={12}
-          sx={{
-            mt: '36px',
-          }}>
-          <Button
-            sx={{p: '0px 0px', display: 'flex', justifyContent: 'initial'}}
-            onClick={handleBack}>
-            <KeyboardBackspaceIcon
-              sx={{
-                color: '#403F40',
-                backgroundColor: '#fff',
-                borderRadius: '8px',
-                fontSize: '240%',
-                border: '2px solid #EEEDEE',
-                p: '3px',
-              }}
-            />
-          </Button>
+        <Grid item xs={12}>
+          <CustomBackButton />
         </Grid>
 
         <Grid item xs={6} sx={{mt: '12px'}}>
@@ -120,7 +100,7 @@ const RevolutWalletPage = () => {
             </Grid>
           </Grid>
         </Grid>
-        <Grid item xs={12} sx={{mt: '26px'}}>
+        <Grid item xs={12}>
           <Typography sx={{fontSize: '14px', fontWeight: '700', opacity: '.4'}}>
             Today
           </Typography>
