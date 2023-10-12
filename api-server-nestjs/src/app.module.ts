@@ -1,25 +1,19 @@
-import { MiddlewareConsumer, Module, NestModule } from "@nestjs/common";
-import { AppController } from "./app.controller";
-import { AppService } from "./app.service";
-import { MongooseModule } from "@nestjs/mongoose";
-import { UserModule } from "./user/user.module";
-import { AuthMiddleware } from "./middleware/Auth.middleware";
-import { IncomeModule } from "./income/income.module";
-import { ExpenseModule } from "./expense/expense.module";
-import { CashbookController } from "./cashbook/cashbook.controller";
-import { CashbookService } from "./cashbook/cashbook.service";
-import { CashbookModule } from "./cashbook/cashbook.module";
-import { BudgetModule } from "./budget/budget.module";
-import { CategoryController } from "./category/category.controller";
-import { CategoryModule } from "./category/category.module";
-
-import process from "process";
-import { Income, IncomeSchema } from "./income/income.schema";
-import { Expense, ExpenseSchema } from "./expense/expense.schema";
+import {MiddlewareConsumer, Module, NestModule} from "@nestjs/common";
+import {MongooseModule} from "@nestjs/mongoose";
+import {AppController} from "./app.controller";
+import {AppService} from "./app.service";
+import {BudgetModule} from "./budget/budget.module";
+import {CashbookModule} from "./cashbook/cashbook.module";
+import {CategoryModule} from "./category/category.module";
+import {ExpenseModule} from "./expense/expense.module";
+import {IncomeModule} from "./income/income.module";
+import {AuthMiddleware} from "./middleware/Auth.middleware";
+import {UserModule} from "./user/user.module";
+import "dotenv/config";
 
 @Module({
   imports: [
-    MongooseModule.forRoot("mongodb://127.0.0.1:27017/budget-app"),
+    MongooseModule.forRoot(process.env.MONGODB_CONNECTION_URI),
     UserModule,
     IncomeModule,
     ExpenseModule,

@@ -1,12 +1,9 @@
-import { Body, Controller, Delete, Get, Post, Put, Req, Res } from "@nestjs/common";
-import { IncomeService } from "../income/income.service";
-import { ExpenseService } from "./expense.service";
-import { CustomRequest } from "../middleware/Auth.middleware";
-import { Response } from "express";
-import { CreateIncomeDto } from "../income/dtos/create-income.dto";
-import { CreateExpenseDto } from "./dtos/create-expense.dto";
-import { UpdateIncomeDto } from "../income/dtos/update-income.dto";
-import { UpdateExpenseDto } from "./dtos/update-expense.dto";
+import {Body, Controller, Delete, Get, Post, Put, Req, Res} from "@nestjs/common";
+import {Response} from "express";
+import {CustomRequest} from "../middleware/Auth.middleware";
+import {CreateExpenseDto} from "./dtos/create-expense.dto";
+import {UpdateExpenseDto} from "./dtos/update-expense.dto";
+import {ExpenseService} from "./expense.service";
 
 @Controller("expense")
 export class ExpenseController {

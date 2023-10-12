@@ -1,12 +1,11 @@
-import { InjectModel } from "@nestjs/mongoose";
-import { User } from "./user.schema";
-import { Model } from "mongoose";
-import { BadRequestException, Injectable } from "@nestjs/common";
-import { SignupDto } from "./dtos/signup.dto";
-import { hash, compare } from "bcryptjs";
-import { LoginDto } from "./dtos/login.dto";
-import { sign } from "jsonwebtoken";
-import process from "process";
+import {BadRequestException, Injectable} from "@nestjs/common";
+import {InjectModel} from "@nestjs/mongoose";
+import {compare, hash} from "bcryptjs";
+import {sign} from "jsonwebtoken";
+import {Model} from "mongoose";
+import {LoginDto} from "./dtos/login.dto";
+import {SignupDto} from "./dtos/signup.dto";
+import {User} from "./user.schema";
 
 @Injectable()
 export class UserService {

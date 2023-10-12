@@ -1,11 +1,10 @@
-import { Module } from "@nestjs/common";
-import { BudgetService } from "./budget.service";
-import { BudgetController } from "./budget.controller";
-import { MongooseModule } from "@nestjs/mongoose";
-import { IncomeSchema } from "../income/income.schema";
-import { CashbookSchema } from "../cashbook/cashbook.schema";
-import { CategorySchema } from "../category/category.schema";
-import { BudgetSchema } from "./budget.schema";
+import {Module} from "@nestjs/common";
+import {MongooseModule} from "@nestjs/mongoose";
+import {CashbookSchema} from "../cashbook/cashbook.schema";
+import {CategorySchema} from "../category/category.schema";
+import {BudgetController} from "./budget.controller";
+import {BudgetSchema} from "./budget.schema";
+import {BudgetService} from "./budget.service";
 
 @Module({
   imports: [
