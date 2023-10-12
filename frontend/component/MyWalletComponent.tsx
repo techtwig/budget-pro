@@ -1,20 +1,30 @@
 'use client';
-import {Container, Divider, Grid, Typography} from '@mui/material';
+import {Container, Grid, Typography} from '@mui/material';
 import ArrowDownwardRoundedIcon from '@mui/icons-material/ArrowDownwardRounded';
-import SouthWestRoundedIcon from '@mui/icons-material/SouthWestRounded';
-import TurnSlightRightRoundedIcon from '@mui/icons-material/TurnSlightRightRounded';
-import RadarRoundedIcon from '@mui/icons-material/RadarRounded';
 import CustomCardMyWallet from '@/common/CustomMyWalletCart';
 import CustomCardMyWallet2 from '@/common/CustomCardMyWallet2';
 import Footer from '@/common/footer/Footer';
+import {CustomStyles} from '@/core/enums';
+import OtherHousesIcon from '@mui/icons-material/OtherHouses';
+import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
+import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 
 const MyWalletComponent = () => {
   return (
     <Container
       maxWidth={'xs'}
-      sx={{minHeight: '100vh', backgroundColor: '#FEFEFF', pt: '40px'}}>
-      <Grid container spacing={2}>
-        <Grid item xs={12} sx={{}}>
+      disableGutters={true}
+      sx={{
+        minHeight: '100vh',
+        backgroundColor: '#FEFEFF',
+        pt: CustomStyles.CONTAINER_TOP,
+        pl: CustomStyles.CONTAINER_LEFT,
+        pr: CustomStyles.CONTAINER_RIGHT,
+        pb: '100px',
+        position: 'relative',
+      }}>
+      <Grid container rowSpacing={1}>
+        <Grid item xs={12}>
           <Typography
             sx={{
               fontSize: '16px',
@@ -32,59 +42,56 @@ const MyWalletComponent = () => {
         </Grid>
         <Grid item xs={12}>
           <Grid container rowSpacing={1}>
-            <Grid item xs={12} sx={{mr: '12px'}}>
+            <Grid item xs={12}>
               <CustomCardMyWallet2
-                title={'Burger'}
-                subTitle={'Food'}
-                icons={<ArrowDownwardRoundedIcon sx={{color: '#7F7E80'}} />}
+                title={'Monobank account'}
+                icons={
+                  <AccountBalanceIcon
+                    sx={{
+                      color: '#fff',
+                      fontSize: '200%',
+                      border: '2px solid #EFEDEE',
+                      borderRadius: '10px',
+                    }}
+                  />
+                }
                 icons2={<ArrowDownwardRoundedIcon sx={{color: '#7F7E80'}} />}
                 amount={'$1000'}
               />
             </Grid>
-            <Grid item xs={12} sx={{mr: '12px'}}>
+            <Grid item xs={12}>
               <CustomCardMyWallet2
-                title={'Burger'}
-                subTitle={'Food'}
-                icons={<ArrowDownwardRoundedIcon sx={{color: '#7F7E80'}} />}
+                title={'Revolut wallet'}
+                icons={
+                  <AccountBalanceWalletIcon
+                    sx={{
+                      color: '#fff',
+                      fontSize: '200%',
+                      border: '2px solid #EFEDEE',
+                      borderRadius: '10px',
+                    }}
+                  />
+                }
                 icons2={<ArrowDownwardRoundedIcon sx={{color: '#7F7E80'}} />}
-                amount={'$1000'}
-              />
-            </Grid>
-            <Grid item xs={12} sx={{mr: '12px'}}>
-              <CustomCardMyWallet2
-                title={'Burger'}
-                subTitle={'Food'}
-                icons={<ArrowDownwardRoundedIcon sx={{color: '#7F7E80'}} />}
-                icons2={<ArrowDownwardRoundedIcon sx={{color: '#7F7E80'}} />}
-                amount={'$1000'}
-              />
-            </Grid>
-            <Grid item xs={12} sx={{mr: '12px'}}>
-              <CustomCardMyWallet2
-                title={'Burger'}
-                subTitle={'Food'}
-                icons={<ArrowDownwardRoundedIcon sx={{color: '#7F7E80'}} />}
-                icons2={<ArrowDownwardRoundedIcon sx={{color: '#7F7E80'}} />}
-                amount={'$1000'}
+                amount={'$325.88'}
               />
             </Grid>
 
-            <Grid item xs={12} sx={{mr: '12px'}}>
+            <Grid item xs={12}>
               <CustomCardMyWallet2
-                title={'Burger'}
-                subTitle={'Food'}
-                icons={<ArrowDownwardRoundedIcon sx={{color: '#7F7E80'}} />}
+                title={'PayPal wallet'}
+                icons={
+                  <AccountBalanceWalletIcon
+                    sx={{
+                      color: '#fff',
+                      fontSize: '200%',
+                      border: '2px solid #EFEDEE',
+                      borderRadius: '10px',
+                    }}
+                  />
+                }
                 icons2={<ArrowDownwardRoundedIcon sx={{color: '#7F7E80'}} />}
-                amount={'$1000'}
-              />
-            </Grid>
-            <Grid item xs={12} sx={{mr: '12px'}}>
-              <CustomCardMyWallet2
-                title={'Burger'}
-                subTitle={'Food'}
-                icons={<ArrowDownwardRoundedIcon sx={{color: '#7F7E80'}} />}
-                icons2={<ArrowDownwardRoundedIcon sx={{color: '#7F7E80'}} />}
-                amount={'$1000'}
+                amount={'$110.70'}
               />
             </Grid>
           </Grid>
@@ -98,14 +105,14 @@ const MyWalletComponent = () => {
               <CustomCardMyWallet
                 title={'Add a bank account'}
                 icons={
-                  <RadarRoundedIcon
+                  <AccountBalanceIcon
                     sx={{
-                      color: '#7F7E80',
+                      color: '#fff',
                       backgroundColor: '#ACAAAC',
                       borderRadius: '10px',
-                      border: '2px splid #EFEDEE',
+                      border: '2px solid #EFEDEE',
                       m: '10px',
-                      fontSize: '250%',
+                      fontSize: '200%',
                     }}
                   />
                 }
@@ -115,14 +122,14 @@ const MyWalletComponent = () => {
               <CustomCardMyWallet
                 title={'Create new wallet'}
                 icons={
-                  <SouthWestRoundedIcon
+                  <AccountBalanceWalletIcon
                     sx={{
-                      color: '#7F7E80',
+                      color: '#fff',
                       backgroundColor: '#ACAAAC',
                       borderRadius: '10px',
-                      border: '2px splid #EFEDEE',
+                      border: '2px solid #EFEDEE',
                       m: '10px',
-                      fontSize: '250%',
+                      fontSize: '210%',
                     }}
                   />
                 }
@@ -132,14 +139,14 @@ const MyWalletComponent = () => {
               <CustomCardMyWallet
                 title={'Connect an e-wallet'}
                 icons={
-                  <TurnSlightRightRoundedIcon
+                  <AccountBalanceWalletIcon
                     sx={{
-                      color: '#7F7E80',
+                      color: '#fff',
                       backgroundColor: '#ACAAAC',
                       borderRadius: '10px',
-                      border: '2px splid #EFEDEE',
+                      border: '2px solid #EFEDEE',
                       m: '10px',
-                      fontSize: '250%',
+                      fontSize: '200%',
                     }}
                   />
                 }
@@ -149,23 +156,20 @@ const MyWalletComponent = () => {
               <CustomCardMyWallet
                 title={'Add a crypto wallet'}
                 icons={
-                  <ArrowDownwardRoundedIcon
+                  <OtherHousesIcon
                     sx={{
-                      color: '#7F7E80',
+                      color: '#fff',
                       backgroundColor: '#ACAAAC',
                       borderRadius: '10px',
-                      border: '2px splid #EFEDEE',
+                      border: '2px solid #EFEDEE',
                       m: '10px',
-                      fontSize: '250%',
+                      fontSize: '200%',
                     }}
                   />
                 }
               />
             </Grid>
           </Grid>
-        </Grid>
-        <Grid item xs={12}>
-          <Divider />
         </Grid>
         <Footer currentOption={3} />
       </Grid>

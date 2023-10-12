@@ -64,7 +64,7 @@ const CustomHorizontalCard: FC<Props> = ({
           color: '#fff',
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'center',
+          justifyContent: 'right',
         }}>
         {icons2}
       </Grid>
@@ -79,6 +79,7 @@ const CustomHorizontalCard: FC<Props> = ({
           fontWeight: '700',
           textAlign: 'right',
           pr: '9px',
+          opacity: '.4',
         }}>
         {amount}
       </Grid>

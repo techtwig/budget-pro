@@ -14,10 +14,23 @@ const CustomCardMyWallet: FC<Props> = ({title, icons}) => {
         background: '#fff',
         flexDirection: 'column',
         borderRadius: '20px',
-        border: '1px solid #F0EEEF',
-        width: '180px',
+        border: '2px solid #F0EEEF',
+        p: '10px',
       }}>
-      <Box>{icons}</Box>
+      <Box
+        sx={{
+          height: '45px',
+          width: '45px',
+          backgroundColor: '#ADABAD',
+          borderRadius: '14px',
+          color: '#fff',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          m: '10px',
+        }}>
+        {icons}
+      </Box>
       <Box>
         <Typography
           sx={{
@@ -26,7 +39,7 @@ const CustomCardMyWallet: FC<Props> = ({title, icons}) => {
             ml: '10px',
             mt: '1px',
             fontWeight: '700',
-            width: '70%',
+            width: '60%',
           }}>
           {title}
         </Typography>

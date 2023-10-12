@@ -6,9 +6,11 @@ const CustomButtonIcon = ({children, onClickBtn, backGround, icons}: any) => {
     <Card
       elevation={0}
       sx={{
-        background: '#fff',
+        background: '#FAF9FA',
         flexDirection: 'column',
         borderRadius: '10px',
+        display: 'flex',
+        textAlign: 'center',
       }}>
       <Box
         onClick={onClickBtn}

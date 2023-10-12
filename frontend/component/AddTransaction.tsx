@@ -1,17 +1,17 @@
 'use client';
-import {Box, Button, Container, Grid, Typography} from '@mui/material';
+import {Box, Container, Grid, Typography} from '@mui/material';
 import ArrowDownwardRoundedIcon from '@mui/icons-material/ArrowDownwardRounded';
 import CustomBottomIcons from '@/common/CustomBottomIcons';
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
-import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import React, {useState} from 'react';
 import CustomCardHorizonatlIconAndTitle from '@/common/addTransaction/CustomCardHorizontalIconAndTiTle';
 import CustomButtonIcon1 from '@/common/addTransaction/CustomButtonWithIcon';
 import CustomButtonText from '@/common/addTransaction/CustomButtonText';
-import {useRouter} from 'next/navigation';
+import CustomActionButtonComponent from '@/common/button/CustomActionButtonComponent';
+import CustomBackButton from '@/common/button/CustomBackButton';
+import {CustomStyles, Fonts} from '@/core/enums';
 
 const AddTransaction = () => {
-  const Router = useRouter();
   const [selectedIndex, setSelectedIndex] = useState(0);
   const handleWalletClick = (active: number) => {
     setSelectedIndex(active);
@@ -28,72 +28,71 @@ const AddTransaction = () => {
     return;
   };
 
-  const handleBack = () => {
-    return Router.back();
+  const handleTransaction = () => {
+    return console.log('This is transaction');
   };
 
   return (
     <Container
       maxWidth={'xs'}
-      sx={{minHeight: '100vh', backgroundColor: '#FEFEFF', pt: '40px'}}>
-      <Grid container spacing={2}>
+      disableGutters={true}
+      sx={{
+        minHeight: '100vh',
+        backgroundColor: '#FEFEFF',
+        pt: CustomStyles.CONTAINER_TOP,
+        pl: CustomStyles.CONTAINER_LEFT,
+        pr: CustomStyles.CONTAINER_RIGHT,
+        pb: '100px',
+        position: 'relative',
+      }}>
+      <Grid container rowSpacing={0}>
         <Grid
           item
           xs={12}
           sx={{
             display: 'flex',
             alignItems: 'self-start',
+            mb: '16px',
           }}>
-          <Button onClick={handleBack}>
-            <KeyboardBackspaceIcon
-              sx={{
-                color: '#B1AFB1',
-                backgroundColor: '#fff',
-                borderRadius: '8px',
-                p: '5px',
-                fontSize: '230%',
-                mt: '12px',
-                border: '2px solid #B1AFB1',
-              }}
-            />
-          </Button>
+          <CustomBackButton />
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} sx={{mb: '16px'}}>
           <Typography sx={{fontSize: '24px', fontWeight: '700'}}>
             Add Transaction
           </Typography>
         </Grid>
-        <Grid item xs={12} sx={{mr: '16px'}}>
+        <Grid item xs={12} sx={{mb: '16px'}}>
           <Grid
             container
             sx={{
               width: '100%',
               backgroundColor: '#FAF9FA',
+              borderRadius: '30px',
             }}>
             <Grid item xs={4}>
               <CustomButtonText
-                backGround={selectedIndex === 0 ? '#E7E6E6' : '#FAF9FA'}
+                backGround={selectedIndex === 0 ? '#E7E6E6' : null}
                 onClickBtn={() => handleWalletClick(0)}>
                 Expenses
               </CustomButtonText>
             </Grid>
             <Grid item xs={4}>
               <CustomButtonText
-                backGround={selectedIndex === 1 ? '#E7E6E6' : '#FAF9FA'}
+                backGround={selectedIndex === 1 ? '#E7E6E6' : null}
                 onClickBtn={() => handleWalletClick(1)}>
                 Incomes
               </CustomButtonText>
             </Grid>
             <Grid item xs={4}>
               <CustomButtonText
-                backGround={selectedIndex === 2 ? '#E7E6E6' : '#FAF9FA'}
+                backGround={selectedIndex === 2 ? '#E7E6E6' : null}
                 onClickBtn={() => handleWalletClick(2)}>
                 Savings
               </CustomButtonText>
             </Grid>
           </Grid>
         </Grid>
-        <Grid item xs={12} sx={{mr: '16px'}}>
+        <Grid item xs={12} sx={{mb: '16px'}}>
           <Grid
             container
             spacing={0}
@@ -117,7 +116,16 @@ const AddTransaction = () => {
                 justifyContent: 'end',
                 pr: '5px',
               }}>
-              <Box sx={{opacity: '.7', textAlign: 'right', p: '6px'}}>USD</Box>
+              <Box
+                sx={{
+                  opacity: '.4',
+                  textAlign: 'right',
+                  p: '6px',
+                  fontSize: '12px',
+                  fontWeight: Fonts.BOLD,
+                }}>
+                USD
+              </Box>
               <Box>
                 <CustomBottomIcons
                   icon={
@@ -137,7 +145,7 @@ const AddTransaction = () => {
             </Grid>
           </Grid>
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} sx={{mb: '8px'}}>
           <Typography
             sx={{
               textAlign: 'left',
@@ -146,7 +154,7 @@ const AddTransaction = () => {
             Wallet
           </Typography>
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} sx={{mb: '16px'}}>
           <Grid container rowSpacing={1}>
             <Grid item xs={12}>
               <Grid container rowSpacing={1} columnSpacing={1}>
@@ -179,7 +187,7 @@ const AddTransaction = () => {
             </Grid>
           </Grid>
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} sx={{mb: '8px'}}>
           <Typography
             sx={{
               textAlign: 'left',
@@ -193,10 +201,11 @@ const AddTransaction = () => {
           xs={12}
           sx={{
             border: '2px solid #F0EFF0',
-            borderRadius: '30px',
-            m: '15px',
+            borderRadius: '20px',
+            p: '15px',
+            mb: '16px',
           }}>
-          <Grid container spacing={2}>
+          <Grid container spacing={3}>
             <Grid
               item
               xs={3}
@@ -212,7 +221,7 @@ const AddTransaction = () => {
                       color: '#333333',
                       backgroundColor: 'white',
                       borderRadius: '8px',
-                      border: '2px solid #393939',
+                      border: '3px solid #393939',
                       p: '5px',
                       fontSize: '230%',
                     }}
@@ -317,8 +326,15 @@ const AddTransaction = () => {
         </Grid>
 
         <Grid item xs={12}>
-          <Grid container spacing={1}>
-            <Grid item xs={4}>
+          <Grid
+            container
+            rowSpacing={1}
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+            <Grid item xs={4.5}>
               <CustomButtonText
                 backGround={selectedIndex2 === 0 ? '#E7E6E6' : '#FAF9FA'}
                 borderRadius={'20px'}
@@ -326,7 +342,7 @@ const AddTransaction = () => {
                 Today
               </CustomButtonText>
             </Grid>
-            <Grid item xs={4}>
+            <Grid item xs={4.5}>
               <CustomButtonText
                 backGround={selectedIndex2 === 1 ? '#E7E6E6' : '#FAF9FA'}
                 borderRadius={'20px'}
@@ -334,7 +350,7 @@ const AddTransaction = () => {
                 Yestarday
               </CustomButtonText>
             </Grid>
-            <Grid item xs={4}>
+            <Grid item xs={3}>
               <CustomBottomIcons
                 icon={
                   <ArrowDownwardRoundedIcon
@@ -344,8 +360,7 @@ const AddTransaction = () => {
                       borderRadius: '8px',
                       p: '5px',
                       fontSize: '230%',
-                      mt: '12px',
-                      border: '2px solid #B1AFB1',
+                      border: '2px solid #F2F1F2',
                     }}
                   />
                 }
@@ -353,20 +368,10 @@ const AddTransaction = () => {
             </Grid>
           </Grid>
         </Grid>
-        <Grid item xs={12} sx={{mr: '16px'}}>
-          <Button
-            type='submit'
-            fullWidth
-            variant='contained'
-            sx={{
-              mt: 3,
-              mb: 2,
-              borderRadius: '25px',
-              backgroundColor: '#343333',
-              height: '50px',
-            }}>
+        <Grid item xs={12}>
+          <CustomActionButtonComponent onClickBtn={handleTransaction}>
             ADD TRANSACTION
-          </Button>
+          </CustomActionButtonComponent>
         </Grid>
       </Grid>
     </Container>

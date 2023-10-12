@@ -1,11 +1,13 @@
 'use client';
-import {Button, Container, Grid, Typography} from '@mui/material';
+import {Container, Grid, Typography} from '@mui/material';
 import ArrowDownwardRoundedIcon from '@mui/icons-material/ArrowDownwardRounded';
-import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import React, {useState} from 'react';
 import CustomButtonText from '@/common/addTransaction/CustomButtonText';
 import CustomBudgetCard from '@/common/budget/CustomCardBudget';
 import {useRouter} from 'next/navigation';
+import CustomBackButton from '@/common/button/CustomBackButton';
+import {CustomStyles} from '@/core/enums';
+import CustomActionButtonComponent from '@/common/button/CustomActionButtonComponent';
 
 const MonthlyBudgetComponent = () => {
   const Router = useRouter();
@@ -14,47 +16,35 @@ const MonthlyBudgetComponent = () => {
     setSelectedIndex(active);
     return;
   };
-  const handleBack = () => {
-    return Router.back();
-  };
   const handleBudget = () => {
     return Router.push('/add-new-budget', {scroll: false});
   };
 
   return (
-    <Container maxWidth={'xs'}>
+    <Container
+      maxWidth={'xs'}
+      disableGutters={true}
+      sx={{
+        minHeight: '100vh',
+        backgroundColor: '#FEFEFF',
+        pt: CustomStyles.CONTAINER_TOP,
+        pl: CustomStyles.CONTAINER_LEFT,
+        pr: CustomStyles.CONTAINER_RIGHT,
+        pb: '100px',
+        position: 'relative',
+      }}>
       <Grid
         container
-        spacing={2}
+        rowSpacing={2}
         sx={{
           display: 'flex',
           flexDirection: 'column',
-          minHeight: '100vh',
-          backgroundColor: '#FEFEFF',
         }}>
-        <Grid
-          item
-          xs={12}
-          sx={{
-            display: 'flex',
-            alignItems: 'self-start',
-          }}>
-          <Button onClick={handleBack}>
-            <KeyboardBackspaceIcon
-              sx={{
-                color: '#403F40',
-                backgroundColor: '#fff',
-                borderRadius: '8px',
-                p: '2px',
-                fontSize: '200%',
-                mt: '12px',
-                border: '2px solid #EEEDEE',
-              }}
-            />
-          </Button>
+        <Grid item xs={12}>
+          <CustomBackButton />
         </Grid>
         <Grid item xs={12}>
-          <Typography sx={{fontSize: '20px', fontWeight: '700', pl: '13px'}}>
+          <Typography sx={{fontSize: '20px', fontWeight: '700'}}>
             Monthly Budget
           </Typography>
         </Grid>
@@ -66,15 +56,15 @@ const MonthlyBudgetComponent = () => {
             justifyContent: 'inherit',
             alignItems: 'end',
           }}>
-          <Typography sx={{fontSize: '28px', fontWeight: '700', pl: '13px'}}>
+          <Typography sx={{fontSize: '28px', fontWeight: '700'}}>
             $2,500
           </Typography>
           <Typography
-            sx={{fontSize: '13px', fontWeight: '700', pl: '15px', pb: '6px'}}>
+            sx={{fontSize: '13px', fontWeight: '700', pl: '12px', pb: '6px'}}>
             in 10 categories
           </Typography>
         </Grid>
-        <Grid item xs={12} sx={{mr: '16px'}}>
+        <Grid item xs={12}>
           <Grid
             container
             sx={{
@@ -99,48 +89,8 @@ const MonthlyBudgetComponent = () => {
         </Grid>
 
         <Grid item xs={12}>
-          <Grid container rowSpacing={3}>
-            <Grid item xs={12} sx={{mr: '12px'}}>
-              <CustomBudgetCard
-                title={'Burger'}
-                budgetTitle={'$200.00'}
-                icons={
-                  <ArrowDownwardRoundedIcon
-                    sx={{
-                      color: '#7F7E80',
-                      fontSize: '230%',
-                      backgroundColor: '#E8E6E9',
-                      borderRadius: '10px',
-                      p: '5px',
-                      m: '10px',
-                    }}
-                  />
-                }
-                icons2={<ArrowDownwardRoundedIcon sx={{color: '#7F7E80'}} />}
-                amount={'$1000'}
-              />
-            </Grid>
-            <Grid item xs={12} sx={{mr: '12px'}}>
-              <CustomBudgetCard
-                title={'Burger'}
-                budgetTitle={'$200.00'}
-                icons={
-                  <ArrowDownwardRoundedIcon
-                    sx={{
-                      color: '#7F7E80',
-                      fontSize: '230%',
-                      backgroundColor: '#E8E6E9',
-                      borderRadius: '10px',
-                      p: '5px',
-                      m: '10px',
-                    }}
-                  />
-                }
-                icons2={<ArrowDownwardRoundedIcon sx={{color: '#7F7E80'}} />}
-                amount={'$1000'}
-              />
-            </Grid>
-            <Grid item xs={12} sx={{mr: '12px'}}>
+          <Grid container rowSpacing={1.5}>
+            <Grid item xs={12}>
               <CustomBudgetCard
                 title={'Burger'}
                 budgetTitle={'2500.00'}
@@ -152,7 +102,7 @@ const MonthlyBudgetComponent = () => {
                       backgroundColor: '#E8E6E9',
                       borderRadius: '10px',
                       p: '5px',
-                      m: '10px',
+                      m: '10px 5px',
                     }}
                   />
                 }
@@ -160,7 +110,7 @@ const MonthlyBudgetComponent = () => {
                 amount={'$1000'}
               />
             </Grid>
-            <Grid item xs={12} sx={{mr: '12px'}}>
+            <Grid item xs={12}>
               <CustomBudgetCard
                 title={'Burger'}
                 budgetTitle={'2500.00'}
@@ -172,7 +122,7 @@ const MonthlyBudgetComponent = () => {
                       backgroundColor: '#E8E6E9',
                       borderRadius: '10px',
                       p: '5px',
-                      m: '10px',
+                      m: '10px 5px',
                     }}
                   />
                 }
@@ -180,7 +130,7 @@ const MonthlyBudgetComponent = () => {
                 amount={'$1000'}
               />
             </Grid>
-            <Grid item xs={12} sx={{mr: '12px'}}>
+            <Grid item xs={12}>
               <CustomBudgetCard
                 title={'Burger'}
                 budgetTitle={'2500.00'}
@@ -192,7 +142,7 @@ const MonthlyBudgetComponent = () => {
                       backgroundColor: '#E8E6E9',
                       borderRadius: '10px',
                       p: '5px',
-                      m: '10px',
+                      m: '10px 5px',
                     }}
                   />
                 }
@@ -200,7 +150,7 @@ const MonthlyBudgetComponent = () => {
                 amount={'$1000'}
               />
             </Grid>
-            <Grid item xs={12} sx={{mr: '12px'}}>
+            <Grid item xs={12}>
               <CustomBudgetCard
                 title={'Burger'}
                 budgetTitle={'2500.00'}
@@ -212,7 +162,7 @@ const MonthlyBudgetComponent = () => {
                       backgroundColor: '#E8E6E9',
                       borderRadius: '10px',
                       p: '5px',
-                      m: '10px',
+                      m: '10px 5px',
                     }}
                   />
                 }
@@ -220,10 +170,30 @@ const MonthlyBudgetComponent = () => {
                 amount={'$1000'}
               />
             </Grid>
-            <Grid item xs={12} sx={{mr: '12px'}}>
+            <Grid item xs={12}>
               <CustomBudgetCard
-                title={'Burger'}
-                budgetTitle={'2500.00'}
+                title={'Products'}
+                budgetTitle={'200.00'}
+                icons={
+                  <ArrowDownwardRoundedIcon
+                    sx={{
+                      color: '#7F7E80',
+                      fontSize: '230%',
+                      backgroundColor: '#E8E6E9',
+                      borderRadius: '10px',
+                      p: '6px',
+                      m: '10px 5px',
+                    }}
+                  />
+                }
+                icons2={<ArrowDownwardRoundedIcon sx={{color: '#7F7E80'}} />}
+                amount={'$1000'}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <CustomBudgetCard
+                title={'Technologies'}
+                budgetTitle={'500.00'}
                 icons={
                   <ArrowDownwardRoundedIcon
                     sx={{
@@ -232,7 +202,7 @@ const MonthlyBudgetComponent = () => {
                       backgroundColor: '#E8E6E9',
                       borderRadius: '10px',
                       p: '5px',
-                      m: '10px',
+                      m: '10px 5px',
                     }}
                   />
                 }
@@ -240,10 +210,10 @@ const MonthlyBudgetComponent = () => {
                 amount={'$1000'}
               />
             </Grid>
-            <Grid item xs={12} sx={{mr: '12px'}}>
+            <Grid item xs={12}>
               <CustomBudgetCard
-                title={'Burger'}
-                budgetTitle={'2500.00'}
+                title={'Technologies'}
+                budgetTitle={'500.00'}
                 icons={
                   <ArrowDownwardRoundedIcon
                     sx={{
@@ -252,7 +222,27 @@ const MonthlyBudgetComponent = () => {
                       backgroundColor: '#E8E6E9',
                       borderRadius: '10px',
                       p: '5px',
-                      m: '10px',
+                      m: '10px 5px',
+                    }}
+                  />
+                }
+                icons2={<ArrowDownwardRoundedIcon sx={{color: '#7F7E80'}} />}
+                amount={'$1000'}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <CustomBudgetCard
+                title={'Technologies'}
+                budgetTitle={'500.00'}
+                icons={
+                  <ArrowDownwardRoundedIcon
+                    sx={{
+                      color: '#7F7E80',
+                      fontSize: '230%',
+                      backgroundColor: '#E8E6E9',
+                      borderRadius: '10px',
+                      p: '5px',
+                      m: '10px 5px',
                     }}
                   />
                 }
@@ -262,24 +252,36 @@ const MonthlyBudgetComponent = () => {
             </Grid>
           </Grid>
         </Grid>
-        <Grid item xs={12} sx={{mr: '16px', position: 'fixed', bottom: '10px'}}>
-          <Button
-            onClick={handleBudget}
-            type='submit'
-            fullWidth
-            variant='contained'
-            sx={{
-              mt: 3,
-              mb: 2,
-              borderRadius: '25px',
-              backgroundColor: '#343333',
-              height: '50px',
-              position: 'fixed',
-              bottom: '0px',
-              width: '380px',
-            }}>
+        <Grid
+          item
+          xs={12}
+          sx={{
+            // width: '300px',
+            bottom: '10px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+          {/*<Button*/}
+          {/*  onClick={handleBudget}*/}
+          {/*  type='submit'*/}
+          {/*  fullWidth*/}
+          {/*  variant='contained'*/}
+          {/*  sx={{*/}
+          {/*    mt: 3,*/}
+          {/*    mb: 2,*/}
+          {/*    borderRadius: '25px',*/}
+          {/*    backgroundColor: '#343333',*/}
+          {/*    height: '50px',*/}
+          {/*    position: 'fixed',*/}
+          {/*    bottom: '0px',*/}
+          {/*    width: '444px',*/}
+          {/*  }}>*/}
+          {/*  CREATE NEW BUDGET*/}
+          {/*</Button>*/}
+          <CustomActionButtonComponent onClickBtn={handleBudget}>
             CREATE NEW BUDGET
-          </Button>
+          </CustomActionButtonComponent>
         </Grid>
       </Grid>
     </Container>

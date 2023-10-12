@@ -38,7 +38,7 @@ export default function typography(CustomFontFamily: string) {
     h6: {
       fontFamily: CustomFontFamily,
       fontWeight: Fonts.MEDIUM,
-      fontSize: '1.25rem',
+      fontSize: '.25rem',
     },
     subtitle1: {
       fontFamily: CustomFontFamily,

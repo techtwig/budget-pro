@@ -18,18 +18,18 @@ const CustomCardMyWallet2: FC<Props> = ({title, amount, icons}) => {
         display: 'flex',
         background: '#fff',
         borderRadius: '20px',
-        border: '1px solid #F0EEEF',
+        border: '2px solid #F0EEEF',
         justifyContent: 'space-between',
         alignItems: 'center',
+        p: '10px',
       }}>
       <Grid
         item
         xs={1.5}
         sx={{
-          height: '50px',
-          width: '50px',
-          m: '6px',
-          backgroundColor: '#EBE9ED',
+          height: '45px',
+          width: '45px',
+          backgroundColor: '#ADABAD',
           borderRadius: '14px',
           color: '#fff',
           display: 'flex',
@@ -39,7 +39,7 @@ const CustomCardMyWallet2: FC<Props> = ({title, amount, icons}) => {
         {icons}
       </Grid>
       <Grid item xs={5} sx={{pl: '10px'}}>
-        <Typography sx={{fontSize: '17px', fontWeight: '700'}}>
+        <Typography sx={{fontSize: '15px', fontWeight: '700'}}>
           {title}
         </Typography>
         <Typography
@@ -60,7 +60,6 @@ const CustomCardMyWallet2: FC<Props> = ({title, amount, icons}) => {
           display: 'flex',
           alignItems: 'end',
           justifyContent: 'right',
-          pr: '10px',
         }}>
         <Button
           sx={{color: '#000', p: '0px 0px'}}

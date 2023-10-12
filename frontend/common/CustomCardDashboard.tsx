@@ -1,6 +1,6 @@
 import {Box, Card, Typography} from '@mui/material';
-import FloodRoundedIcon from '@mui/icons-material/FloodRounded';
 import {FC} from 'react';
+
 interface Props {
   title: string;
   amount: string;
@@ -11,13 +11,13 @@ const CustomCardDashboard: FC<Props> = ({title, amount, icons}) => {
     <Card
       elevation={0}
       sx={{
+        display: 'flex',
         background: '#fff',
         height: '125px',
         flexDirection: 'column',
         borderRadius: '10px',
         width: '125px',
         float: 'left',
-        m: '10px',
       }}>
       <Box
         sx={{
