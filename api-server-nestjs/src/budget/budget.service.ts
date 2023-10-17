@@ -93,7 +93,8 @@ export class BudgetService {
 
       const budget = await this.budgetModel.findById(req.params.id);
 
-      if (!budget) throw new BadRequestException("No Budget found");
+      if (!budget) {throw new BadRequestException("No Budget found");}
+
       return await this.budgetModel.deleteOne({ _id: req.params.id });
     } catch (e) {
       throw new Error(e.message);

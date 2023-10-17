@@ -6,7 +6,7 @@ export class Category extends Document {
   @Prop()
   name: string;
 
-  @Prop({ enum: ['income', 'expense', 'budget'] })
+  @Prop({ enum: ['income', 'expense', 'budget', 'savings'] })
   type: string;
 }
 

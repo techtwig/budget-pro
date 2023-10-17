@@ -3,8 +3,8 @@ import {
   IsEmpty,
   IsNotEmpty,
   IsNumber,
-  IsString
-} from "class-validator";
+  IsString,
+} from 'class-validator';
 
 export class CreateIncomeDto {
   @IsString()
@@ -13,11 +13,11 @@ export class CreateIncomeDto {
   @IsNumber()
   income_amount: number;
 
-  @IsString()
-  income_month: string;
-
-  @IsDateString()
-  income_time: Date;
+  // @IsString()
+  // income_month: string;
+  //
+  // @IsDateString()
+  // income_time: Date;
 
   @IsEmpty()
   userId: any;

@@ -15,10 +15,15 @@ import CustomCardForStatistics from '@/common/CustomCardStatistics';
 import CustomBottomIcons from '@/common/CustomBottomIcons';
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import {timeDuration, wallets} from '@/common/ListedData';
-import {BarChart} from '@/component/BarChart';
 import {CustomStyles} from '@/core/enums';
+import {BarChartComponent} from '@/component/statisticsData/BarChart';
+import {useRouter} from 'next/navigation';
 
 const Statistics = () => {
+  const Router = useRouter();
+  const handleClick = () => {
+    Router.push('/detailed-analyses');
+  };
   return (
     <Container
       maxWidth={'xs'}
@@ -112,10 +117,11 @@ const Statistics = () => {
           </Grid>
         </Grid>
         <Grid item xs={12}>
-          <BarChart />
+          <BarChartComponent />
         </Grid>
         <Grid item xs={12} sx={{mr: '16px'}}>
           <Button
+            onClick={handleClick}
             type='submit'
             fullWidth
             variant='contained'

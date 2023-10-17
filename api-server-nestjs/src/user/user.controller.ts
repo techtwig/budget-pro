@@ -11,6 +11,7 @@ export class UserController {
   @Post('signup')
   async signUp(@Body() body: SignupDto, @Res() res: Response) {
     try {
+      console.log('here 1');
       const user = await this.userService.signup(body);
 
       user.password = undefined;

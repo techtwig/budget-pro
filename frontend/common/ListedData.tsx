@@ -22,8 +22,12 @@ export const wallets = [
     label: 'All Wallets',
   },
   {
-    title: 'card',
-    label: 'card',
+    title: 'Credit card',
+    label: ' credit card',
+  },
+  {
+    title: 'Debit card',
+    label: 'debit card',
   },
   {
     title: 'cash',
