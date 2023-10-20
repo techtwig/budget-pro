@@ -4,12 +4,24 @@ import ArrowDownwardRoundedIcon from '@mui/icons-material/ArrowDownwardRounded';
 import CustomCardMyWallet from '@/common/CustomMyWalletCart';
 import CustomCardMyWallet2 from '@/common/CustomCardMyWallet2';
 import Footer from '@/common/footer/Footer';
-import {CustomStyles} from '@/core/enums';
+import {CustomStyles} from '@/utilities/enums';
 import OtherHousesIcon from '@mui/icons-material/OtherHouses';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
+import {useEffect, useState} from 'react';
+import {useRouter} from 'next/navigation';
 
 const MyWalletComponent = () => {
+  const Router = useRouter();
+  const [selectOption, setSelectOption] = useState<number>(-1);
+  const handleClick = (index: number) => {
+    return setSelectOption(index);
+  };
+  useEffect(() => {
+    if (selectOption === 1) {
+      Router.push('/add-new-wallet');
+    }
+  }, [selectOption, Router]);
   return (
     <Container
       maxWidth={'xs'}
@@ -103,6 +115,7 @@ const MyWalletComponent = () => {
           <Grid container spacing={2}>
             <Grid item xs={6}>
               <CustomCardMyWallet
+                onClickBtn={() => handleClick(0)}
                 title={'Add a bank account'}
                 icons={
                   <AccountBalanceIcon
@@ -120,6 +133,7 @@ const MyWalletComponent = () => {
             </Grid>
             <Grid item xs={6}>
               <CustomCardMyWallet
+                onClickBtn={() => handleClick(1)}
                 title={'Create new wallet'}
                 icons={
                   <AccountBalanceWalletIcon
@@ -137,6 +151,7 @@ const MyWalletComponent = () => {
             </Grid>
             <Grid item xs={6}>
               <CustomCardMyWallet
+                onClickBtn={() => handleClick(2)}
                 title={'Connect an e-wallet'}
                 icons={
                   <AccountBalanceWalletIcon
@@ -154,6 +169,7 @@ const MyWalletComponent = () => {
             </Grid>
             <Grid item xs={6}>
               <CustomCardMyWallet
+                onClickBtn={() => handleClick(3)}
                 title={'Add a crypto wallet'}
                 icons={
                   <OtherHousesIcon

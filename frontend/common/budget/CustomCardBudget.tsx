@@ -1,7 +1,7 @@
 import {Box, Divider, Grid, Typography} from '@mui/material';
 import {FC} from 'react';
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
-import {CardBorder} from '@/core/enums';
+import {CardBorder} from '@/utilities/enums';
 
 interface Props {
   title: string;

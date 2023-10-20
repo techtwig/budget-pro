@@ -3,7 +3,7 @@ import {Button, Container, Grid, Typography} from '@mui/material';
 import Footer from '@/common/footer/Footer';
 import React from 'react';
 import CustomCardForSetting from '@/common/CustomCardForSettings';
-import {CustomStyles} from '@/core/enums';
+import {CustomStyles} from '@/utilities/enums';
 
 const Settings = () => {
   return (

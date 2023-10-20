@@ -1,25 +1,66 @@
 'use client';
-import {Container, Grid, MenuItem, TextField, Typography} from '@mui/material';
-import React from 'react';
-import {budget, currencies, wallets} from '@/common/ListedData';
+import {
+  Container,
+  FormHelperText,
+  Grid,
+  TextField,
+  Typography,
+} from '@mui/material';
+import React, {useEffect} from 'react';
 import CustomActionButtonComponent from '@/common/button/CustomActionButtonComponent';
-import {CustomStyles} from '@/core/enums';
+import {CustomStyles} from '@/utilities/enums';
 import CustomBackButton from '@/common/button/CustomBackButton';
-import {Controller, useForm} from 'react-hook-form';
-import {CustomTextInput} from '@/common/fromData/CiustomTextInput';
+import {useForm} from 'react-hook-form';
+import CustomSelectField from '@/common/input/CustomSelectField';
+import {wallets} from '@/utilities/helper';
+import * as yup from 'yup';
+import {yupResolver} from '@hookform/resolvers/yup';
+import axios from 'axios';
 
+const schema = yup.object().shape({
+  wallet_title: yup.string().required('Require wallet name'),
+  type_id: yup.number().required('Require currency type'),
+  balance: yup.number().required('Require amount'),
+});
+interface IWallet {
+  wallet_title: string;
+  type_id: number;
+  balance: number;
+}
 const AddNewWallet = () => {
   const {
     control,
+    register,
+    reset,
     handleSubmit,
-    formState: {errors},
-  } = useForm();
-  const onSubmit = (data: any) => {
-    console.log('from data', data);
+    formState: {errors, isSubmitSuccessful},
+  } = useForm<IWallet>({
+    resolver: yupResolver(schema),
+  });
+  const headers = {
+    'Content-Type': 'application/json',
+    Authorization:
+      'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MmI5ODk4MTQ1YzA4OWZjN2IyMjkzYSIsImlhdCI6MTY5NzM2MzM1OSwiZXhwIjoxNjk5OTU1MzU5fQ.qau-JdK1l7fVhzWWGiiBw_4q_UMniSrTvQB3pveztQI',
   };
-  const handleClick = () => {
-    return console.log('Add a budget page');
+
+  console.log('errors->', errors);
+  const onSubmit = (data: IWallet) => {
+    axios.post('http://localhost:5000/wallet/create', data, {headers}).then(
+      (response) => {
+        console.log(response);
+      },
+      (error) => {
+        console.log(error);
+      },
+    );
   };
+
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      reset();
+    }
+  }, [isSubmitSuccessful, reset]);
+
   return (
     <Container
       maxWidth={'xs'}
@@ -33,195 +74,88 @@ const AddNewWallet = () => {
         pb: '100px',
         position: 'relative',
       }}>
-      <Grid container rowSpacing={2}>
-        <Grid item xs={12}>
-          <CustomBackButton />
-        </Grid>
-
-        <Grid item xs={12}>
-          <Typography sx={{fontSize: '20px', fontWeight: '700'}}>
-            Add new wallet
-          </Typography>
-        </Grid>
-        <Grid item xs={12}>
-          <Typography sx={{fontSize: '16px', fontWeight: '700', pb: '3px'}}>
-            Wallet Name
-          </Typography>
-          {/*<CustomTextInput></CustomTextInput>*/}
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Grid container rowSpacing={2}>
           <Grid item xs={12}>
-            <Controller
-              control={control}
-              name='wallet_name'
-              render={({field}) => (
-                <TextField
-                  sx={{width: '100%'}}
-                  {...field}
-                  placeholder='Wallet Name'
-                  type='wallet_name'
-                  autoComplete='wallet-name'
-                  InputProps={{
-                    sx: {
-                      borderRadius: '15px',
-                      border: '2px solid #F4F2F3',
-                    },
-                  }}
-                />
-              )}
-            />
+            <CustomBackButton />
           </Grid>
 
-          {/*<TextField*/}
-          {/*  sx={{width: '100%'}}*/}
-          {/*  id='budget-name'*/}
-          {/*  placeholder='Wallet Name'*/}
-          {/*  type='wallet-name'*/}
-          {/*  autoComplete='wallet-name'*/}
-          {/*  InputProps={{*/}
-          {/*    sx: {*/}
-          {/*      borderRadius: '15px',*/}
-          {/*      border: '2px solid #F4F2F3',*/}
-          {/*    },*/}
-          {/*  }}*/}
-          {/*/>*/}
-        </Grid>
-        <Grid item xs={12}>
-          <Grid container columnSpacing={1.4}>
-            <Grid item xs={6}>
-              <Typography sx={{fontSize: '16px', fontWeight: '700', pb: '3px'}}>
-                Type
-              </Typography>
-              <Controller
-                control={control}
-                name='wallet_type'
-                render={({field}) => (
-                  <TextField
-                    {...field}
-                    sx={{width: '100%'}}
-                    id='wallet_type'
-                    select
-                    defaultValue='wallets'
-                    InputProps={{
-                      sx: {
-                        borderRadius: '15px',
-                        border: '2px solid #F4F2F3',
-                      },
-                    }}>
-                    {wallets.map((option) => (
-                      <MenuItem key={option.title} value={option.title}>
-                        {option.label}
-                      </MenuItem>
-                    ))}
-                  </TextField>
-                )}
-              />
-              {/*<TextField*/}
-              {/*  sx={{width: '100%'}}*/}
-              {/*  id='wallet'*/}
-              {/*  select*/}
-              {/*  defaultValue='wallets'*/}
-              {/*  InputProps={{*/}
-              {/*    sx: {*/}
-              {/*      borderRadius: '15px',*/}
-              {/*      border: '2px solid #F4F2F3',*/}
-              {/*    },*/}
-              {/*  }}>*/}
-              {/*  {wallets.map((option) => (*/}
-              {/*    <MenuItem key={option.title} value={option.title}>*/}
-              {/*      {option.label}*/}
-              {/*    </MenuItem>*/}
-              {/*  ))}*/}
-              {/*</TextField>*/}
-            </Grid>
-            <Grid item xs={6}>
-              <Typography sx={{fontSize: '16px', fontWeight: '700', pb: '3px'}}>
-                Budget Name
-              </Typography>
-
-              <Controller
-                control={control}
-                name='currency_type'
-                render={({field}) => (
-                  <TextField
-                    {...field}
-                    sx={{width: '100%'}}
-                    id='currency_type'
-                    select
-                    defaultValue='EUR'
-                    InputProps={{
-                      sx: {
-                        borderRadius: '15px',
-                        border: '2px solid #F4F2F3',
-                      },
-                    }}>
-                    {currencies.map((option) => (
-                      <MenuItem key={option.title} value={option.title}>
-                        {option.label}
-                      </MenuItem>
-                    ))}
-                  </TextField>
-                )}
-              />
-              {/*<TextField*/}
-              {/*  sx={{width: '100%'}}*/}
-              {/*  id='currency'*/}
-              {/*  select*/}
-              {/*  defaultValue='EUR'*/}
-              {/*  InputProps={{*/}
-              {/*    sx: {*/}
-              {/*      borderRadius: '15px',*/}
-              {/*      border: '2px solid #F4F2F3',*/}
-              {/*    },*/}
-              {/*  }}>*/}
-              {/*  {currencies.map((option) => (*/}
-              {/*    <MenuItem key={option.title} value={option.title}>*/}
-              {/*      {option.label}*/}
-              {/*    </MenuItem>*/}
-              {/*  ))}*/}
-              {/*</TextField>*/}
-            </Grid>
+          <Grid item xs={12}>
+            <Typography sx={{fontSize: '20px', fontWeight: '700'}}>
+              Add new wallet
+            </Typography>
           </Grid>
-        </Grid>
-
-        <Grid item xs={12}>
-          <Typography sx={{fontSize: '16px', fontWeight: '700', pb: '3px'}}>
-            Initial Balance
-          </Typography>
-          <Controller
-            control={control}
-            name='wallet_balance'
-            render={({field}) => (
+          {/*<Form onSubmit={handleSubmit}>*/}
+          <Grid item xs={12}>
+            <Typography sx={{fontSize: '16px', fontWeight: '700', pb: '3px'}}>
+              Wallet Name <span style={{color: 'red'}}>*</span>
+            </Typography>
+            <Grid item xs={12}>
               <TextField
-                sx={{width: '100%'}}
-                {...field}
-                placeholder='Wallet Name'
-                type='number'
-                autoComplete='wallet_balance'
+                InputLabelProps={{
+                  required: true,
+                }}
+                {...register('wallet_title')}
+                sx={{
+                  width: '100%',
+                }}
+                placeholder='Card name'
                 InputProps={{
                   sx: {
                     borderRadius: '15px',
                     border: '2px solid #F4F2F3',
                   },
                 }}
+                type='text'
               />
-            )}
-          />
-          {/*<TextField*/}
-          {/*  sx={{width: '100%'}}*/}
-          {/*  id='initial_balance'*/}
-          {/*  placeholder='Add a balace'*/}
-          {/*  InputProps={{*/}
-          {/*    sx: {*/}
-          {/*      borderRadius: '15px',*/}
-          {/*      border: '2px solid #F4F2F3',*/}
-          {/*    },*/}
-          {/*  }}></TextField>*/}
+              <FormHelperText error sx={{color: 'red'}}>
+                {errors?.wallet_title && errors.wallet_title.message}
+              </FormHelperText>
+            </Grid>
+          </Grid>
+          <Grid item xs={12}>
+            <CustomSelectField
+              errors={errors}
+              required={true}
+              label={'Type'}
+              id={'type_id'}
+              options={wallets}
+              control={control}
+            />
+            <FormHelperText sx={{color: 'red'}}>
+              {errors?.type_id && errors.type_id.message}
+            </FormHelperText>
+          </Grid>
+
+          <Grid item xs={12}>
+            <Typography sx={{fontSize: '16px', fontWeight: '700', pb: '3px'}}>
+              Initial Balance <span style={{color: 'red'}}>*</span>
+            </Typography>
+            <TextField
+              {...register('balance')}
+              sx={{
+                width: '100%',
+              }}
+              placeholder='Wallet balance'
+              InputProps={{
+                sx: {
+                  borderRadius: '15px',
+                  border: '2px solid #F4F2F3',
+                },
+              }}
+              type='number'
+            />
+            <FormHelperText error sx={{color: 'red'}}>
+              {errors?.balance && errors.balance.message}
+            </FormHelperText>
+          </Grid>
+          <Grid item xs={12} sx={{bottom: '10px', position: 'sticky'}}>
+            <CustomActionButtonComponent>
+              CREATE WALLET
+            </CustomActionButtonComponent>
+          </Grid>
         </Grid>
-        <Grid item xs={12} sx={{bottom: '10px', position: 'sticky'}}>
-          <CustomActionButtonComponent onClickBtn={handleSubmit(onSubmit)}>
-            ADD A WALLET
-          </CustomActionButtonComponent>
-        </Grid>
-      </Grid>
+      </form>
     </Container>
   );
 };

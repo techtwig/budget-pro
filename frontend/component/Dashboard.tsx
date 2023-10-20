@@ -9,7 +9,7 @@ import TurnSlightRightRoundedIcon from '@mui/icons-material/TurnSlightRightRound
 import RadarRoundedIcon from '@mui/icons-material/RadarRounded';
 import CustomHorizontalCard from '@/common/CustomHorizontalCard';
 import Footer from '@/common/footer/Footer';
-import {CustomStyles} from '@/core/enums';
+import {CustomStyles} from '@/utilities/enums';
 import {useEffect, useState} from 'react';
 import axios from 'axios';
 
@@ -66,61 +66,61 @@ const DashBoard = () => {
             </Grid>
             <Grid item xs={12} sx={{mb: '15px'}}>
               <Grid container spacing={2}>
-                {/*<Grid item xs={4}>*/}
-                {/*  <CustomCardDashboard*/}
-                {/*    title={'Monobank'}*/}
-                {/*    amount={1250}*/}
-                {/*    icons={*/}
-                {/*      <AccountBalanceIcon*/}
-                {/*        sx={{color: '#fff', fontSize: '250%'}}*/}
-                {/*      />*/}
-                {/*    }*/}
-                {/*  />*/}
-                {/*</Grid>*/}
-                {/*<Grid item xs={4}>*/}
-                {/*  <CustomCardDashboard*/}
-                {/*    title={'Monobank'}*/}
-                {/*    amount={1250}*/}
-                {/*    icons={*/}
-                {/*      <AccountBalanceIcon*/}
-                {/*        sx={{color: '#fff', fontSize: '250%'}}*/}
-                {/*      />*/}
-                {/*    }*/}
-                {/*  />*/}
-                {/*</Grid>*/}
-                {/*<Grid item xs={4}>*/}
-                {/*  <CustomCardDashboard*/}
-                {/*    title={'Monobank'}*/}
-                {/*    amount={1250}*/}
-                {/*    icons={*/}
-                {/*      <AccountBalanceIcon*/}
-                {/*        sx={{color: '#fff', fontSize: '250%'}}*/}
-                {/*      />*/}
-                {/*    }*/}
-                {/*  />*/}
-                {/*</Grid>*/}
-                {/*<Grid item xs={4}>*/}
-                {/*  <CustomCardDashboard*/}
-                {/*    title={'Monobank'}*/}
-                {/*    amount={1250}*/}
-                {/*    icons={*/}
-                {/*      <AccountBalanceIcon*/}
-                {/*        sx={{color: '#fff', fontSize: '250%'}}*/}
-                {/*      />*/}
-                {/*    }*/}
-                {/*  />*/}
-                {/*</Grid>*/}
-                {/*<Grid item xs={4}>*/}
-                {/*  <CustomCardDashboard*/}
-                {/*    title={'Monobank'}*/}
-                {/*    amount={1250}*/}
-                {/*    icons={*/}
-                {/*      <AccountBalanceIcon*/}
-                {/*        sx={{color: '#fff', fontSize: '250%'}}*/}
-                {/*      />*/}
-                {/*    }*/}
-                {/*  />*/}
-                {/*</Grid>*/}
+                <Grid item xs={4}>
+                  <CustomCardDashboard
+                    title={'Monobank'}
+                    amount={1250}
+                    icons={
+                      <AccountBalanceIcon
+                        sx={{color: '#fff', fontSize: '250%'}}
+                      />
+                    }
+                  />
+                </Grid>
+                <Grid item xs={4}>
+                  <CustomCardDashboard
+                    title={'Monobank'}
+                    amount={1250}
+                    icons={
+                      <AccountBalanceIcon
+                        sx={{color: '#fff', fontSize: '250%'}}
+                      />
+                    }
+                  />
+                </Grid>
+                <Grid item xs={4}>
+                  <CustomCardDashboard
+                    title={'Monobank'}
+                    amount={1250}
+                    icons={
+                      <AccountBalanceIcon
+                        sx={{color: '#fff', fontSize: '250%'}}
+                      />
+                    }
+                  />
+                </Grid>
+                <Grid item xs={4}>
+                  <CustomCardDashboard
+                    title={'Mono bank'}
+                    amount={1250}
+                    icons={
+                      <AccountBalanceIcon
+                        sx={{color: '#fff', fontSize: '250%'}}
+                      />
+                    }
+                  />
+                </Grid>
+                <Grid item xs={4}>
+                  <CustomCardDashboard
+                    title={'Mono bank'}
+                    amount={1250}
+                    icons={
+                      <AccountBalanceIcon
+                        sx={{color: '#fff', fontSize: '250%'}}
+                      />
+                    }
+                  />
+                </Grid>
               </Grid>
             </Grid>
           </Grid>

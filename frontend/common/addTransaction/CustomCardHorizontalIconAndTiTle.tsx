@@ -5,7 +5,7 @@ const CustomCardHorizonatlIconAndTitle = ({children, icons}: any) => {
   return (
     <>
       <Box>{icons}</Box>
-      <Box>{children}</Box>
+      <Box sx={{fontSize: '12px', fontWeight: '700'}}>{children}</Box>
     </>
   );
 };

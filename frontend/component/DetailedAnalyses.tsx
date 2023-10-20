@@ -7,15 +7,15 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import {CustomStyles} from '@/core/enums';
+import {CustomStyles} from '@/utilities/enums';
 import CustomBottomIcons from '@/common/CustomBottomIcons';
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
-import {timeDuration, wallets} from '@/common/ListedData';
 import ArrowDownwardRoundedIcon from '@mui/icons-material/ArrowDownwardRounded';
 import React from 'react';
 import CustomHorizontalCard from '@/common/CustomHorizontalCard';
 import CustomBackButton from '@/common/button/CustomBackButton';
 import PieChartComponent from '@/component/statisticsData/PieChart';
+import {timeDuration, wallets} from '@/utilities/helper';
 
 const DetailedAnalyses = () => {
   return (
@@ -81,7 +81,7 @@ const DetailedAnalyses = () => {
                   },
                 }}>
                 {wallets.map((option) => (
-                  <MenuItem key={option.title} value={option.title}>
+                  <MenuItem key={option.id} value={option.id}>
                     {option.label}
                   </MenuItem>
                 ))}
@@ -101,7 +101,7 @@ const DetailedAnalyses = () => {
                   },
                 }}>
                 {timeDuration.map((option) => (
-                  <MenuItem key={option.title} value={option.title}>
+                  <MenuItem key={option.id} value={option.id}>
                     {option.label}
                   </MenuItem>
                 ))}

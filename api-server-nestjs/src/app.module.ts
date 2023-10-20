@@ -12,6 +12,7 @@ import { CashbookModule } from './cashbook/cashbook.module';
 import { BudgetModule } from './budget/budget.module';
 import { CategoryController } from './category/category.controller';
 import { CategoryModule } from './category/category.module';
+import { WalletModule } from './wallet/wallet.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { CategoryModule } from './category/category.module';
     CashbookModule,
     BudgetModule,
     CategoryModule,
+    WalletModule,
   ],
   controllers: [AppController],
   providers: [AppService],

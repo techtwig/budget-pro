@@ -6,7 +6,7 @@ import CustomButtonText from '@/common/addTransaction/CustomButtonText';
 import CustomBudgetCard from '@/common/budget/CustomCardBudget';
 import {useRouter} from 'next/navigation';
 import CustomBackButton from '@/common/button/CustomBackButton';
-import {CustomStyles} from '@/core/enums';
+import {CustomStyles} from '@/utilities/enums';
 import CustomActionButtonComponent from '@/common/button/CustomActionButtonComponent';
 
 const MonthlyBudgetComponent = () => {

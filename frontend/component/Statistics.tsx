@@ -14,10 +14,10 @@ import React from 'react';
 import CustomCardForStatistics from '@/common/CustomCardStatistics';
 import CustomBottomIcons from '@/common/CustomBottomIcons';
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
-import {timeDuration, wallets} from '@/common/ListedData';
-import {CustomStyles} from '@/core/enums';
+import {CustomStyles} from '@/utilities/enums';
 import {BarChartComponent} from '@/component/statisticsData/BarChart';
 import {useRouter} from 'next/navigation';
+import {timeDuration, wallets} from '@/utilities/helper';
 
 const Statistics = () => {
   const Router = useRouter();
@@ -88,7 +88,7 @@ const Statistics = () => {
                   },
                 }}>
                 {wallets.map((option) => (
-                  <MenuItem key={option.title} value={option.title}>
+                  <MenuItem key={option.id} value={option.id}>
                     {option.label}
                   </MenuItem>
                 ))}
@@ -108,7 +108,7 @@ const Statistics = () => {
                   },
                 }}>
                 {timeDuration.map((option) => (
-                  <MenuItem key={option.title} value={option.title}>
+                  <MenuItem key={option.id} value={option.id}>
                     {option.label}
                   </MenuItem>
                 ))}

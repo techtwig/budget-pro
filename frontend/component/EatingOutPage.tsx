@@ -4,7 +4,7 @@ import ArrowDownwardRoundedIcon from '@mui/icons-material/ArrowDownwardRounded';
 import CustomHorizontalCard from '@/common/CustomHorizontalCard';
 import React from 'react';
 import CustomBackButton from '@/common/button/CustomBackButton';
-import {CustomStyles} from '@/core/enums';
+import {CustomStyles} from '@/utilities/enums';
 
 const EatingOutPage = () => {
   return (

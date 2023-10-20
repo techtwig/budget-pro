@@ -1,5 +1,5 @@
 import {TypographyOptions} from '@mui/material/styles/createTypography';
-import {Fonts} from '@/core/enums';
+import {Fonts} from '@/utilities/enums';
 
 export default function typography(CustomFontFamily: string) {
   const customTypography: TypographyOptions = {
