@@ -1,14 +1,11 @@
 'use client';
 import {Container, Grid, Typography} from '@mui/material';
-import React, {useEffect, useState} from 'react';
-import CustomButtonText from '@/common/addTransaction/CustomButtonText';
-import CustomActionButtonComponent from '@/common/button/CustomActionButtonComponent';
-import CustomBackButton from '@/common/button/CustomBackButton';
+import React, {useState} from 'react';
+import TabItem from '@/common/button/TabItem';
+import BackButton from '@/common/button/BackButton';
 import {CustomStyles} from '@/utilities/enums';
-import CustomExpenseForm from '@/common/customTransaction/CustomExpenseDorm';
-import {useForm} from 'react-hook-form';
-import dayjs, {Dayjs} from 'dayjs';
-import CustomIncomeForm from '@/common/customTransaction/CustomIncomeForm';
+import IncomeForm from '@/component/transaction/IncomeForm';
+import ExpenseForm from '@/component/transaction/ExpenseForm';
 
 const AddTransaction = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -17,21 +14,6 @@ const AddTransaction = () => {
     return;
   };
 
-  const {
-    handleSubmit,
-    control,
-    register,
-    reset,
-    formState: {errors, isSubmitSuccessful},
-  } = useForm();
-
-  const handleTransaction = (data: any) => {
-    data.transactionType = selectedIndex;
-    return console.log('transaction', data);
-  };
-  useEffect(() => {
-    reset();
-  }, [isSubmitSuccessful]);
   return (
     <Container
       maxWidth={'xs'}
@@ -45,70 +27,50 @@ const AddTransaction = () => {
         pb: '100px',
         position: 'relative',
       }}>
-      <form onSubmit={handleSubmit(handleTransaction)}>
-        <Grid container rowSpacing={0}>
+      <Grid container rowSpacing={0}>
+        <Grid
+          item
+          xs={12}
+          sx={{
+            display: 'flex',
+            alignItems: 'self-start',
+            mb: '16px',
+          }}>
+          <BackButton />
+        </Grid>
+        <Grid item xs={12} sx={{mb: '16px'}}>
+          <Typography sx={{fontSize: '24px', fontWeight: '700'}}>
+            Add Transaction
+          </Typography>
+        </Grid>
+        <Grid item xs={12} sx={{mb: '16px'}}>
           <Grid
-            item
-            xs={12}
+            container
             sx={{
-              display: 'flex',
-              alignItems: 'self-start',
-              mb: '16px',
+              width: '100%',
+              backgroundColor: '#FAF9FA',
+              borderRadius: '30px',
             }}>
-            <CustomBackButton />
-          </Grid>
-          <Grid item xs={12} sx={{mb: '16px'}}>
-            <Typography sx={{fontSize: '24px', fontWeight: '700'}}>
-              Add Transaction
-            </Typography>
-          </Grid>
-          <Grid item xs={12} sx={{mb: '16px'}}>
-            <Grid
-              container
-              sx={{
-                width: '100%',
-                backgroundColor: '#FAF9FA',
-                borderRadius: '30px',
-              }}>
-              <Grid item xs={6}>
-                <CustomButtonText
-                  backGround={selectedIndex === 0 ? '#E7E6E6' : null}
-                  onClickBtn={() => handleWalletClick(0)}>
-                  Expenses
-                </CustomButtonText>
-              </Grid>
-              <Grid item xs={6}>
-                <CustomButtonText
-                  backGround={selectedIndex === 1 ? '#E7E6E6' : null}
-                  onClickBtn={() => handleWalletClick(1)}>
-                  Incomes
-                </CustomButtonText>
-              </Grid>
+            <Grid item xs={6}>
+              <TabItem
+                backGround={selectedIndex === 0 ? '#E7E6E6' : null}
+                onClickBtn={() => handleWalletClick(0)}>
+                Expenses
+              </TabItem>
+            </Grid>
+            <Grid item xs={6}>
+              <TabItem
+                backGround={selectedIndex === 1 ? '#E7E6E6' : null}
+                onClickBtn={() => handleWalletClick(1)}>
+                Incomes
+              </TabItem>
             </Grid>
           </Grid>
-          {selectedIndex === 0 && (
-            <CustomExpenseForm
-              handleSubmit={handleSubmit}
-              control={control}
-              register={register}
-            />
-          )}
-
-          {selectedIndex === 1 && (
-            <CustomIncomeForm
-              handleSubmit={handleSubmit}
-              control={control}
-              register={register}
-            />
-          )}
-
-          <Grid item xs={12}>
-            <CustomActionButtonComponent>
-              ADD TRANSACTION
-            </CustomActionButtonComponent>
-          </Grid>
         </Grid>
-      </form>
+        {selectedIndex === 0 && <ExpenseForm selectedIndex={selectedIndex} />}
+
+        {selectedIndex === 1 && <IncomeForm selectedIndex={selectedIndex} />}
+      </Grid>
     </Container>
   );
 };

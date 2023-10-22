@@ -7,7 +7,7 @@ interface Props {
   amount: number;
   icons?: any;
 }
-const CustomCardDashboard: FC<Props> = ({title, amount, icons}) => {
+const DashboardCard: FC<Props> = ({title, amount}) => {
   return (
     <Card
       elevation={0}
@@ -19,6 +19,8 @@ const CustomCardDashboard: FC<Props> = ({title, amount, icons}) => {
         borderRadius: '10px',
         width: '125px',
         float: 'left',
+        marginRight: '12px',
+        mb: '7px',
       }}>
       <Box
         sx={{
@@ -54,4 +56,4 @@ const CustomCardDashboard: FC<Props> = ({title, amount, icons}) => {
     </Card>
   );
 };
-export default CustomCardDashboard;
+export default DashboardCard;

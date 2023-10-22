@@ -3,8 +3,8 @@ import {Container, Grid, MenuItem, TextField, Typography} from '@mui/material';
 import ArrowDownwardRoundedIcon from '@mui/icons-material/ArrowDownwardRounded';
 import CustomHorizontalCard from '@/common/CustomHorizontalCard';
 import React, {useState} from 'react';
-import CustomButtonText from '@/common/addTransaction/CustomButtonText';
-import CustomBackButton from '@/common/button/CustomBackButton';
+import TabItem from '@/common/button/TabItem';
+import BackButton from '@/common/button/BackButton';
 import {CustomStyles} from '@/utilities/enums';
 import {timeDuration} from '@/utilities/helper';
 
@@ -29,7 +29,7 @@ const RevolutWalletPage = () => {
       }}>
       <Grid container spacing={1}>
         <Grid item xs={12}>
-          <CustomBackButton />
+          <BackButton />
         </Grid>
 
         <Grid item xs={6} sx={{mt: '12px'}}>
@@ -71,32 +71,32 @@ const RevolutWalletPage = () => {
               backgroundColor: '#FAF9FA',
             }}>
             <Grid item xs={2.5}>
-              <CustomButtonText
+              <TabItem
                 backGround={selectedIndex === 3 ? '#E7E6E6' : '#FAF9FA'}
                 onClickBtn={() => handleWalletClick(3)}>
                 All
-              </CustomButtonText>
+              </TabItem>
             </Grid>
             <Grid item xs={3.5}>
-              <CustomButtonText
+              <TabItem
                 backGround={selectedIndex === 0 ? '#E7E6E6' : '#FAF9FA'}
                 onClickBtn={() => handleWalletClick(0)}>
                 Expenses
-              </CustomButtonText>
+              </TabItem>
             </Grid>
             <Grid item xs={3}>
-              <CustomButtonText
+              <TabItem
                 backGround={selectedIndex === 1 ? '#E7E6E6' : '#FAF9FA'}
                 onClickBtn={() => handleWalletClick(1)}>
                 Incomes
-              </CustomButtonText>
+              </TabItem>
             </Grid>
             <Grid item xs={3}>
-              <CustomButtonText
+              <TabItem
                 backGround={selectedIndex === 2 ? '#E7E6E6' : '#FAF9FA'}
                 onClickBtn={() => handleWalletClick(2)}>
                 Savings
-              </CustomButtonText>
+              </TabItem>
             </Grid>
           </Grid>
         </Grid>

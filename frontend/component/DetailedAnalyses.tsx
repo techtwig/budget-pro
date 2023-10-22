@@ -13,7 +13,7 @@ import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import ArrowDownwardRoundedIcon from '@mui/icons-material/ArrowDownwardRounded';
 import React from 'react';
 import CustomHorizontalCard from '@/common/CustomHorizontalCard';
-import CustomBackButton from '@/common/button/CustomBackButton';
+import BackButton from '@/common/button/BackButton';
 import PieChartComponent from '@/component/statisticsData/PieChart';
 import {timeDuration, wallets} from '@/utilities/helper';
 
@@ -33,7 +33,7 @@ const DetailedAnalyses = () => {
       }}>
       <Grid container rowSpacing={1}>
         <Grid item xs={12}>
-          <CustomBackButton />
+          <BackButton />
         </Grid>
         <Grid
           item

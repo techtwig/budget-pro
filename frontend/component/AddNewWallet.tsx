@@ -1,5 +1,6 @@
 'use client';
 import {
+  Alert,
   Container,
   FormHelperText,
   Grid,
@@ -7,9 +8,9 @@ import {
   Typography,
 } from '@mui/material';
 import React, {useEffect} from 'react';
-import CustomActionButtonComponent from '@/common/button/CustomActionButtonComponent';
+import SubmitButton from '@/common/button/SubmitButton';
 import {CustomStyles} from '@/utilities/enums';
-import CustomBackButton from '@/common/button/CustomBackButton';
+import BackButton from '@/common/button/BackButton';
 import {useForm} from 'react-hook-form';
 import CustomSelectField from '@/common/input/CustomSelectField';
 import {wallets} from '@/utilities/helper';
@@ -77,7 +78,7 @@ const AddNewWallet = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <Grid container rowSpacing={2}>
           <Grid item xs={12}>
-            <CustomBackButton />
+            <BackButton />
           </Grid>
 
           <Grid item xs={12}>
@@ -107,24 +108,20 @@ const AddNewWallet = () => {
                   },
                 }}
                 type='text'
+                error={!!errors.wallet_title}
+                helperText={errors.wallet_title?.message}
               />
-              <FormHelperText error sx={{color: 'red'}}>
-                {errors?.wallet_title && errors.wallet_title.message}
-              </FormHelperText>
             </Grid>
           </Grid>
           <Grid item xs={12}>
             <CustomSelectField
               errors={errors}
               required={true}
-              label={'Type'}
+              label={'Wallet Type'}
               id={'type_id'}
               options={wallets}
               control={control}
             />
-            <FormHelperText sx={{color: 'red'}}>
-              {errors?.type_id && errors.type_id.message}
-            </FormHelperText>
           </Grid>
 
           <Grid item xs={12}>
@@ -143,16 +140,13 @@ const AddNewWallet = () => {
                   border: '2px solid #F4F2F3',
                 },
               }}
-              type='number'
+              type='mixed'
+              error={!!errors.balance}
+              helperText={errors.balance?.message}
             />
-            <FormHelperText error sx={{color: 'red'}}>
-              {errors?.balance && errors.balance.message}
-            </FormHelperText>
           </Grid>
           <Grid item xs={12} sx={{bottom: '10px', position: 'sticky'}}>
-            <CustomActionButtonComponent>
-              CREATE WALLET
-            </CustomActionButtonComponent>
+            <SubmitButton>CREATE WALLET</SubmitButton>
           </Grid>
         </Grid>
       </form>

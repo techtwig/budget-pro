@@ -1,18 +1,20 @@
 'use client';
 import {
   Container,
+  FormControl,
   FormHelperText,
   Grid,
   MenuItem,
+  Select,
   TextField,
   Typography,
 } from '@mui/material';
 import React, {useEffect} from 'react';
-import CustomActionButtonComponent from '@/common/button/CustomActionButtonComponent';
+import SubmitButton from '@/common/button/SubmitButton';
 import {CustomStyles} from '@/utilities/enums';
-import CustomBackButton from '@/common/button/CustomBackButton';
+import BackButton from '@/common/button/BackButton';
 import {category, currencies, wallets} from '@/utilities/helper';
-import {useForm} from 'react-hook-form';
+import {Controller, useForm} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup';
 import CustomSelectField from '@/common/input/CustomSelectField';
 import * as yup from 'yup';
@@ -20,14 +22,19 @@ import * as yup from 'yup';
 const schema = yup.object().shape({
   budget_title: yup.string().required('Require budget name'),
   budget_amount: yup.number().required('Require amount'),
-  category_id: yup.number().required('Require a catagory'),
-  wallet_id: yup.number().required('Require wallet type'),
+  category_id: yup
+    .array(yup.number().required())
+    .required('Category is required'),
+  wallet_id: yup.number().required('Required wallet type'),
 });
-
+interface ISelect {
+  id: number;
+  label: string;
+}
 interface walletData {
   budget_title: string;
   budget_amount: number;
-  category_id: number;
+  category_id: [ISelect];
   wallet_id: number;
 }
 
@@ -38,7 +45,7 @@ const AddNewBudget = () => {
     reset,
     handleSubmit,
     formState: {errors, isSubmitSuccessful},
-  } = useForm<walletData>({
+  } = useForm<walletData | any>({
     resolver: yupResolver(schema),
   });
   useEffect(() => {
@@ -66,7 +73,7 @@ const AddNewBudget = () => {
       <form onSubmit={handleSubmit(handleClick)}>
         <Grid container rowSpacing={2}>
           <Grid item xs={12}>
-            <CustomBackButton />
+            <BackButton />
           </Grid>
 
           <Grid item xs={12}>
@@ -95,10 +102,9 @@ const AddNewBudget = () => {
                 },
               }}
               type='text'
+              error={!!errors.budget_title}
+              helperText={errors.budget_title?.message?.toString()}
             />
-            <FormHelperText error sx={{color: 'red'}}>
-              {errors?.budget_title && errors.budget_title.message}
-            </FormHelperText>
           </Grid>
           <Grid item xs={12}>
             <Typography sx={{fontSize: '16px', fontWeight: '700', pb: '3px'}}>
@@ -120,10 +126,9 @@ const AddNewBudget = () => {
                 },
               }}
               type='number'
+              error={!!errors.budget_amount}
+              helperText={errors.budget_amount?.message?.toString()}
             />
-            <FormHelperText error sx={{color: 'red'}}>
-              {errors?.budget_amount && errors.budget_amount.message}
-            </FormHelperText>
           </Grid>
 
           <Grid item xs={12}>
@@ -135,27 +140,62 @@ const AddNewBudget = () => {
               options={wallets}
               control={control}
             />
-            <FormHelperText sx={{color: 'red'}}>
-              {errors?.wallet_id && errors.wallet_id.message}
-            </FormHelperText>
           </Grid>
-          <Grid item xs={12}>
-            <CustomSelectField
-              errors={errors}
-              required={true}
-              label={'Budget Category'}
-              id={'category_id'}
-              options={category}
-              control={control}
-            />
-            <FormHelperText sx={{color: 'red'}}>
-              {errors?.category_id && errors.category_id.message}
-            </FormHelperText>
+          {/*<Grid item xs={12}>*/}
+          {/*  <CustomSelectField*/}
+          {/*    errors={errors}*/}
+          {/*    required={true}*/}
+          {/*    label={'Budget Category'}*/}
+          {/*    id={'category_id'}*/}
+          {/*    options={category}*/}
+          {/*    control={control}*/}
+          {/*  />*/}
+          {/*</Grid>*/}
+          <Grid item xs={12} sx={{mb: '16px'}}>
+            <Typography sx={{fontSize: '16px', fontWeight: '700', pb: '3px'}}>
+              Budget For <span style={{color: 'red'}}>*</span>
+            </Typography>
+            <FormControl
+              sx={{
+                width: '100%',
+              }}>
+              {/*<InputLabel id='demo-multiple-name-label'>Name</InputLabel>*/}
+              <Controller
+                control={control}
+                name={'category_id'}
+                rules={{
+                  required: true,
+                }}
+                render={({field: {onChange, value}}) => (
+                  <Select
+                    sx={{
+                      borderRadius: '15px',
+                      border: '2px solid #F4F2F3',
+                      height: '55px',
+                    }}
+                    multiple
+                    labelId='level-label'
+                    value={value || []}
+                    onChange={onChange}
+                    // displayEmpty
+                  >
+                    {category.map((option: any) => (
+                      <MenuItem key={option.id} value={option.id}>
+                        {option.label}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                )}
+              />
+              {errors.category_id && (
+                <FormHelperText sx={{color: '#D92F21'}}>
+                  <>{errors.category_id.message}</>
+                </FormHelperText>
+              )}
+            </FormControl>
           </Grid>
           <Grid item xs={12} sx={{bottom: '10px', position: 'sticky'}}>
-            <CustomActionButtonComponent>
-              ADD A BUDGET
-            </CustomActionButtonComponent>
+            <SubmitButton>ADD A BUDGET</SubmitButton>
           </Grid>
         </Grid>
       </form>

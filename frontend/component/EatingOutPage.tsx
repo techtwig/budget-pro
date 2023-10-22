@@ -3,7 +3,7 @@ import {Container, Grid, Typography} from '@mui/material';
 import ArrowDownwardRoundedIcon from '@mui/icons-material/ArrowDownwardRounded';
 import CustomHorizontalCard from '@/common/CustomHorizontalCard';
 import React from 'react';
-import CustomBackButton from '@/common/button/CustomBackButton';
+import BackButton from '@/common/button/BackButton';
 import {CustomStyles} from '@/utilities/enums';
 
 const EatingOutPage = () => {
@@ -22,7 +22,7 @@ const EatingOutPage = () => {
       }}>
       <Grid container spacing={2}>
         <Grid item xs={12}>
-          <CustomBackButton />
+          <BackButton />
         </Grid>
         <Grid item xs={12}>
           <Typography sx={{fontSize: '18px', fontWeight: '700'}}>

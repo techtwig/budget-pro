@@ -10,7 +10,7 @@ interface Props {
   budgetTitle?: string;
   icons2: any;
 }
-const CustomBudgetCard: FC<Props> = ({title, amount, icons, budgetTitle}) => {
+const BudgetCard: FC<Props> = ({title, amount, icons, budgetTitle}) => {
   return (
     <Grid container sx={{border: CardBorder.TWO_PX, borderRadius: '15px'}}>
       <Grid item xs={2} sx={{display: 'flex', alignItems: 'center'}}>
@@ -78,4 +78,4 @@ const CustomBudgetCard: FC<Props> = ({title, amount, icons, budgetTitle}) => {
     </Grid>
   );
 };
-export default CustomBudgetCard;
+export default BudgetCard;

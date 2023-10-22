@@ -26,6 +26,7 @@ const CustomSelectField = ({
   required,
   errors,
 }: ICustomSelect) => {
+  let errorObj = errors?.[id];
   return (
     <>
       <Typography sx={{fontSize: '16px', fontWeight: '700', pb: '3px'}}>
@@ -62,6 +63,11 @@ const CustomSelectField = ({
             </Select>
           )}
         />
+        {errorObj && (
+          <FormHelperText sx={{color: '#D92F21'}}>
+            {errorObj.message}
+          </FormHelperText>
+        )}
       </FormControl>
     </>
   );

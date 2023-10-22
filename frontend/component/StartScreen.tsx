@@ -8,7 +8,7 @@ import {
   Typography,
 } from '@mui/material';
 import {useRouter} from 'next/navigation';
-import CustomActionButtonComponent from '@/common/button/CustomActionButtonComponent';
+import SubmitButton from '@/common/button/SubmitButton';
 
 const StartScreen = () => {
   const Router = useRouter();
@@ -70,9 +70,7 @@ const StartScreen = () => {
             </CardContent>
           </Card>
         </Grid>
-        <CustomActionButtonComponent onClickBtn={handleRouting}>
-          START
-        </CustomActionButtonComponent>
+        <SubmitButton onClickBtn={handleRouting}>START</SubmitButton>
       </Grid>
     </Container>
   );

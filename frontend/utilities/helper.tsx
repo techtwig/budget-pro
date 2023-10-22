@@ -42,7 +42,7 @@ export const wallets = [
 export const category = [
   {
     id: 1,
-    label: 'All expenses',
+    label: 'Household',
   },
 
   {
