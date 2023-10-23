@@ -9,33 +9,37 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import SubmitButton from '@/common/button/SubmitButton';
 import {CustomStyles} from '@/utilities/enums';
 import BackButton from '@/common/button/BackButton';
-import {category, currencies, wallets} from '@/utilities/helper';
 import {Controller, useForm} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup';
-import CustomSelectField from '@/common/input/CustomSelectField';
 import * as yup from 'yup';
+import axios from 'axios';
+import {headers} from '@/utilities/helper';
 
 const schema = yup.object().shape({
   budget_title: yup.string().required('Require budget name'),
-  budget_amount: yup.number().required('Require amount'),
+  amount: yup
+    .number()
+    .transform((value) => (isNaN(value) ? undefined : value))
+    .nullable()
+    .required('Require amount'),
   category_id: yup
-    .array(yup.number().required())
+    .array(yup.string().required())
     .required('Category is required'),
-  wallet_id: yup.number().required('Required wallet type'),
+  wallet_id: yup.string().required('Required wallet type'),
 });
 interface ISelect {
-  id: number;
+  _id: string;
   label: string;
 }
 interface walletData {
   budget_title: string;
-  budget_amount: number;
+  amount: number;
   category_id: [ISelect];
-  wallet_id: number;
+  wallet_id: string;
 }
 
 const AddNewBudget = () => {
@@ -48,15 +52,37 @@ const AddNewBudget = () => {
   } = useForm<walletData | any>({
     resolver: yupResolver(schema),
   });
+  const [categories, setCategories] = useState([{}]);
+  const [wallets, setWallets] = useState([{}]);
   useEffect(() => {
     if (isSubmitSuccessful) {
       reset();
     }
   }, [isSubmitSuccessful, reset]);
-  const handleClick = (data: any) => {
+
+  useEffect(() => {
+    axios
+      .get('http://localhost:5000/category')
+      .then((response) => setCategories(response.data.data));
+
+    axios
+      .get('http://localhost:5000/wallet')
+      .then((response) => setWallets(response.data.data));
+  }, []);
+
+  console.log('wallets', wallets);
+
+  const handleSubmitData = (data: any) => {
+    axios.post('http://localhost:5000/budget/create', data, {headers}).then(
+      (response) => {
+        console.log(response);
+      },
+      (error) => {
+        console.log(error);
+      },
+    );
     console.log('from data', data);
   };
-  console.log('error', errors);
   return (
     <Container
       maxWidth={'xs'}
@@ -70,7 +96,7 @@ const AddNewBudget = () => {
         pb: '100px',
         position: 'relative',
       }}>
-      <form onSubmit={handleSubmit(handleClick)}>
+      <form onSubmit={handleSubmit(handleSubmitData)}>
         <Grid container rowSpacing={2}>
           <Grid item xs={12}>
             <BackButton />
@@ -114,7 +140,7 @@ const AddNewBudget = () => {
               InputLabelProps={{
                 required: true,
               }}
-              {...register('budget_amount', {valueAsNumber: true})}
+              {...register('amount', {valueAsNumber: true})}
               sx={{
                 width: '100%',
               }}
@@ -132,25 +158,59 @@ const AddNewBudget = () => {
           </Grid>
 
           <Grid item xs={12}>
-            <CustomSelectField
-              errors={errors}
-              required={true}
-              label={'Wallet'}
-              id={'wallet_id'}
-              options={wallets}
-              control={control}
-            />
+            {/*<CustomSelectField*/}
+            {/*  errors={errors}*/}
+            {/*  required={true}*/}
+            {/*  label={'Wallet'}*/}
+            {/*  id={'wallet_id'}*/}
+            {/*  options={wallets}*/}
+            {/*  optionId={'_id'}*/}
+            {/*  optionLabel={'wallet_title'}*/}
+            {/*  control={control}*/}
+
+            <Typography sx={{fontSize: '16px', fontWeight: '700', pb: '3px'}}>
+              Wallet<span style={{color: 'red'}}>*</span>
+            </Typography>
+
+            <FormControl
+              sx={{
+                width: '100%',
+              }}>
+              {/*<InputLabel id='demo-multiple-name-label'>Name</InputLabel>*/}
+              <Controller
+                control={control}
+                name={'wallet_id'}
+                rules={{
+                  required: true,
+                }}
+                render={({field: {onChange, value}}) => (
+                  <Select
+                    sx={{
+                      borderRadius: '15px',
+                      border: '2px solid #F4F2F3',
+                      height: '55px',
+                    }}
+                    labelId='level-label'
+                    value={value || ''}
+                    onChange={onChange}
+                    // displayEmpty
+                  >
+                    {wallets.map((option: any, index: number) => (
+                      <MenuItem key={index} value={option._id}>
+                        {option.wallet_title}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                )}
+              />
+
+              {errors.wallet_id && (
+                <FormHelperText error>
+                  <>{errors?.wallet_id?.message}</>
+                </FormHelperText>
+              )}
+            </FormControl>
           </Grid>
-          {/*<Grid item xs={12}>*/}
-          {/*  <CustomSelectField*/}
-          {/*    errors={errors}*/}
-          {/*    required={true}*/}
-          {/*    label={'Budget Category'}*/}
-          {/*    id={'category_id'}*/}
-          {/*    options={category}*/}
-          {/*    control={control}*/}
-          {/*  />*/}
-          {/*</Grid>*/}
           <Grid item xs={12} sx={{mb: '16px'}}>
             <Typography sx={{fontSize: '16px', fontWeight: '700', pb: '3px'}}>
               Budget For <span style={{color: 'red'}}>*</span>
@@ -179,8 +239,8 @@ const AddNewBudget = () => {
                     onChange={onChange}
                     // displayEmpty
                   >
-                    {category.map((option: any) => (
-                      <MenuItem key={option.id} value={option.id}>
+                    {categories.map((option: any, index) => (
+                      <MenuItem key={index} value={option._id}>
                         {option.label}
                       </MenuItem>
                     ))}

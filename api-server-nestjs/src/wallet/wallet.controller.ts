@@ -47,7 +47,7 @@ export class WalletController {
 
       res.json({
         status: 200,
-        wallets,
+        data: wallets,
       });
     } catch (e) {
       res.json({
@@ -95,7 +95,7 @@ export class WalletController {
       }
       res.json({
         status: 200,
-        wallet,
+        data: wallet,
       });
     } catch (e) {
       res.json({

@@ -1,31 +1,18 @@
-import {
-  IsDateString,
-  IsEmpty,
-  IsNotEmpty,
-  IsNumber,
-  IsString
-} from "class-validator";
+import { IsArray, IsEmpty, IsNumber, IsString } from 'class-validator';
 
 export class CreateBudgetDto {
   @IsString()
-  budget_item: string;
+  budget_title: string;
 
   @IsNumber()
-  budget_amount: number;
+  amount: number;
 
   @IsString()
-  budget_month: string;
+  wallet_id;
 
-  @IsDateString()
-  budget_time: Date;
-
-  @IsEmpty()
-  userId: any;
+  @IsArray()
+  category_id: string;
 
   @IsEmpty()
-  categoryId: string;
-
-  @IsNotEmpty()
-  @IsString()
-  category: string;
+  user_id: string;
 }

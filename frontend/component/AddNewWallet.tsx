@@ -1,19 +1,12 @@
 'use client';
-import {
-  Alert,
-  Container,
-  FormHelperText,
-  Grid,
-  TextField,
-  Typography,
-} from '@mui/material';
+import {Container, Grid, TextField, Typography} from '@mui/material';
 import React, {useEffect} from 'react';
 import SubmitButton from '@/common/button/SubmitButton';
 import {CustomStyles} from '@/utilities/enums';
 import BackButton from '@/common/button/BackButton';
 import {useForm} from 'react-hook-form';
 import CustomSelectField from '@/common/input/CustomSelectField';
-import {wallets} from '@/utilities/helper';
+import {headers, wallets} from '@/utilities/helper';
 import * as yup from 'yup';
 import {yupResolver} from '@hookform/resolvers/yup';
 import axios from 'axios';
@@ -38,11 +31,6 @@ const AddNewWallet = () => {
   } = useForm<IWallet>({
     resolver: yupResolver(schema),
   });
-  const headers = {
-    'Content-Type': 'application/json',
-    Authorization:
-      'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MmI5ODk4MTQ1YzA4OWZjN2IyMjkzYSIsImlhdCI6MTY5NzM2MzM1OSwiZXhwIjoxNjk5OTU1MzU5fQ.qau-JdK1l7fVhzWWGiiBw_4q_UMniSrTvQB3pveztQI',
-  };
 
   console.log('errors->', errors);
   const onSubmit = (data: IWallet) => {

@@ -77,3 +77,9 @@ export const timeDuration = [
     label: 'By Years',
   },
 ];
+
+export const headers = {
+  'Content-Type': 'application/json',
+  Authorization:
+    'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MmI5ODk4MTQ1YzA4OWZjN2IyMjkzYSIsImlhdCI6MTY5NzM2MzM1OSwiZXhwIjoxNjk5OTU1MzU5fQ.qau-JdK1l7fVhzWWGiiBw_4q_UMniSrTvQB3pveztQI',
+};

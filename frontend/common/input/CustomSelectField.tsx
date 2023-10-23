@@ -1,7 +1,6 @@
 import {
   FormControl,
   FormHelperText,
-  InputLabel,
   MenuItem,
   Select,
   Typography,
@@ -9,7 +8,6 @@ import {
 import {Controller} from 'react-hook-form';
 import React from 'react';
 
-import {useForm} from 'react-hook-form';
 interface ICustomSelect {
   label: string;
   id: any;
@@ -55,8 +53,8 @@ const CustomSelectField = ({
               onChange={onChange}
               // displayEmpty
             >
-              {options.map((option: any) => (
-                <MenuItem key={option.id} value={option.id}>
+              {options.map((option: any, index: number) => (
+                <MenuItem key={index} value={option.id}>
                   {option.label}
                 </MenuItem>
               ))}
