@@ -13,7 +13,7 @@ import AppleIcon from '@mui/icons-material/Apple';
 import FacebookRoundedIcon from '@mui/icons-material/FacebookRounded';
 import GoogleIcon from '@mui/icons-material/Google';
 import {useRouter} from 'next/navigation';
-import CustomActionButtonComponent from '@/common/button/CustomActionButtonComponent';
+import SubmitButton from '@/common/button/SubmitButton';
 
 const Login = () => {
   const Router = useRouter();
@@ -194,9 +194,7 @@ const Login = () => {
             </Grid>
           </Grid>
           <Grid item xs={12}>
-            <CustomActionButtonComponent onClickBtn={handleLogin}>
-              Login
-            </CustomActionButtonComponent>
+            <SubmitButton onClickBtn={handleLogin}>Login</SubmitButton>
           </Grid>
         </Grid>
       </Grid>

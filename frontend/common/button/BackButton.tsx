@@ -3,7 +3,7 @@ import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import React from 'react';
 import {useRouter} from 'next/navigation';
 
-const CustomBackButton = () => {
+const BackButton = () => {
   const Router = useRouter();
   const handleBack = () => {
     return Router.back();
@@ -34,4 +34,4 @@ const CustomBackButton = () => {
     </Button>
   );
 };
-export default CustomBackButton;
+export default BackButton;

@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Box, Container, Grid} from '@mui/material';
 import Signup from '@/component/SignUp';
 import Login from '@/component/LogIn';
-import {CustomStyles} from '@/core/enums';
+import {CustomStyles} from '@/utilities/enums';
 
 const SignupAndSignin = () => {
   const [selectedIndex, setSelectedIndex] = useState<number>(0);

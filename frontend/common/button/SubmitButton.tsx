@@ -5,7 +5,7 @@ interface IActionButton {
   children?: any;
 }
 
-const CustomActionButtonComponent = ({onClickBtn, children}: IActionButton) => {
+const SubmitButton = ({onClickBtn, children}: IActionButton) => {
   return (
     <Button
       onClick={onClickBtn}
@@ -28,4 +28,4 @@ const CustomActionButtonComponent = ({onClickBtn, children}: IActionButton) => {
     </Button>
   );
 };
-export default CustomActionButtonComponent;
+export default SubmitButton;

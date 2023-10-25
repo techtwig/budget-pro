@@ -16,7 +16,7 @@ export const options = {
   },
 };
 
-export function BarChart() {
+export function BarChartComponent() {
   return (
     <Chart
       chartType='Bar'

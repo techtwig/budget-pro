@@ -1,7 +1,7 @@
 import {Box, Card} from '@mui/material';
 import React from 'react';
 
-const CustomButtonIcon = ({children, onClickBtn, backGround, icons}: any) => {
+const TabItem = ({children, onClickBtn, backGround, icons}: any) => {
   return (
     <Card
       elevation={0}
@@ -31,4 +31,4 @@ const CustomButtonIcon = ({children, onClickBtn, backGround, icons}: any) => {
   );
 };
 
-export default CustomButtonIcon;
+export default TabItem;
