@@ -18,14 +18,21 @@ import {yupResolver} from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import axios from 'axios';
 import {headers} from '@/utilities/helper';
+import useNotiStack from '@/hooks/NotiStack';
 
 const schema = yup.object().shape({
-  budget_title: yup.string().required('Require budget name'),
+  budget_title: yup
+    .string()
+    .required('Require budget name')
+    .max(30, 'Title must be less than or equal to 30 words'),
   amount: yup
     .number()
     .transform((value) => (isNaN(value) ? undefined : value))
-    .nullable()
+    .min(100, 'minimun amount is greater than or equal to 100')
+    .max(2000000, 'maximum amount is less than or equal to 2000000')
+
     .required('Require amount'),
+
   category_id: yup
     .array(yup.string().required())
     .required('Category is required'),
@@ -43,6 +50,7 @@ interface walletData {
 }
 
 const AddNewBudget = () => {
+  const {successStack, errorStack} = useNotiStack();
   const {
     control,
     register,
@@ -71,17 +79,22 @@ const AddNewBudget = () => {
   }, []);
 
   console.log('wallets', wallets);
+  console.log('Categories', wallets);
 
   const handleSubmitData = (data: any) => {
-    axios.post('http://localhost:5000/budget/create', data, {headers}).then(
-      (response) => {
+    axios
+      .post('http://localhost:5000/budget/create', data, {headers})
+      .then(function (response) {
+        //handle success
+        successStack('Budget created successfully');
+
+        console.log('response', response);
+      })
+      .catch(function (response) {
+        errorStack('Failed to create budget');
+        //handle error
         console.log(response);
-      },
-      (error) => {
-        console.log(error);
-      },
-    );
-    console.log('from data', data);
+      });
   };
   return (
     <Container
@@ -152,8 +165,8 @@ const AddNewBudget = () => {
                 },
               }}
               type='number'
-              error={!!errors.budget_amount}
-              helperText={errors.budget_amount?.message?.toString()}
+              error={!!errors.amount}
+              helperText={errors.amount?.message?.toString()}
             />
           </Grid>
 

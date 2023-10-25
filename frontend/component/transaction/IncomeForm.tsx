@@ -8,33 +8,35 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import CustomSelectField from '@/common/input/CustomSelectField';
-import {category} from '@/utilities/helper';
+import {headers} from '@/utilities/helper';
 import {DatePicker, LocalizationProvider} from '@mui/x-date-pickers';
 import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs';
 import React, {useEffect, useState} from 'react';
-import dayjs, {Dayjs} from 'dayjs';
 import SubmitButton from '@/common/button/SubmitButton';
 import {yupResolver} from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import axios from 'axios';
+import useNotiStack from '@/hooks/NotiStack';
 
 const schema = yup.object({
-  title: yup.string().required('Title is required'),
+  title: yup
+    .string()
+    .required('Title is required')
+    .max(30, 'Title must be less than or equal to 30 words'),
   balance: yup
     .number()
     .transform((value) => (isNaN(value) ? undefined : value))
-    .nullable()
-    .required('Balance is required'),
-  wallet_id: yup.number().required('Wallet is required'),
-  category_ids: yup.array().of(
-    yup.object({
-      _id: yup.string().required('Category is required'),
-      label: yup.string().required('Category is required'),
-    }),
-  ),
+    .min(100, 'minimum amount is greater than or equal to 100')
+    .max(2000000, 'maximum amount is less than or equal to 2000000')
 
-  date: yup.date().max(new Date(), 'Date cannot be in the future'),
+    .required('Balance is required'),
+  wallet_id: yup.string().required('Wallet is required'),
+  category_ids: yup.array().of(yup.string().required('Category is required')),
+
+  date: yup
+    .date()
+    .required('Date is required')
+    .max(new Date(), 'Date should be in Past'),
 });
 interface ISelect {
   _id: string;
@@ -45,9 +47,10 @@ interface IData {
   balance: number;
   wallet_id: number;
   category_ids: [ISelect];
-  date?: any;
+  date: any;
 }
-const CustomIncomeForm = ({selectedIndex}: any) => {
+const CustomIncomeForm = () => {
+  const {successStack, errorStack} = useNotiStack();
   const {
     handleSubmit,
     control,
@@ -56,12 +59,26 @@ const CustomIncomeForm = ({selectedIndex}: any) => {
     formState: {errors, isSubmitSuccessful},
   } = useForm<IData | any>({resolver: yupResolver(schema)});
   const handleTransaction = (data: any) => {
-    data.transaction_type = selectedIndex;
-    return console.log('transaction', data);
+    // data.transaction_type = selectedIndex;
+
+    axios
+      .post('http://localhost:5000/income/create', data, {headers})
+      .then(function (response) {
+        //handle success
+        successStack('Income created successfully');
+
+        console.log('response', response);
+      })
+      .catch(function (response) {
+        errorStack('Failed to create income');
+        //handle error
+        console.log(response);
+      });
   };
 
-  const [categories, setCategories] = useState([{}]);
   const [wallets, setWallets] = useState([{}]);
+  const [categories, setCategories] = useState([{}]);
+
   useEffect(() => {
     if (isSubmitSuccessful) {
       reset();
@@ -193,7 +210,7 @@ const CustomIncomeForm = ({selectedIndex}: any) => {
           {/*<InputLabel id='demo-multiple-name-label'>Name</InputLabel>*/}
           <Controller
             control={control}
-            name={'category_id'}
+            name={'category_ids'}
             rules={{
               required: true,
             }}

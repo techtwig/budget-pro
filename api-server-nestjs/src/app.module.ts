@@ -10,7 +10,7 @@ import { CashbookModule } from './cashbook/cashbook.module';
 import { BudgetModule } from './budget/budget.module';
 import { CategoryModule } from './category/category.module';
 import { WalletModule } from './wallet/wallet.module';
-import "dotenv/config";
+import 'dotenv/config';
 
 @Module({
   imports: [

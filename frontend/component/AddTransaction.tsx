@@ -67,9 +67,9 @@ const AddTransaction = () => {
             </Grid>
           </Grid>
         </Grid>
-        {selectedIndex === 0 && <ExpenseForm selectedIndex={selectedIndex} />}
+        {selectedIndex === 0 && <ExpenseForm />}
 
-        {selectedIndex === 1 && <IncomeForm selectedIndex={selectedIndex} />}
+        {selectedIndex === 1 && <IncomeForm />}
       </Grid>
     </Container>
   );
