@@ -5,17 +5,20 @@ interface Props {
   title?: string;
   amount?: string;
   icons?: any;
+  onClickBtn?: any;
 }
-const CustomCardMyWallet: FC<Props> = ({title, icons}) => {
+const CustomCardMyWallet: FC<Props> = ({title, icons, onClickBtn}) => {
   return (
     <Paper
       elevation={0}
+      onClick={onClickBtn}
       sx={{
         background: '#fff',
         flexDirection: 'column',
         borderRadius: '20px',
         border: '2px solid #F0EEEF',
         p: '10px',
+        cursor: 'pointer',
       }}>
       <Box
         sx={{

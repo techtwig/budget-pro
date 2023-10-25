@@ -1,14 +1,87 @@
 'use client';
-import {Container, Grid, MenuItem, TextField, Typography} from '@mui/material';
-import React from 'react';
-import {budget, currencies, wallets} from '@/common/ListedData';
-import CustomActionButtonComponent from '@/common/button/CustomActionButtonComponent';
-import {CustomStyles} from '@/core/enums';
-import CustomBackButton from '@/common/button/CustomBackButton';
+import {
+  Container,
+  FormControl,
+  FormHelperText,
+  Grid,
+  MenuItem,
+  Select,
+  TextField,
+  Typography,
+} from '@mui/material';
+import React, {useEffect, useState} from 'react';
+import SubmitButton from '@/common/button/SubmitButton';
+import {CustomStyles} from '@/utilities/enums';
+import BackButton from '@/common/button/BackButton';
+import {Controller, useForm} from 'react-hook-form';
+import {yupResolver} from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import axios from 'axios';
+import {headers} from '@/utilities/helper';
+
+const schema = yup.object().shape({
+  budget_title: yup.string().required('Require budget name'),
+  amount: yup
+    .number()
+    .transform((value) => (isNaN(value) ? undefined : value))
+    .nullable()
+    .required('Require amount'),
+  category_id: yup
+    .array(yup.string().required())
+    .required('Category is required'),
+  wallet_id: yup.string().required('Required wallet type'),
+});
+interface ISelect {
+  _id: string;
+  label: string;
+}
+interface walletData {
+  budget_title: string;
+  amount: number;
+  category_id: [ISelect];
+  wallet_id: string;
+}
 
 const AddNewBudget = () => {
-  const handleClick = () => {
-    return console.log('Add a budget page');
+  const {
+    control,
+    register,
+    reset,
+    handleSubmit,
+    formState: {errors, isSubmitSuccessful},
+  } = useForm<walletData | any>({
+    resolver: yupResolver(schema),
+  });
+  const [categories, setCategories] = useState([{}]);
+  const [wallets, setWallets] = useState([{}]);
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      reset();
+    }
+  }, [isSubmitSuccessful, reset]);
+
+  useEffect(() => {
+    axios
+      .get('http://localhost:5000/category')
+      .then((response) => setCategories(response.data.data));
+
+    axios
+      .get('http://localhost:5000/wallet')
+      .then((response) => setWallets(response.data.data));
+  }, []);
+
+  console.log('wallets', wallets);
+
+  const handleSubmitData = (data: any) => {
+    axios.post('http://localhost:5000/budget/create', data, {headers}).then(
+      (response) => {
+        console.log(response);
+      },
+      (error) => {
+        console.log(error);
+      },
+    );
+    console.log('from data', data);
   };
   return (
     <Container
@@ -23,130 +96,169 @@ const AddNewBudget = () => {
         pb: '100px',
         position: 'relative',
       }}>
-      <Grid container rowSpacing={2}>
-        <Grid item xs={12}>
-          <CustomBackButton />
-        </Grid>
+      <form onSubmit={handleSubmit(handleSubmitData)}>
+        <Grid container rowSpacing={2}>
+          <Grid item xs={12}>
+            <BackButton />
+          </Grid>
 
-        <Grid item xs={12}>
-          <Typography sx={{fontSize: '20px', fontWeight: '700'}}>
-            Add new budget
-          </Typography>
-        </Grid>
+          <Grid item xs={12}>
+            <Typography sx={{fontSize: '20px', fontWeight: '700'}}>
+              Add new budget
+            </Typography>
+          </Grid>
 
-        <Grid item xs={12}>
-          <Typography sx={{fontSize: '16px', fontWeight: '700', pb: '3px'}}>
-            Budget Name
-          </Typography>
-          <TextField
-            sx={{width: '100%'}}
-            id='budget-name'
-            placeholder='Budget Name'
-            type='budget-name'
-            autoComplete='current-password'
-            InputProps={{
-              sx: {
-                borderRadius: '15px',
-                border: '2px solid #F4F2F3',
-              },
-            }}
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <Grid container columnSpacing={1.4}>
-            <Grid item xs={6}>
-              <Typography sx={{fontSize: '16px', fontWeight: '700', pb: '3px'}}>
-                Amount
-              </Typography>
-              <TextField
-                sx={{width: '100%'}}
-                id='budget-name'
-                placeholder='$0'
-                type='budget-name'
-                autoComplete='current-password'
-                InputProps={{
-                  sx: {
-                    borderRadius: '15px',
-                    border: '2px solid #F4F2F3',
-                  },
+          <Grid item xs={12}>
+            <Typography sx={{fontSize: '16px', fontWeight: '700', pb: '3px'}}>
+              Budget Name <span style={{color: 'red'}}>*</span>
+            </Typography>
+            <TextField
+              InputLabelProps={{
+                required: true,
+              }}
+              {...register('budget_title')}
+              sx={{
+                width: '100%',
+              }}
+              placeholder='Budget name'
+              InputProps={{
+                sx: {
+                  borderRadius: '15px',
+                  border: '2px solid #F4F2F3',
+                },
+              }}
+              type='text'
+              error={!!errors.budget_title}
+              helperText={errors.budget_title?.message?.toString()}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <Typography sx={{fontSize: '16px', fontWeight: '700', pb: '3px'}}>
+              Amount <span style={{color: 'red'}}>*</span>
+            </Typography>
+            <TextField
+              InputLabelProps={{
+                required: true,
+              }}
+              {...register('amount', {valueAsNumber: true})}
+              sx={{
+                width: '100%',
+              }}
+              placeholder='0'
+              InputProps={{
+                sx: {
+                  borderRadius: '15px',
+                  border: '2px solid #F4F2F3',
+                },
+              }}
+              type='number'
+              error={!!errors.budget_amount}
+              helperText={errors.budget_amount?.message?.toString()}
+            />
+          </Grid>
+
+          <Grid item xs={12}>
+            {/*<CustomSelectField*/}
+            {/*  errors={errors}*/}
+            {/*  required={true}*/}
+            {/*  label={'Wallet'}*/}
+            {/*  id={'wallet_id'}*/}
+            {/*  options={wallets}*/}
+            {/*  optionId={'_id'}*/}
+            {/*  optionLabel={'wallet_title'}*/}
+            {/*  control={control}*/}
+
+            <Typography sx={{fontSize: '16px', fontWeight: '700', pb: '3px'}}>
+              Wallet<span style={{color: 'red'}}>*</span>
+            </Typography>
+
+            <FormControl
+              sx={{
+                width: '100%',
+              }}>
+              {/*<InputLabel id='demo-multiple-name-label'>Name</InputLabel>*/}
+              <Controller
+                control={control}
+                name={'wallet_id'}
+                rules={{
+                  required: true,
                 }}
+                render={({field: {onChange, value}}) => (
+                  <Select
+                    sx={{
+                      borderRadius: '15px',
+                      border: '2px solid #F4F2F3',
+                      height: '55px',
+                    }}
+                    labelId='level-label'
+                    value={value || ''}
+                    onChange={onChange}
+                    // displayEmpty
+                  >
+                    {wallets.map((option: any, index: number) => (
+                      <MenuItem key={index} value={option._id}>
+                        {option.wallet_title}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                )}
               />
-            </Grid>
-            <Grid item xs={6}>
-              <Typography sx={{fontSize: '16px', fontWeight: '700', pb: '3px'}}>
-                Budget Name
-              </Typography>
-              <TextField
-                sx={{width: '100%'}}
-                id='currency'
-                select
-                defaultValue='EUR'
-                InputProps={{
-                  sx: {
-                    borderRadius: '15px',
-                    border: '2px solid #F4F2F3',
-                  },
-                }}>
-                {currencies.map((option) => (
-                  <MenuItem key={option.title} value={option.title}>
-                    {option.label}
-                  </MenuItem>
-                ))}
-              </TextField>
-            </Grid>
+
+              {errors.wallet_id && (
+                <FormHelperText error>
+                  <>{errors?.wallet_id?.message}</>
+                </FormHelperText>
+              )}
+            </FormControl>
+          </Grid>
+          <Grid item xs={12} sx={{mb: '16px'}}>
+            <Typography sx={{fontSize: '16px', fontWeight: '700', pb: '3px'}}>
+              Budget For <span style={{color: 'red'}}>*</span>
+            </Typography>
+            <FormControl
+              sx={{
+                width: '100%',
+              }}>
+              {/*<InputLabel id='demo-multiple-name-label'>Name</InputLabel>*/}
+              <Controller
+                control={control}
+                name={'category_id'}
+                rules={{
+                  required: true,
+                }}
+                render={({field: {onChange, value}}) => (
+                  <Select
+                    sx={{
+                      borderRadius: '15px',
+                      border: '2px solid #F4F2F3',
+                      height: '55px',
+                    }}
+                    multiple
+                    labelId='level-label'
+                    value={value || []}
+                    onChange={onChange}
+                    // displayEmpty
+                  >
+                    {categories.map((option: any, index) => (
+                      <MenuItem key={index} value={option._id}>
+                        {option.label}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                )}
+              />
+              {errors.category_id && (
+                <FormHelperText sx={{color: '#D92F21'}}>
+                  <>{errors.category_id.message}</>
+                </FormHelperText>
+              )}
+            </FormControl>
+          </Grid>
+          <Grid item xs={12} sx={{bottom: '10px', position: 'sticky'}}>
+            <SubmitButton>ADD A BUDGET</SubmitButton>
           </Grid>
         </Grid>
-
-        <Grid item xs={12}>
-          <Typography sx={{fontSize: '16px', fontWeight: '700', pb: '3px'}}>
-            Budget Name
-          </Typography>
-          <TextField
-            sx={{width: '100%'}}
-            id='currency'
-            select
-            defaultValue='wallets'
-            InputProps={{
-              sx: {
-                borderRadius: '15px',
-                border: '2px solid #F4F2F3',
-              },
-            }}>
-            {wallets.map((option) => (
-              <MenuItem key={option.title} value={option.title}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </TextField>
-        </Grid>
-        <Grid item xs={12}>
-          <Typography sx={{fontSize: '16px', fontWeight: '700', pb: '3px'}}>
-            Budget Name
-          </Typography>
-          <TextField
-            sx={{width: '100%'}}
-            id='currency'
-            select
-            defaultValue='expenses'
-            InputProps={{
-              sx: {
-                borderRadius: '15px',
-                border: '2px solid #F4F2F3',
-              },
-            }}>
-            {budget.map((option) => (
-              <MenuItem key={option.title} value={option.title}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </TextField>
-        </Grid>
-        <Grid item xs={12} sx={{bottom: '10px', position: 'sticky'}}>
-          <CustomActionButtonComponent onClickBtn={handleClick}>
-            ADD A BUDGET
-          </CustomActionButtonComponent>
-        </Grid>
-      </Grid>
+      </form>
     </Container>
   );
 };

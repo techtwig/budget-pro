@@ -13,7 +13,7 @@ import {Visibility, VisibilityOff} from '@mui/icons-material';
 import AppleIcon from '@mui/icons-material/Apple';
 import FacebookRoundedIcon from '@mui/icons-material/FacebookRounded';
 import GoogleIcon from '@mui/icons-material/Google';
-import CustomActionButtonComponent from '@/common/button/CustomActionButtonComponent';
+import SubmitButton from '@/common/button/SubmitButton';
 
 const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -193,9 +193,7 @@ const Signup = () => {
             </Grid>
           </Grid>
           <Grid item xs={12}>
-            <CustomActionButtonComponent>
-              Create Account
-            </CustomActionButtonComponent>
+            <SubmitButton>Create Account</SubmitButton>
           </Grid>
         </Grid>
       </Grid>

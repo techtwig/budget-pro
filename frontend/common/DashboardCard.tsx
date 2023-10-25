@@ -1,12 +1,13 @@
 import {Box, Card, Typography} from '@mui/material';
 import {FC} from 'react';
+import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 
 interface Props {
   title: string;
-  amount: string;
+  amount: number;
   icons?: any;
 }
-const CustomCardDashboard: FC<Props> = ({title, amount, icons}) => {
+const DashboardCard: FC<Props> = ({title, amount}) => {
   return (
     <Card
       elevation={0}
@@ -18,6 +19,8 @@ const CustomCardDashboard: FC<Props> = ({title, amount, icons}) => {
         borderRadius: '10px',
         width: '125px',
         float: 'left',
+        marginRight: '12px',
+        mb: '7px',
       }}>
       <Box
         sx={{
@@ -32,7 +35,8 @@ const CustomCardDashboard: FC<Props> = ({title, amount, icons}) => {
           alignItems: 'center',
           justifyContent: 'center',
         }}>
-        {icons}
+        {/*{icons}*/}
+        <AccountBalanceIcon sx={{color: '#fff', fontSize: '250%'}} />
       </Box>
       <Box>
         <Typography
@@ -52,4 +56,4 @@ const CustomCardDashboard: FC<Props> = ({title, amount, icons}) => {
     </Card>
   );
 };
-export default CustomCardDashboard;
+export default DashboardCard;

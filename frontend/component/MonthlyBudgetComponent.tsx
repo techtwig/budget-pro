@@ -2,12 +2,12 @@
 import {Container, Grid, Typography} from '@mui/material';
 import ArrowDownwardRoundedIcon from '@mui/icons-material/ArrowDownwardRounded';
 import React, {useState} from 'react';
-import CustomButtonText from '@/common/addTransaction/CustomButtonText';
-import CustomBudgetCard from '@/common/budget/CustomCardBudget';
+import TabItem from '@/common/button/TabItem';
+import BudgetCard from '@/common/budget/BudgetCard';
 import {useRouter} from 'next/navigation';
-import CustomBackButton from '@/common/button/CustomBackButton';
-import {CustomStyles} from '@/core/enums';
-import CustomActionButtonComponent from '@/common/button/CustomActionButtonComponent';
+import BackButton from '@/common/button/BackButton';
+import {CustomStyles} from '@/utilities/enums';
+import SubmitButton from '@/common/button/SubmitButton';
 
 const MonthlyBudgetComponent = () => {
   const Router = useRouter();
@@ -41,7 +41,7 @@ const MonthlyBudgetComponent = () => {
           flexDirection: 'column',
         }}>
         <Grid item xs={12}>
-          <CustomBackButton />
+          <BackButton />
         </Grid>
         <Grid item xs={12}>
           <Typography sx={{fontSize: '20px', fontWeight: '700'}}>
@@ -72,18 +72,18 @@ const MonthlyBudgetComponent = () => {
               backgroundColor: '#FAF9FA',
             }}>
             <Grid item xs={6}>
-              <CustomButtonText
+              <TabItem
                 backGround={selectedIndex === 0 ? '#E7E6E6' : '#FAF9FA'}
                 onClickBtn={() => handleWalletClick(0)}>
                 Expenses
-              </CustomButtonText>
+              </TabItem>
             </Grid>
             <Grid item xs={6}>
-              <CustomButtonText
+              <TabItem
                 backGround={selectedIndex === 1 ? '#E7E6E6' : '#FAF9FA'}
                 onClickBtn={() => handleWalletClick(1)}>
                 Savings
-              </CustomButtonText>
+              </TabItem>
             </Grid>
           </Grid>
         </Grid>
@@ -91,7 +91,7 @@ const MonthlyBudgetComponent = () => {
         <Grid item xs={12}>
           <Grid container rowSpacing={1.5}>
             <Grid item xs={12}>
-              <CustomBudgetCard
+              <BudgetCard
                 title={'Burger'}
                 budgetTitle={'2500.00'}
                 icons={
@@ -111,7 +111,7 @@ const MonthlyBudgetComponent = () => {
               />
             </Grid>
             <Grid item xs={12}>
-              <CustomBudgetCard
+              <BudgetCard
                 title={'Burger'}
                 budgetTitle={'2500.00'}
                 icons={
@@ -131,7 +131,7 @@ const MonthlyBudgetComponent = () => {
               />
             </Grid>
             <Grid item xs={12}>
-              <CustomBudgetCard
+              <BudgetCard
                 title={'Burger'}
                 budgetTitle={'2500.00'}
                 icons={
@@ -151,7 +151,7 @@ const MonthlyBudgetComponent = () => {
               />
             </Grid>
             <Grid item xs={12}>
-              <CustomBudgetCard
+              <BudgetCard
                 title={'Burger'}
                 budgetTitle={'2500.00'}
                 icons={
@@ -171,7 +171,7 @@ const MonthlyBudgetComponent = () => {
               />
             </Grid>
             <Grid item xs={12}>
-              <CustomBudgetCard
+              <BudgetCard
                 title={'Products'}
                 budgetTitle={'200.00'}
                 icons={
@@ -191,7 +191,7 @@ const MonthlyBudgetComponent = () => {
               />
             </Grid>
             <Grid item xs={12}>
-              <CustomBudgetCard
+              <BudgetCard
                 title={'Technologies'}
                 budgetTitle={'500.00'}
                 icons={
@@ -211,7 +211,7 @@ const MonthlyBudgetComponent = () => {
               />
             </Grid>
             <Grid item xs={12}>
-              <CustomBudgetCard
+              <BudgetCard
                 title={'Technologies'}
                 budgetTitle={'500.00'}
                 icons={
@@ -231,7 +231,7 @@ const MonthlyBudgetComponent = () => {
               />
             </Grid>
             <Grid item xs={12}>
-              <CustomBudgetCard
+              <BudgetCard
                 title={'Technologies'}
                 budgetTitle={'500.00'}
                 icons={
@@ -279,9 +279,9 @@ const MonthlyBudgetComponent = () => {
           {/*  }}>*/}
           {/*  CREATE NEW BUDGET*/}
           {/*</Button>*/}
-          <CustomActionButtonComponent onClickBtn={handleBudget}>
+          <SubmitButton onClickBtn={handleBudget}>
             CREATE NEW BUDGET
-          </CustomActionButtonComponent>
+          </SubmitButton>
         </Grid>
       </Grid>
     </Container>

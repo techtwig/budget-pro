@@ -1,14 +1,15 @@
-import {MiddlewareConsumer, Module, NestModule} from "@nestjs/common";
-import {MongooseModule} from "@nestjs/mongoose";
-import {AppController} from "./app.controller";
-import {AppService} from "./app.service";
-import {BudgetModule} from "./budget/budget.module";
-import {CashbookModule} from "./cashbook/cashbook.module";
-import {CategoryModule} from "./category/category.module";
-import {ExpenseModule} from "./expense/expense.module";
-import {IncomeModule} from "./income/income.module";
-import {AuthMiddleware} from "./middleware/Auth.middleware";
-import {UserModule} from "./user/user.module";
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
+import { MongooseModule } from '@nestjs/mongoose';
+import { UserModule } from './user/user.module';
+import { AuthMiddleware } from './middleware/Auth.middleware';
+import { IncomeModule } from './income/income.module';
+import { ExpenseModule } from './expense/expense.module';
+import { CashbookModule } from './cashbook/cashbook.module';
+import { BudgetModule } from './budget/budget.module';
+import { CategoryModule } from './category/category.module';
+import { WalletModule } from './wallet/wallet.module';
 import "dotenv/config";
 
 @Module({
@@ -19,14 +20,16 @@ import "dotenv/config";
     ExpenseModule,
     CashbookModule,
     BudgetModule,
-    CategoryModule
-
+    CategoryModule,
+    WalletModule,
   ],
   controllers: [AppController],
-  providers: [AppService]
+  providers: [AppService],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(AuthMiddleware).forRoutes("income/*", "cashbook", "expense/*", "budget/*");
+    consumer
+      .apply(AuthMiddleware)
+      .forRoutes('income/*', 'cashbook', 'expense/*', 'budget/*');
   }
 }

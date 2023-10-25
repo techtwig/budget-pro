@@ -1,60 +1,58 @@
-import { InjectModel } from "@nestjs/mongoose";
-import { Income } from "./income.schema";
-import { Model, Types } from "mongoose";
-import { Injectable, UnauthorizedException } from "@nestjs/common";
+import { InjectModel } from '@nestjs/mongoose';
+import { Income } from './income.schema';
+import { Model, Types } from 'mongoose';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 
-import { CreateIncomeDto } from "./dtos/create-income.dto";
-import { CustomRequest } from "../middleware/Auth.middleware";
-import { Cashbook } from "../cashbook/cashbook.schema";
-import { Category } from "../category/category.schema";
+import { CreateIncomeDto } from './dtos/create-income.dto';
+import { CustomRequest } from '../middleware/Auth.middleware';
+import { Cashbook } from '../cashbook/cashbook.schema';
+import { Category } from '../category/category.schema';
 
 @Injectable()
 export class IncomeService {
   constructor(
     @InjectModel(Income.name) private incomeModel: Model<Income>,
     @InjectModel(Cashbook.name) private cashbookModel: Model<Cashbook>,
-    @InjectModel(Category.name) private categoryModel: Model<Category>
-  ) {
-  }
+    @InjectModel(Category.name) private categoryModel: Model<Category>,
+  ) {}
 
   async createIncome(
     req: CustomRequest,
-    body: CreateIncomeDto
+    body: CreateIncomeDto,
   ): Promise<Income> {
     try {
       const userId = new Types.ObjectId(req.userId);
-      body.userId = userId;
+      body.user_id = '3';
       //
-      const categoryName = body.category;
-      const category = await this.categoryModel.create({
-        name: categoryName,
-        type: "income"
-      });
+      // const categoryName = body.category;
+      // const category = await this.categoryModel.create({
+      //   name: categoryName,
+      //   type: "income"
+      // });
 
-      body.categoryId = category._id;
+      // body.categoryId = category._id;
 
-
-      const incomeDocument = await this.incomeModel.create(body);
+      return await this.incomeModel.create(body);
 
       //
-      const lastCashbook = await this.cashbookModel.findOne(
-        { userId },
-        {},
-        { sort: { _id: -1 } }
-      );
-      //
-      let currentBalance = 0;
-      if (lastCashbook)
-        currentBalance = lastCashbook.currentBalance + body.income_amount;
-      else currentBalance = body.income_amount;
-      //
-      await this.cashbookModel.create({
-        userId,
-        incomeId: incomeDocument._id,
-        currentBalance
-      });
+      // const lastCashbook = await this.cashbookModel.findOne(
+      //   { userId },
+      //   {},
+      //   { sort: { _id: -1 } }
+      // );
+      // //
+      // let currentBalance = 0;
+      // if (lastCashbook)
+      //   currentBalance = lastCashbook.currentBalance + body.income_amount;
+      // else currentBalance = body.income_amount;
+      // //
+      // await this.cashbookModel.create({
+      //   userId,
+      //   incomeId: incomeDocument._id,
+      //   currentBalance
+      // });
 
-      return incomeDocument;
+      // return incomeDocument;
     } catch (e) {
       throw new Error(e.message);
     }
@@ -74,8 +72,6 @@ export class IncomeService {
 
       const userId = new Types.ObjectId(req.userId);
       return await this.incomeModel.find({ income_month: month, userId });
-
-
     } catch (e) {
       throw new Error(e.message);
     }
@@ -84,32 +80,31 @@ export class IncomeService {
   async getIncomeById(req) {
     try {
       return await this.incomeModel.findOne({ _id: req.params.id });
-
     } catch (e) {
       throw new Error(e.message);
     }
-
   }
 
   async updateIncome(req, body) {
     try {
-      return await this.incomeModel.findByIdAndUpdate(req.params.id, body,
-        {
-          new: true
-        });
+      return await this.incomeModel.findByIdAndUpdate(req.params.id, body, {
+        new: true,
+      });
     } catch (e) {
       console.log(e.message);
       throw new Error(e.message);
     }
-
   }
 
   async deleteIncome(req) {
     try {
-
       const income = await this.incomeModel.findById(req.params.id);
       const userId = new Types.ObjectId(req.userId);
-      const lastCashbook = await this.cashbookModel.findOne({ userId }, {}, { sort: { _id: -1 } });
+      const lastCashbook = await this.cashbookModel.findOne(
+        { userId },
+        {},
+        { sort: { _id: -1 } },
+      );
 
       if (!lastCashbook.incomeId.equals((income as any)._id)) {
         throw new UnauthorizedException("You can't delete this income");
@@ -122,5 +117,4 @@ export class IncomeService {
       throw new Error(e.message);
     }
   }
-
 }

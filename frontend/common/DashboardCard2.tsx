@@ -6,7 +6,7 @@ interface Props {
   amount: string;
   icons?: any;
 }
-const CustomCardDashboard: FC<Props> = ({title, amount, icons}) => {
+const DashboardCard2: FC<Props> = ({title, amount, icons}) => {
   return (
     <Paper
       elevation={0}
@@ -49,4 +49,4 @@ const CustomCardDashboard: FC<Props> = ({title, amount, icons}) => {
     </Paper>
   );
 };
-export default CustomCardDashboard;
+export default DashboardCard2;
