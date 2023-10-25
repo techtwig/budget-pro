@@ -9,12 +9,7 @@ export class CategoryController {
   @Get()
   async getAllCategory(@Req() req: CustomRequest, @Res() res: Response) {
     try {
-      const category = await this.categoryService.getAllCategory();
-
-      res.json({
-        status: 200,
-        data: category,
-      });
+      return await this.categoryService.getAllCategory();
     } catch (e) {
       res.json({
         status: 500,

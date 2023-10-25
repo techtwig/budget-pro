@@ -1,4 +1,5 @@
 import {
+  IsArray,
   IsDateString,
   IsEmpty,
   IsNotEmpty,
@@ -8,24 +9,20 @@ import {
 
 export class CreateIncomeDto {
   @IsString()
-  income_source: string;
+  title: string;
 
   @IsNumber()
-  income_amount: number;
+  balance: number;
 
-  // @IsString()
-  // income_month: string;
-  //
-  // @IsDateString()
-  // income_time: Date;
-
-  @IsEmpty()
-  userId: any;
-
-  @IsEmpty()
-  categoryId: string;
-
-  @IsNotEmpty()
   @IsString()
-  category: string;
+  wallet_id: string;
+
+  @IsArray()
+  category_ids: string[];
+
+  @IsDateString()
+  date: string;
+
+  @IsEmpty()
+  user_id: string;
 }
