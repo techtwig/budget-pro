@@ -12,7 +12,7 @@ export class Wallet extends Document {
   @Prop()
   balance: number;
 
-  @Prop()
+  @Prop({ type: Types.ObjectId, ref: 'User' })
   user_id: Types.ObjectId;
 }
 

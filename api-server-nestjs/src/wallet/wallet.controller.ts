@@ -41,19 +41,11 @@ export class WalletController {
   }
 
   @Get()
-  async getAllBudget(@Req() req: CustomRequest, @Res() res: Response) {
+  async getAllWallet(@Req() req: CustomRequest) {
     try {
-      const wallets = await this.walletService.getAllWallets();
-
-      res.json({
-        status: 200,
-        data: wallets,
-      });
+      return await this.walletService.getAllWallets();
     } catch (e) {
-      res.json({
-        status: 500,
-        message: e.message,
-      });
+      throw e;
     }
   }
 

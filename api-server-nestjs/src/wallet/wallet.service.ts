@@ -1,11 +1,12 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model, Types } from 'mongoose';
+import { Model } from 'mongoose';
 import { CustomRequest } from '../middleware/Auth.middleware';
 import { CreateWalletDto } from './dtos/create-wallet.dto';
 import { UpdateWalletDto } from './dtos/update-wallet.dto';
 import { Wallet } from './wallet.schema';
 import { Response } from 'express';
+
 @Injectable()
 export class WalletService {
   constructor(@InjectModel(Wallet.name) private walletModel: Model<Wallet>) {}
@@ -16,7 +17,7 @@ export class WalletService {
     body: CreateWalletDto,
   ): Promise<Wallet> {
     try {
-      return await this.walletModel.create({ ...body, user_id: 1 });
+      return await this.walletModel.create({ ...body, user_id: '3' });
     } catch (e) {
       throw new Error(e.message);
     }
@@ -24,7 +25,8 @@ export class WalletService {
 
   async getAllWallets() {
     try {
-      return await this.walletModel.find({});
+      const wallets = await this.walletModel.find();
+      return { data: wallets, status: HttpStatus.OK };
     } catch (e) {
       throw new Error(e.message);
     }
