@@ -13,7 +13,10 @@ export class Budget extends Document {
   wallet_id: Types.ObjectId;
 
   @Prop({ type: Types.ObjectId, ref: 'Category' })
-  category_id: Types.ObjectId;
+  category_ids: Types.ObjectId;
+
+  @Prop()
+  date: string;
 
   @Prop()
   user_id: string;
