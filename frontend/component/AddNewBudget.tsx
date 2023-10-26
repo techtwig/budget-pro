@@ -1,14 +1,10 @@
 'use client';
-import {
-  Container,
-  FormControl,
-  FormHelperText,
-  Grid,
-  MenuItem,
-  Select,
-  TextField,
-  Typography,
-} from '@mui/material';
+import {Container, FormControl, FormHelperText} from '@mui/material';
+import Typography from '@mui/material/Typography';
+import TextField from '@mui/material/TextField';
+import Grid from '@mui/material/Grid';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 import React, {useEffect, useState} from 'react';
 import SubmitButton from '@/common/button/SubmitButton';
 import {CustomStyles} from '@/utilities/enums';
@@ -17,7 +13,7 @@ import {Controller, useForm} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import axios from 'axios';
-import {headers} from '@/utilities/helper';
+import {headers, months} from '@/utilities/helper';
 import useNotiStack from '@/hooks/NotiStack';
 
 const schema = yup.object().shape({
@@ -33,10 +29,11 @@ const schema = yup.object().shape({
 
     .required('Require amount'),
 
-  category_id: yup
+  category_ids: yup
     .array(yup.string().required())
     .required('Category is required'),
   wallet_id: yup.string().required('Required wallet type'),
+  month: yup.date().required('Date of Birth is required'),
 });
 interface ISelect {
   _id: string;
@@ -45,9 +42,25 @@ interface ISelect {
 interface walletData {
   budget_title: string;
   amount: number;
-  category_id: [ISelect];
+  category_ids: [ISelect];
   wallet_id: string;
+  month: any;
 }
+function formatDate(date: any) {
+  var d = new Date(date),
+    month = '' + (d.getMonth() + 1),
+    day = '' + d.getDate(),
+    year = d.getFullYear();
+
+  if (month.length < 2) month = '0' + month;
+  if (day.length < 2) day = '0' + day;
+
+  return [year, month, day].join('-');
+}
+
+const date = new Date();
+let year = date.getFullYear();
+let day = 1;
 
 const AddNewBudget = () => {
   const {successStack, errorStack} = useNotiStack();
@@ -60,6 +73,7 @@ const AddNewBudget = () => {
   } = useForm<walletData | any>({
     resolver: yupResolver(schema),
   });
+
   const [categories, setCategories] = useState([{}]);
   const [wallets, setWallets] = useState([{}]);
   useEffect(() => {
@@ -77,9 +91,6 @@ const AddNewBudget = () => {
       .get('http://localhost:5000/wallet')
       .then((response) => setWallets(response.data.data));
   }, []);
-
-  console.log('wallets', wallets);
-  console.log('Categories', wallets);
 
   const handleSubmitData = (data: any) => {
     axios
@@ -224,6 +235,53 @@ const AddNewBudget = () => {
               )}
             </FormControl>
           </Grid>
+
+          <Grid item xs={12}>
+            <Typography sx={{fontSize: '16px', fontWeight: '700', pb: '3px'}}>
+              Budget month<span style={{color: 'red'}}>*</span>
+            </Typography>
+
+            <FormControl
+              sx={{
+                width: '100%',
+              }}>
+              {/*<InputLabel id='demo-multiple-name-label'>Name</InputLabel>*/}
+              <Controller
+                control={control}
+                name={'month'}
+                rules={{
+                  required: true,
+                }}
+                render={({field: {onChange, value}}) => (
+                  <Select
+                    sx={{
+                      borderRadius: '15px',
+                      border: '2px solid #F4F2F3',
+                      height: '55px',
+                    }}
+                    labelId='level-label'
+                    value={value || ''}
+                    onChange={onChange}
+                    // displayEmpty
+                  >
+                    {months.map((option: any, index: number) => (
+                      <MenuItem
+                        key={index}
+                        value={formatDate(new Date(year, option.id, day))}>
+                        {option.label}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                )}
+              />
+
+              {errors.month && (
+                <FormHelperText error>
+                  <>{errors?.month?.message}</>
+                </FormHelperText>
+              )}
+            </FormControl>
+          </Grid>
           <Grid item xs={12} sx={{mb: '16px'}}>
             <Typography sx={{fontSize: '16px', fontWeight: '700', pb: '3px'}}>
               Budget For <span style={{color: 'red'}}>*</span>
@@ -235,7 +293,7 @@ const AddNewBudget = () => {
               {/*<InputLabel id='demo-multiple-name-label'>Name</InputLabel>*/}
               <Controller
                 control={control}
-                name={'category_id'}
+                name={'category_ids'}
                 rules={{
                   required: true,
                 }}
@@ -260,9 +318,9 @@ const AddNewBudget = () => {
                   </Select>
                 )}
               />
-              {errors.category_id && (
+              {errors.category_ids && (
                 <FormHelperText sx={{color: '#D92F21'}}>
-                  <>{errors.category_id.message}</>
+                  <>{errors.category_ids.message}</>
                 </FormHelperText>
               )}
             </FormControl>
