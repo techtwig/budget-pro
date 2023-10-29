@@ -1,31 +1,27 @@
 import {
+  IsArray,
   IsDateString,
   IsEmpty,
-  IsNotEmpty,
   IsNumber,
-  IsString
-} from "class-validator";
+  IsString,
+} from 'class-validator';
 
 export class CreateExpenseDto {
   @IsString()
-  expenseItem: string;
+  title: string;
 
   @IsNumber()
-  expenseAmount: number;
+  balance: number;
 
   @IsString()
-  expenseMonth: string;
+  wallet_id: string;
+
+  @IsArray()
+  category_ids: string[];
 
   @IsDateString()
-  expenseTime: Date;
+  date: string;
 
   @IsEmpty()
-  userId: any;
-
-  @IsEmpty()
-  categoryId: string;
-
-  @IsNotEmpty()
-  @IsString()
-  category: string;
+  user_id: string;
 }

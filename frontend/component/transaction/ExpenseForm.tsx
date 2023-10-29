@@ -62,7 +62,7 @@ const CustomIncomeForm = () => {
     // data.transaction_type = selectedIndex;
 
     axios
-      .post('http://localhost:5000/income/create', data, {headers})
+      .post('http://localhost:5000/expense/create', data, {headers})
       .then(function (response) {
         //handle success
         successStack('Expense created successfully');

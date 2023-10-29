@@ -1,31 +1,25 @@
-import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { Document, Types } from "mongoose";
-
-import * as moment from "moment";
-
-
-const month = moment().format("MMMM");
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Document, Types } from 'mongoose';
 
 @Schema({ timestamps: true })
 export class Expense extends Document {
   @Prop()
-  expenseItem: string;
+  title: string;
 
   @Prop()
-  expenseAmount: number;
+  balance: number;
 
+  @Prop({ type: Types.ObjectId, ref: 'Wallet' })
+  wallet_id: Types.ObjectId;
 
-  @Prop({ type: String, default: month })
-  expenseMonth: string;
+  @Prop({ type: Types.ObjectId, ref: 'Category' })
+  category_ids: Types.ObjectId;
 
-  @Prop({ type: Date, default: Date.now() })
-  expenseTime: Date;
+  @Prop({ type: Date })
+  date: Date;
 
-  @Prop({ type: Types.ObjectId, ref: "User" })
-  userId: Types.ObjectId;
-
-  @Prop({ type: Types.ObjectId, ref: "Category" })
-  categoryId: Types.ObjectId;
+  @Prop({ type: Types.ObjectId, ref: 'User' })
+  user_id: Types.ObjectId;
 }
 
 export const ExpenseSchema = SchemaFactory.createForClass(Expense);
