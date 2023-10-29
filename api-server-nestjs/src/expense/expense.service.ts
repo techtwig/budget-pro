@@ -100,25 +100,25 @@ export class ExpenseService {
     }
   }
 
-  async deleteExpense(req) {
-    try {
-      const expense = await this.expenseModel.findById(req.params.id);
-      const userId = new Types.ObjectId(req.userId);
-      const lastCashbook = await this.cashbookModel.findOne(
-        { userId },
-        {},
-        { sort: { _id: -1 } },
-      );
-
-      if (!lastCashbook.expenseId.equals((expense as any)._id)) {
-        throw new UnauthorizedException("You can't delete this expense");
-      }
-
-      await this.cashbookModel.findOneAndDelete({ expenseId: expense._id });
-
-      return await this.expenseModel.deleteOne({ _id: req.params.id });
-    } catch (e) {
-      throw new Error(e.message);
-    }
-  }
+  // async deleteExpense(req) {
+  //   try {
+  //     const expense = await this.expenseModel.findById(req.params.id);
+  //     const userId = new Types.ObjectId(req.userId);
+  //     const lastCashbook = await this.cashbookModel.findOne(
+  //       { userId },
+  //       {},
+  //       { sort: { _id: -1 } },
+  //     );
+  //
+  //     if (!lastCashbook.expenseId.equals((expense as any)._id)) {
+  //       throw new UnauthorizedException("You can't delete this expense");
+  //     }
+  //
+  //     await this.cashbookModel.findOneAndDelete({ expenseId: expense._id });
+  //
+  //     return await this.expenseModel.deleteOne({ _id: req.params.id });
+  //   } catch (e) {
+  //     throw new Error(e.message);
+  //   }
+  // }
 }
