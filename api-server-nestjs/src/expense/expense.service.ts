@@ -48,7 +48,7 @@ export class ExpenseService {
       //
       // body.categoryId = category._id;
 
-      const expenseDocument = await this.expenseModel.create(body);
+      return await this.expenseModel.create(body);
 
       //
 
@@ -57,8 +57,6 @@ export class ExpenseService {
       //   expenseId: expenseDocument._id,
       //   currentBalance,
       // });
-
-      return expenseDocument;
     } catch (e) {
       throw new Error(e.message);
     }
