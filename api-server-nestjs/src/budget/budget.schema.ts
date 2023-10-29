@@ -16,7 +16,7 @@ export class Budget extends Document {
   category_ids: Types.ObjectId;
 
   @Prop()
-  date: string;
+  month: string;
 
   @Prop()
   user_id: string;

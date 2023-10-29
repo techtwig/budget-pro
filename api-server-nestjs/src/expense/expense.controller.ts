@@ -13,6 +13,8 @@ import { CustomRequest } from '../middleware/Auth.middleware';
 import { CreateExpenseDto } from './dtos/create-expense.dto';
 import { UpdateExpenseDto } from './dtos/update-expense.dto';
 import { ExpenseService } from './expense.service';
+import { JoiValidationPipe } from '../validation-pipe/validation.pipe';
+import { createExpenseSchema } from './validation-schema/create-expense.schema';
 
 @Controller('expense')
 export class ExpenseController {
@@ -22,7 +24,7 @@ export class ExpenseController {
   async createExpense(
     @Req() req: CustomRequest,
     @Res() res: Response,
-    @Body() body: CreateExpenseDto,
+    @Body(new JoiValidationPipe(createExpenseSchema)) body: CreateExpenseDto,
   ) {
     try {
       const expense = await this.expenseService.createExpense(req, body);
