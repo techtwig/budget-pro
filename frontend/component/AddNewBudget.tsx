@@ -13,7 +13,7 @@ import {Controller, useForm} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import axios from 'axios';
-import {headers, months} from '@/utilities/helper';
+import {headers, Month, months} from '@/utilities/helper';
 import useNotiStack from '@/hooks/NotiStack';
 
 const schema = yup.object().shape({
@@ -33,12 +33,14 @@ const schema = yup.object().shape({
     .array(yup.string().required())
     .required('Category is required'),
   wallet_id: yup.string().required('Required wallet type'),
-  month: yup.date().required('Date of Birth is required'),
+  month: yup.string().required('Date of Birth is required'),
 });
+
 interface ISelect {
   _id: string;
   label: string;
 }
+
 interface walletData {
   budget_title: string;
   amount: number;
@@ -46,21 +48,18 @@ interface walletData {
   wallet_id: string;
   month: any;
 }
-function formatDate(date: any) {
-  var d = new Date(date),
-    month = '' + (d.getMonth() + 1),
-    day = '' + d.getDate(),
-    year = d.getFullYear();
 
-  if (month.length < 2) month = '0' + month;
-  if (day.length < 2) day = '0' + day;
-
-  return [year, month, day].join('-');
+function formatDate(month_id: number) {
+  const date = new Date();
+  let year = date.getFullYear();
+  let month = date.getMonth();
+  let day = 1;
+  if (month <= month_id) {
+    year = year + 1;
+  }
+  let d = new Date(`${year}-${month_id}-${day}`);
+  return d.toLocaleDateString();
 }
-
-const date = new Date();
-let year = date.getFullYear();
-let day = 1;
 
 const AddNewBudget = () => {
   const {successStack, errorStack} = useNotiStack();
@@ -69,6 +68,8 @@ const AddNewBudget = () => {
     register,
     reset,
     handleSubmit,
+    getValues,
+    setValue,
     formState: {errors, isSubmitSuccessful},
   } = useForm<walletData | any>({
     resolver: yupResolver(schema),
@@ -93,6 +94,9 @@ const AddNewBudget = () => {
   }, []);
 
   const handleSubmitData = (data: any) => {
+    const MonthId = getValues('month');
+    data.month = formatDate(MonthId as number);
+
     axios
       .post('http://localhost:5000/budget/create', data, {headers})
       .then(function (response) {
@@ -220,7 +224,7 @@ const AddNewBudget = () => {
                     // displayEmpty
                   >
                     {wallets.map((option: any, index: number) => (
-                      <MenuItem key={index} value={option._id}>
+                      <MenuItem key={index + 'wallet'} value={option._id}>
                         {option.wallet_title}
                       </MenuItem>
                     ))}
@@ -264,11 +268,9 @@ const AddNewBudget = () => {
                     onChange={onChange}
                     // displayEmpty
                   >
-                    {months.map((option: any, index: number) => (
-                      <MenuItem
-                        key={index}
-                        value={formatDate(new Date(year, option.id, day))}>
-                        {option.label}
+                    {months.map((month: Month, index: number) => (
+                      <MenuItem key={index + 'month'} value={month.id}>
+                        {month.label}
                       </MenuItem>
                     ))}
                   </Select>
