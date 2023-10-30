@@ -1,4 +1,13 @@
-import { ArrayMinSize, IsEmpty, IsNumber, IsString } from 'class-validator';
+import {
+  ArrayMinSize,
+  IsDate,
+  IsEmpty,
+  IsNotEmpty,
+  IsNumber,
+  IsString,
+  MinDate,
+} from 'class-validator';
+import { Transform } from 'class-transformer';
 
 export class CreateBudgetDto {
   @IsString()
@@ -14,8 +23,11 @@ export class CreateBudgetDto {
   @ArrayMinSize(1)
   category_ids: string[];
 
-  @IsString()
-  month: string;
+  @IsNotEmpty()
+  @Transform(({ value }) => new Date(value))
+  @IsDate()
+  @MinDate(new Date())
+  month: Date;
 
   @IsEmpty()
   user_id: string;

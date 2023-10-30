@@ -4,5 +4,5 @@ export const createBudgetSchema = joi.object({
   amount: joi.number().required(),
   wallet_id: joi.string().required(),
   category_ids: joi.array().items(joi.string()),
-  month: joi.string().required(),
+  month: joi.date().required(),
 });

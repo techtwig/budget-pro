@@ -1,5 +1,6 @@
 import {Controller, useForm} from 'react-hook-form';
 import {
+  Autocomplete,
   FormControl,
   FormHelperText,
   Grid,
@@ -31,7 +32,9 @@ const schema = yup.object({
 
     .required('Balance is required'),
   wallet_id: yup.string().required('Wallet is required'),
-  category_ids: yup.array().of(yup.string().required('Category is required')),
+  category_ids: yup
+    .array(yup.string().required())
+    .required('Category selection is required'),
 
   date: yup
     .date()
@@ -80,15 +83,11 @@ const CustomIncomeForm = () => {
   const [categories, setCategories] = useState([{}]);
 
   useEffect(() => {
-    if (isSubmitSuccessful) {
-      reset();
-    }
-  }, [isSubmitSuccessful, reset]);
-
-  useEffect(() => {
     axios
       .get('http://localhost:5000/category')
       .then((response) => setCategories(response.data.data));
+
+    console.log('categories', categories);
 
     axios
       .get('http://localhost:5000/wallet')
@@ -103,6 +102,7 @@ const CustomIncomeForm = () => {
     }
   }, [isSubmitSuccessful, reset]);
   console.log('error', errors);
+  // @ts-ignore
   return (
     <form onSubmit={handleSubmit(handleTransaction)} style={{width: '100%'}}>
       <Grid item xs={12} sx={{mb: '16px'}}>
@@ -241,6 +241,22 @@ const CustomIncomeForm = () => {
             </FormHelperText>
           )}
         </FormControl>
+        {/*<Controller*/}
+        {/*  name='category_ids'*/}
+        {/*  control={control}*/}
+        {/*  defaultValue={[categories[1]]}*/}
+        {/*  render={({field}) => (*/}
+        {/*    <Autocomplete*/}
+        {/*      {...field}*/}
+        {/*      multiple*/}
+        {/*      id='c-outlined'*/}
+        {/*      options={categories}*/}
+        {/*      getOptionLabel={(option) => option?.label}*/}
+        {/*      filterSelectedOptions*/}
+        {/*      renderInput={(params) => <TextField {...params} />}*/}
+        {/*    />*/}
+        {/*  )}*/}
+        {/*/>*/}
       </Grid>
 
       <Grid item xs={12}>

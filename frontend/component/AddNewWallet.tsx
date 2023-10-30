@@ -17,8 +17,8 @@ const schema = yup.object().shape({
     .string()
     .required('Require wallet name')
     .max(30, 'Title must be less than or equal to 30 words'),
-  type_id: yup.number().required('Require currency type'),
-  balance: yup.number().required('Require amount'),
+  type_id: yup.number().required('Currency type is required'),
+  balance: yup.number().required('Minimum amount is required'),
 });
 interface IWallet {
   wallet_title: string;
