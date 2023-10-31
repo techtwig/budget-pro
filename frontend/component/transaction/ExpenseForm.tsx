@@ -1,5 +1,7 @@
 import {Controller, useForm} from 'react-hook-form';
 import {
+  Autocomplete,
+  Chip,
   FormControl,
   FormHelperText,
   Grid,
@@ -11,12 +13,13 @@ import {
 import {headers} from '@/utilities/helper';
 import {DatePicker, LocalizationProvider} from '@mui/x-date-pickers';
 import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs';
-import React, {useEffect, useState} from 'react';
+import React, {Fragment, useEffect, useState} from 'react';
 import SubmitButton from '@/common/button/SubmitButton';
 import {yupResolver} from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import axios from 'axios';
 import useNotiStack from '@/hooks/NotiStack';
+import {getValue} from '@mui/system';
 
 const schema = yup.object({
   title: yup
@@ -32,7 +35,7 @@ const schema = yup.object({
     .required('Balance is required'),
   wallet_id: yup.string().required('Wallet is required'),
   category_ids: yup
-    .array(yup.string().required())
+    .array(yup.object().required())
     .required('Category selection is required'),
 
   date: yup
@@ -58,11 +61,26 @@ const CustomIncomeForm = () => {
     control,
     register,
     reset,
+    getValues,
     formState: {errors, isSubmitSuccessful},
   } = useForm<IData | any>({resolver: yupResolver(schema)});
+  // } = useForm<IData | any>();
+
+  const handleCategoryData = (data: any) => {
+    // @ts-ignore
+    let arr = [];
+    data.map((item: any) => {
+      arr.push(item._id);
+    });
+    // @ts-ignore
+    return arr;
+  };
   const handleTransaction = (data: any) => {
     // data.transaction_type = selectedIndex;
+    let catData = getValues('category_ids');
+    data.category_ids = handleCategoryData(catData);
 
+    console.log('data000000000000', data);
     axios
       .post('http://localhost:5000/expense/create', data, {headers})
       .then(function (response) {
@@ -83,7 +101,7 @@ const CustomIncomeForm = () => {
 
   useEffect(() => {
     if (isSubmitSuccessful) {
-      reset();
+      // reset();
     }
   }, [isSubmitSuccessful, reset]);
 
@@ -97,14 +115,14 @@ const CustomIncomeForm = () => {
       .then((response) => setWallets(response.data.data));
   }, []);
 
-  console.log('wallets', wallets);
-
   useEffect(() => {
     if (isSubmitSuccessful) {
-      reset();
+      // reset();
     }
   }, [isSubmitSuccessful, reset]);
   console.log('error', errors);
+  console.log('form getvalues', getValues());
+
   return (
     <form onSubmit={handleSubmit(handleTransaction)} style={{width: '100%'}}>
       <Grid item xs={12} sx={{mb: '16px'}}>
@@ -205,36 +223,33 @@ const CustomIncomeForm = () => {
         <Typography sx={{fontSize: '16px', fontWeight: '700', pb: '3px'}}>
           Expense category <span style={{color: 'red'}}>*</span>
         </Typography>
+
         <FormControl
           sx={{
             width: '100%',
           }}>
-          {/*<InputLabel id='demo-multiple-name-label'>Name</InputLabel>*/}
           <Controller
-            control={control}
             name={'category_ids'}
+            control={control}
             rules={{
-              required: true,
+              required: 'Please select a value',
             }}
-            render={({field: {onChange, value}}) => (
-              <Select
-                sx={{
-                  borderRadius: '15px',
-                  border: '2px solid #F4F2F3',
-                  height: '55px',
-                }}
+            render={({field: {onChange}}) => (
+              <Autocomplete
                 multiple
-                labelId='level-label'
-                value={value || []}
-                onChange={onChange}
-                // displayEmpty
-              >
-                {categories.map((option: any, index) => (
-                  <MenuItem key={index} value={option._id}>
-                    {option.label}
-                  </MenuItem>
-                ))}
-              </Select>
+                id='tags-outlined'
+                options={categories || []}
+                onChange={(event, option) => {
+                  onChange(option);
+                }}
+                getOptionLabel={(option: any) => {
+                  return option ? option?.label : '';
+                }}
+                filterSelectedOptions
+                renderInput={(params: any) => (
+                  <TextField {...params} placeholder='Category' />
+                )}
+              />
             )}
           />
           {errors.category_ids && (
