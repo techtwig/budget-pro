@@ -234,7 +234,6 @@ const CustomIncomeForm = () => {
             rules={{
               required: 'Please select a value',
             }}
-            defaultValue={''}
             render={({field: {onChange}}) => (
               <Autocomplete
                 multiple
