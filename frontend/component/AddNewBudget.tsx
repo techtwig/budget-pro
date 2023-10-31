@@ -1,5 +1,11 @@
 'use client';
-import {Container, FormControl, FormHelperText} from '@mui/material';
+import {
+  Autocomplete,
+  Chip,
+  Container,
+  FormControl,
+  FormHelperText,
+} from '@mui/material';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
@@ -17,6 +23,7 @@ import {headers, Month, months} from '@/utilities/helper';
 import useNotiStack from '@/hooks/NotiStack';
 import {date} from 'yup';
 import {getValue} from '@mui/system';
+import {BASE_URL} from '@/utilities/root';
 
 const schema = yup.object().shape({
   budget_title: yup
@@ -31,7 +38,7 @@ const schema = yup.object().shape({
     .required('Amount is required'),
 
   category_ids: yup
-    .array(yup.string().required())
+    .array(yup.object().required())
     .required('Category selection is required'),
   wallet_id: yup.string().required('Required wallet type'),
   month: yup.date().required('Date is required'),
@@ -41,6 +48,10 @@ interface ISelect {
   _id: string;
   label: string;
 }
+type AutoSelectOption = {
+  _id: string;
+  label: string;
+};
 
 interface walletData {
   budget_title: string;
@@ -74,26 +85,33 @@ const AddNewBudget = () => {
     resolver: yupResolver(schema),
   });
 
-  const [categories, setCategories] = useState([{}]);
+  const [categories, setCategories] = useState<AutoSelectOption[] | null>();
   const [wallets, setWallets] = useState([{}]);
+
+  const handleCategoryData = (data: any) => {
+    return data.map((item: any) => {
+      return item._id;
+    });
+  };
 
   useEffect(() => {
     axios
-      .get('http://localhost:5000/category')
+      .get(BASE_URL + '/category')
       .then((response) => setCategories(response.data.data));
 
     axios
-      .get('http://localhost:5000/wallet')
+      .get(BASE_URL + '/wallet')
       .then((response) => setWallets(response.data.data));
   }, []);
 
   const handleSubmitData = (data: any) => {
-    console.log('data before', data);
     let month_id = getValues('month');
     data.month = formatDate(month_id);
     console.log('data after', data);
+    let catData = getValues('category_ids');
+    data.category_ids = handleCategoryData(catData);
     axios
-      .post('http://localhost:5000/budget/create', data, {headers})
+      .post(BASE_URL + '/budget/create', data, {headers})
       .then(function (response) {
         //handle success
         successStack('Budget created successfully');
@@ -283,40 +301,62 @@ const AddNewBudget = () => {
             <Typography sx={{fontSize: '16px', fontWeight: '700', pb: '3px'}}>
               Budget For <span style={{color: 'red'}}>*</span>
             </Typography>
+
+            {/*<InputLabel id='demo-multiple-name-label'>Name</InputLabel>*/}
             <FormControl
               sx={{
                 width: '100%',
+
+                '.MuiOutlinedInput-root': {
+                  borderRadius: '15px',
+                  border: '2px solid #F4F2F3',
+                },
               }}>
-              {/*<InputLabel id='demo-multiple-name-label'>Name</InputLabel>*/}
               <Controller
-                control={control}
                 name={'category_ids'}
+                control={control}
                 rules={{
-                  required: true,
+                  required: 'Please select a value',
                 }}
-                render={({field: {onChange, value}}) => (
-                  <Select
-                    sx={{
-                      borderRadius: '15px',
-                      border: '2px solid #F4F2F3',
-                      height: '55px',
-                    }}
+                render={({field: {onChange}}) => (
+                  <Autocomplete
                     multiple
-                    labelId='level-label'
-                    value={value || []}
-                    onChange={onChange}
-                    // displayEmpty
-                  >
-                    {categories.map((option: any, index) => (
-                      <MenuItem key={index} value={option._id}>
-                        {option.label}
-                      </MenuItem>
-                    ))}
-                  </Select>
+                    id='tags-outlined'
+                    defaultValue={[]}
+                    options={categories || []}
+                    onChange={(event, option) => {
+                      onChange(option);
+                    }}
+                    getOptionLabel={(option: AutoSelectOption) => {
+                      return option ? option?.label : '';
+                    }}
+                    filterSelectedOptions
+                    renderInput={(params: any) => (
+                      <TextField {...params} placeholder='Category' />
+                    )}
+                    renderOption={(props, option: AutoSelectOption) => {
+                      return (
+                        <li {...props} key={option?._id}>
+                          {option?.label}
+                        </li>
+                      );
+                    }}
+                    renderTags={(tagValue, getTagProps) => {
+                      return tagValue.map(
+                        (option: AutoSelectOption, index: number) => (
+                          <Chip
+                            {...getTagProps({index})}
+                            key={option?._id}
+                            label={option?.label}
+                          />
+                        ),
+                      );
+                    }}
+                  />
                 )}
               />
               {errors.category_ids && (
-                <FormHelperText sx={{color: '#D92F21'}}>
+                <FormHelperText sx={{color: '#f44336'}}>
                   <>{errors.category_ids.message}</>
                 </FormHelperText>
               )}

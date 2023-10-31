@@ -10,16 +10,22 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import {headers} from '@/utilities/helper';
+import {category, headers} from '@/utilities/helper';
 import {DatePicker, LocalizationProvider} from '@mui/x-date-pickers';
 import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs';
-import React, {Fragment, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import SubmitButton from '@/common/button/SubmitButton';
 import {yupResolver} from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import axios from 'axios';
 import useNotiStack from '@/hooks/NotiStack';
-import {getValue} from '@mui/system';
+
+const Categories = category.map((e) => {
+  return {
+    id: String(e.id),
+    label: e.label,
+  };
+});
 
 const schema = yup.object({
   title: yup
@@ -31,7 +37,6 @@ const schema = yup.object({
     .transform((value) => (isNaN(value) ? undefined : value))
     .min(100, 'minimum amount is greater than or equal to 100')
     .max(2000000, 'maximum amount is less than or equal to 2000000')
-
     .required('Balance is required'),
   wallet_id: yup.string().required('Wallet is required'),
   category_ids: yup
@@ -43,10 +48,17 @@ const schema = yup.object({
     .required('Date is required')
     .max(new Date(), 'Date must be in Past'),
 });
+
 interface ISelect {
   _id: string;
   label: string;
 }
+
+type AutoSelectOption = {
+  _id: string;
+  label: string;
+};
+
 interface IData {
   title: string;
   balance: number;
@@ -54,6 +66,7 @@ interface IData {
   category_ids: [ISelect];
   date: any;
 }
+
 const CustomIncomeForm = () => {
   const {successStack, errorStack} = useNotiStack();
   const {
@@ -64,16 +77,11 @@ const CustomIncomeForm = () => {
     getValues,
     formState: {errors, isSubmitSuccessful},
   } = useForm<IData | any>({resolver: yupResolver(schema)});
-  // } = useForm<IData | any>();
 
   const handleCategoryData = (data: any) => {
-    // @ts-ignore
-    let arr = [];
-    data.map((item: any) => {
-      arr.push(item._id);
+    return data.map((item: any) => {
+      return item._id;
     });
-    // @ts-ignore
-    return arr;
   };
   const handleTransaction = (data: any) => {
     // data.transaction_type = selectedIndex;
@@ -86,7 +94,7 @@ const CustomIncomeForm = () => {
       .then(function (response) {
         //handle success
         successStack('Expense created successfully');
-
+        reset();
         console.log('response', response);
       })
       .catch(function (response) {
@@ -96,14 +104,8 @@ const CustomIncomeForm = () => {
       });
   };
 
-  const [wallets, setWallets] = useState([{}]);
-  const [categories, setCategories] = useState([{}]);
-
-  useEffect(() => {
-    if (isSubmitSuccessful) {
-      // reset();
-    }
-  }, [isSubmitSuccessful, reset]);
+  const [wallets, setWallets] = useState([]);
+  const [categories, setCategories] = useState<AutoSelectOption[] | null>();
 
   useEffect(() => {
     axios
@@ -114,14 +116,6 @@ const CustomIncomeForm = () => {
       .get('http://localhost:5000/wallet')
       .then((response) => setWallets(response.data.data));
   }, []);
-
-  useEffect(() => {
-    if (isSubmitSuccessful) {
-      // reset();
-    }
-  }, [isSubmitSuccessful, reset]);
-  console.log('error', errors);
-  console.log('form getvalues', getValues());
 
   return (
     <form onSubmit={handleSubmit(handleTransaction)} style={{width: '100%'}}>
@@ -177,7 +171,7 @@ const CustomIncomeForm = () => {
         {/*/>*/}
 
         <Typography sx={{fontSize: '16px', fontWeight: '700', pb: '3px'}}>
-          Wallet<span style={{color: 'red'}}>*</span>
+          Wallet <span style={{color: 'red'}}>*</span>
         </Typography>
 
         <FormControl
@@ -227,6 +221,11 @@ const CustomIncomeForm = () => {
         <FormControl
           sx={{
             width: '100%',
+
+            '.MuiOutlinedInput-root': {
+              borderRadius: '15px',
+              border: '2px solid #F4F2F3',
+            },
           }}>
           <Controller
             name={'category_ids'}
@@ -238,17 +237,36 @@ const CustomIncomeForm = () => {
               <Autocomplete
                 multiple
                 id='tags-outlined'
+                defaultValue={[]}
                 options={categories || []}
                 onChange={(event, option) => {
                   onChange(option);
                 }}
-                getOptionLabel={(option: any) => {
+                getOptionLabel={(option: AutoSelectOption) => {
                   return option ? option?.label : '';
                 }}
                 filterSelectedOptions
                 renderInput={(params: any) => (
                   <TextField {...params} placeholder='Category' />
                 )}
+                renderOption={(props, option: AutoSelectOption) => {
+                  return (
+                    <li {...props} key={option?._id}>
+                      {option?.label}
+                    </li>
+                  );
+                }}
+                renderTags={(tagValue, getTagProps) => {
+                  return tagValue.map(
+                    (option: AutoSelectOption, index: number) => (
+                      <Chip
+                        {...getTagProps({index})}
+                        key={option?._id}
+                        label={option?.label}
+                      />
+                    ),
+                  );
+                }}
               />
             )}
           />
@@ -262,7 +280,7 @@ const CustomIncomeForm = () => {
 
       <Grid item xs={12}>
         <Typography sx={{fontSize: '16px', fontWeight: '700', pb: '3px'}}>
-          Date
+          Date <span style={{color: 'red'}}>*</span>
         </Typography>
         <FormControl
           sx={{

@@ -11,17 +11,20 @@ import * as yup from 'yup';
 import {yupResolver} from '@hookform/resolvers/yup';
 import axios from 'axios';
 import useNotiStack from '@/hooks/NotiStack';
+import {BASE_URL} from '@/utilities/root';
 
 const schema = yup.object().shape({
   wallet_title: yup
     .string()
     .required('Require wallet name')
     .max(30, 'Title must be less than or equal to 30 words'),
-  type_id: yup.number().required('Currency type is required'),
+  type_id: yup.number().required('Required a wallet type'),
   balance: yup
     .number()
     .transform((value) => (isNaN(value) ? undefined : value))
-    .required('Minimum amount is required'),
+    .min(100, 'minimun amount is greater than or equal to 100')
+    .max(2000000, 'maximum amount is less than or equal to 2000000')
+    .required('Required a minimum amount'),
 });
 interface IWallet {
   wallet_title: string;
@@ -40,29 +43,21 @@ const AddNewWallet = () => {
     resolver: yupResolver(schema),
   });
 
-  console.log('errors->', errors);
-
   const onSubmit = (data: IWallet) => {
+    console.log('wallet data', data);
     axios
-      .post('http://localhost:5000/wallet/create', data, {headers})
+      .post(BASE_URL + '/wallet/create', data, {headers})
       .then(function (response) {
-        //handle success
         successStack('Wallet created successfully');
 
-        console.log('response', response);
+        reset();
       })
       .catch(function (response) {
         errorStack('Failed to create wallet');
-        //handle error
+
         console.log(response);
       });
   };
-
-  useEffect(() => {
-    if (isSubmitSuccessful) {
-      reset();
-    }
-  }, [isSubmitSuccessful, reset]);
 
   return (
     <Container
