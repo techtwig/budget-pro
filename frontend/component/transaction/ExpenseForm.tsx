@@ -234,6 +234,7 @@ const CustomIncomeForm = () => {
             rules={{
               required: 'Please select a value',
             }}
+            defaultValue={''}
             render={({field: {onChange}}) => (
               <Autocomplete
                 multiple
@@ -253,7 +254,7 @@ const CustomIncomeForm = () => {
             )}
           />
           {errors.category_ids && (
-            <FormHelperText sx={{color: '#D92F21'}}>
+            <FormHelperText sx={{color: '#f44336'}}>
               <>{errors.category_ids.message}</>
             </FormHelperText>
           )}
