@@ -124,25 +124,25 @@ export class ExpenseController {
     }
   }
 
-  @Delete(':id')
-  async deleteExpense(@Req() req: CustomRequest, @Res() res: Response) {
-    try {
-      const expense = await this.expenseService.deleteExpense(req);
-      if (!expense) {
-        return res.json({
-          status: 200,
-          message: 'No expense found',
-        });
-      }
-      res.json({
-        status: 200,
-        expense: null,
-      });
-    } catch (e) {
-      res.json({
-        status: 500,
-        message: e.message,
-      });
-    }
-  }
+  // @Delete(':id')
+  // async deleteExpense(@Req() req: CustomRequest, @Res() res: Response) {
+  //   try {
+  //     const expense = await this.expenseService.deleteExpense(req);
+  //     if (!expense) {
+  //       return res.json({
+  //         status: 200,
+  //         message: 'No expense found',
+  //       });
+  //     }
+  //     res.json({
+  //       status: 200,
+  //       expense: null,
+  //     });
+  //   } catch (e) {
+  //     res.json({
+  //       status: 500,
+  //       message: e.message,
+  //     });
+  //   }
+  // }
 }

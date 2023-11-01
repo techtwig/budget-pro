@@ -77,7 +77,12 @@ export const timeDuration = [
     label: 'By Years',
   },
 ];
-export const months = [
+
+export interface Month {
+  id: number;
+  label: string;
+}
+export const months: Month[] = [
   {
     id: 1,
     label: 'January',

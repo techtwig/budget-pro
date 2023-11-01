@@ -38,6 +38,14 @@ export class BudgetService {
     }
   }
 
+  async getTotalBudgets() {
+    try {
+      return await this.budgetModel.find({});
+    } catch (e) {
+      throw new Error(e.message);
+    }
+  }
+
   async getBudgetsByMonth(req) {
     try {
       const { month } = req.query;

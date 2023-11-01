@@ -28,6 +28,7 @@ export class BudgetController {
     createBudgetDto: CreateBudgetDto,
   ) {
     try {
+      /**TODO: valid wallet_id check */
       const budget = await this.budgetService.createBudget(
         req,
         createBudgetDto,
@@ -50,6 +51,23 @@ export class BudgetController {
   async getAllBudget(@Req() req: CustomRequest, @Res() res: Response) {
     try {
       const budget = await this.budgetService.getAllBudgets();
+
+      res.json({
+        status: 200,
+        budget,
+      });
+    } catch (e) {
+      res.json({
+        status: 500,
+        message: e.message,
+      });
+    }
+  }
+
+  @Get('total')
+  async getTotalBudget(@Req() req: CustomRequest, @Res() res: Response) {
+    try {
+      const budget = await this.budgetService.getTotalBudgets();
 
       res.json({
         status: 200,

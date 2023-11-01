@@ -14,7 +14,7 @@ import { WalletService } from './wallet.service';
 import { CreateWalletDto } from './dtos/create-wallet.dto';
 import { UpdateWalletDto } from './dtos/update-wallet.dto';
 import { JoiValidationPipe } from '../validation-pipe/validation.pipe';
-import { createWalletSchema } from './validation-schema/create-wallet.schema';
+import { createWalletValidationSchema } from './validation-schema/create-wallet.validation.schema';
 
 @Controller('wallet')
 export class WalletController {
@@ -24,7 +24,8 @@ export class WalletController {
   async createWallet(
     @Req() req: CustomRequest,
     @Res() res: Response,
-    @Body(new JoiValidationPipe(createWalletSchema)) body: CreateWalletDto,
+    @Body(new JoiValidationPipe(createWalletValidationSchema))
+    body: CreateWalletDto,
   ) {
     try {
       const wallet = await this.walletService.createWallet(req, res, body);
