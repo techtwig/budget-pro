@@ -1,4 +1,8 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  HttpException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import { Cashbook } from '../cashbook/cashbook.schema';
@@ -22,7 +26,8 @@ export class ExpenseService {
   ): Promise<Expense> {
     try {
       // const userId = new Types.ObjectId(req.userId);
-
+      // console.log('aa');
+      // throw new HttpException('something went wrong', 400);
       body.user_id = '6';
 
       // const lastCashbook = await this.cashbookModel.findOne(
@@ -49,16 +54,8 @@ export class ExpenseService {
       // body.categoryId = category._id;
 
       return await this.expenseModel.create(body);
-
-      //
-
-      // await this.cashbookModel.create({
-      //   userId,
-      //   expenseId: expenseDocument._id,
-      //   currentBalance,
-      // });
     } catch (e) {
-      throw new Error(e.message);
+      throw e;
     }
   }
 

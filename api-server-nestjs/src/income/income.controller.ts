@@ -15,7 +15,7 @@ import { CustomRequest } from '../middleware/Auth.middleware';
 import { UpdateIncomeDto } from './dtos/update-income.dto';
 import { result } from '../dammy data/dammy_data_dashboard';
 import { JoiValidationPipe } from '../validation-pipe/validation.pipe';
-import { createIncomeSchema } from './validation-schema/create-income.schema';
+import { createIncomeValidationSchema } from './validation-schema/create-income.validation.schema';
 
 @Controller('income')
 export class IncomeController {
@@ -25,7 +25,8 @@ export class IncomeController {
   async createIncome(
     @Req() req: CustomRequest,
     @Res() res: Response,
-    @Body(new JoiValidationPipe(createIncomeSchema)) body: CreateIncomeDto,
+    @Body(new JoiValidationPipe(createIncomeValidationSchema))
+    body: CreateIncomeDto,
   ) {
     try {
       const income = await this.incomeService.createIncome(req, body);

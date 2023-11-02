@@ -29,7 +29,7 @@ const schema = yup.object().shape({
   budget_title: yup
     .string()
     .required('Require budget name')
-    .max(30, 'Title must be less than or equal to 30 words'),
+    .max(200, 'Title must be less than or equal to 200 words'),
   amount: yup
     .number()
     .transform((value) => (isNaN(value) ? undefined : value))
@@ -39,6 +39,7 @@ const schema = yup.object().shape({
 
   category_ids: yup
     .array(yup.object().required())
+    .min(1, 'Minimum one item is required')
     .required('Category selection is required'),
   wallet_id: yup.string().required('Required wallet type'),
   month: yup.date().required('Date is required'),
@@ -107,7 +108,6 @@ const AddNewBudget = () => {
   const handleSubmitData = (data: any) => {
     let month_id = getValues('month');
     data.month = formatDate(month_id);
-    console.log('data after', data);
     let catData = getValues('category_ids');
     data.category_ids = handleCategoryData(catData);
     axios

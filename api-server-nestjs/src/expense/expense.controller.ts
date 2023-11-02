@@ -1,20 +1,11 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Post,
-  Put,
-  Req,
-  Res,
-} from '@nestjs/common';
+import { Body, Controller, Get, Post, Put, Req, Res } from '@nestjs/common';
 import { Response } from 'express';
 import { CustomRequest } from '../middleware/Auth.middleware';
 import { CreateExpenseDto } from './dtos/create-expense.dto';
 import { UpdateExpenseDto } from './dtos/update-expense.dto';
 import { ExpenseService } from './expense.service';
 import { JoiValidationPipe } from '../validation-pipe/validation.pipe';
-import { createExpenseSchema } from './validation-schema/create-expense.schema';
+import { createExpenseValidationSchema } from './validation-schema/create-expense.validation.schema';
 
 @Controller('expense')
 export class ExpenseController {
@@ -23,22 +14,13 @@ export class ExpenseController {
   @Post('create')
   async createExpense(
     @Req() req: CustomRequest,
-    @Res() res: Response,
-    @Body(new JoiValidationPipe(createExpenseSchema)) body: CreateExpenseDto,
+    @Body(new JoiValidationPipe(createExpenseValidationSchema))
+    body: CreateExpenseDto,
   ) {
     try {
-      const expense = await this.expenseService.createExpense(req, body);
-
-      res.json({
-        status: 201,
-        message: 'success',
-        expense,
-      });
+      return await this.expenseService.createExpense(req, body);
     } catch (e) {
-      res.json({
-        status: 500,
-        message: e.message,
-      });
+      throw e;
     }
   }
 

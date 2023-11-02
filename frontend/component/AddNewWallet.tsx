@@ -17,7 +17,7 @@ const schema = yup.object().shape({
   wallet_title: yup
     .string()
     .required('Require wallet name')
-    .max(30, 'Title must be less than or equal to 30 words'),
+    .max(200, 'Title must be less than or equal to 200 words'),
   type_id: yup.number().required('Required a wallet type'),
   balance: yup
     .number()
