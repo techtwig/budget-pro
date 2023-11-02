@@ -28,6 +28,7 @@ export class BudgetController {
     createBudgetDto: CreateBudgetDto,
   ) {
     try {
+      /**TODO: valid wallet_id check */
       const budget = await this.budgetService.createBudget(
         req,
         createBudgetDto,
