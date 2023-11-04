@@ -32,7 +32,7 @@ const schema = yup.object({
   title: yup
     .string()
     .required('Title is required')
-    .max(30, 'Title must be less than or equal to 30 words'),
+    .max(200, 'Title must be less than or equal to 200 words'),
   balance: yup
     .number()
     .transform((value) => (isNaN(value) ? undefined : value))
@@ -43,12 +43,13 @@ const schema = yup.object({
   wallet_id: yup.string().required('Wallet is required'),
   category_ids: yup
     .array(yup.object().required())
+    .min(1, 'Minimum one item is required')
     .required('Category selection is required'),
 
   date: yup
     .date()
     .required('Date is required')
-    .max(new Date(), 'Date must be in Past'),
+    .max(new Date(), 'Date must be before or equal to current date'),
 });
 
 interface ISelect {

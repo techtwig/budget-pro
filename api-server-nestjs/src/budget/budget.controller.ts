@@ -14,7 +14,7 @@ import { BudgetService } from './budget.service';
 import { CreateBudgetDto } from './dtos/create-budget.dto';
 import { UpdateBudgetDto } from './dtos/update-budget.dto';
 import { JoiValidationPipe } from '../validation-pipe/validation.pipe';
-import { createBudgetSchema } from './validation-schema/create-budget.schema';
+import { createBudgetValidationSchema } from './validation-schema/create-budget.validation.schema';
 
 @Controller('budget')
 export class BudgetController {
@@ -24,7 +24,7 @@ export class BudgetController {
   async createBudget(
     @Req() req: CustomRequest,
     @Res() res: Response,
-    @Body(new JoiValidationPipe(createBudgetSchema))
+    @Body(new JoiValidationPipe(createBudgetValidationSchema))
     createBudgetDto: CreateBudgetDto,
   ) {
     try {
