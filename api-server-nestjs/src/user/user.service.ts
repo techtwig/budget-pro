@@ -5,17 +5,22 @@ import { BadRequestException, Injectable } from "@nestjs/common";
 import { SignupDto } from "./dtos/signup.dto";
 import { hash, compare } from "bcryptjs";
 import { LoginDto } from "./dtos/login.dto";
+import { verify } from "jsonwebtoken";
 import { sign } from "jsonwebtoken";
 import process from "process";
+import {use} from "passport";
+import {ConfigService} from "@nestjs/config";
 
 @Injectable()
 export class UserService {
-  constructor(@InjectModel(User.name) private userModel: Model<User>) {
+  constructor(
+      @InjectModel(User.name) private userModel: Model<User>,
+      private readonly configService: ConfigService) {
   }
 
   async signup(body: SignupDto): Promise<User> {
     try {
-      const { name, email, password, username, current_balance } = body;
+      const { email, password, current_balance } = body;
 
       const checkUser = await this.userModel.findOne({ email });
 
@@ -27,9 +32,7 @@ export class UserService {
       const hashedPassword = await hash(password, 10);
 
       return this.userModel.create({
-        name,
         email,
-        username,
         password: hashedPassword,
         current_balance
       });
@@ -40,32 +43,60 @@ export class UserService {
 
   async login(body: LoginDto) {
     try {
-      const { userName, password } = body;
+      const { email, password } = body;
 
-      const user = await this.userModel
-        .findOne({ userName })
-        .select("+password");
+      if (!email || !password) {
+        throw new BadRequestException("Invalid username or password");
+      }
 
-      console.log(user);
+      const user = await this.userModel.findOne({ email }).select('+password');
+
       if (!user) {
         throw new BadRequestException("Invalid username or password");
       }
 
       const isValidPassword = await compare(password, user.password);
+
       if (!isValidPassword) {
         throw new BadRequestException("Invalid username or password");
       }
-      return sign(
-        {
-          id: user._id
-        },
-        "secret",
-        {
-          expiresIn: "30d"
-        }
-      );
+
+      const payload = {id: user._id, email: user.email}
+
+      const access_token_secret = this.configService.get('ACCESS_TOKEN_SECRET');
+      const refresh_token_secret = this.configService.get('REFRESH_TOKEN_SECRET')
+
+      const access_token = sign(payload, access_token_secret, { expiresIn: "5m" });
+      const refresh_token = sign(payload, refresh_token_secret, { expiresIn: "60m" });
+
+      return {access_token: access_token, refresh_token: refresh_token};
     } catch (e) {
       throw new Error(e.message);
     }
   }
+
+  async refresh(body: any) {
+    try {
+      const { refreshToken } = body;
+
+      if (!refreshToken) {
+        throw new BadRequestException("No refresh token provided");
+      }
+
+      const refresh_token_secret = this.configService.get('REFRESH_TOKEN_SECRET');
+      const access_token_secret = this.configService.get('ACCESS_TOKEN_SECRET');
+
+      const decoded = verify(refreshToken, refresh_token_secret);
+
+      const payload = {id: decoded.id, email: decoded.email};
+      const access_token = sign(payload, access_token_secret, { expiresIn: '5m' });
+
+
+      return {access_token};
+    } catch (e) {
+      throw new Error(e.message);
+    }
+  }
+
+
 }

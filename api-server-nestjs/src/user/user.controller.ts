@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Res } from '@nestjs/common';
+import {BadRequestException, Body, Controller, Post, Res} from '@nestjs/common';
 import { UserService } from './user.service';
 import { SignupDto } from './dtos/signup.dto';
 import { Response } from 'express';
@@ -13,7 +13,6 @@ export class UserController {
     try {
       const user = await this.userService.signup(body);
 
-      user.password = undefined;
       res.json({
         status: 201,
         message: 'signed up successfully',
@@ -30,6 +29,10 @@ export class UserController {
   @Post('login')
   async login(@Body() body: LoginDto, @Res() res: Response) {
     try {
+      if (!body || !body.email || !body.password) {
+        throw new BadRequestException("Invalid request. Please provide email and password.");
+      }
+
       const token = await this.userService.login(body);
       res.json({
         status: 200,
@@ -37,10 +40,32 @@ export class UserController {
         token,
       });
     } catch (e) {
-      res.json({
+      res.status(500).json({
         status: 500,
         message: e.message,
       });
     }
   }
+
+  @Post('refresh-token')
+  async refreshToken(@Body() body: any, @Res() res: Response) {
+    try {
+      if (!body || !body.refreshToken) {
+        throw new BadRequestException("No refreshtoken provided");
+      }
+
+      const token = await this.userService.refresh(body);
+      res.json({
+        status: 200,
+        message: 'New access token generated successfully',
+        token,
+      });
+    } catch (e) {
+      res.status(500).json({
+        status: 500,
+        message: e.message,
+      });
+    }
+  }
+
 }

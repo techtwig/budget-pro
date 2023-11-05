@@ -8,6 +8,7 @@ import Signup from '@/component/SignUp';
 import Login from '@/component/LogIn';
 
 const SignupAndSignin = () => {
+    const[isSignedUp, setIsSignedUp]=useState<boolean>(false)
   const userSchema = yup.object().shape({
     email: yup
       .string()
@@ -54,23 +55,7 @@ const SignupAndSignin = () => {
           pt: '50px',
           mt: '0px',
         }}>
-        {/*<List component="nav" aria-label="main mailbox folders"
-                      sx={{display: 'flex', flexDirection: 'row', width: '100%'}}>
-                    <ListItemButton
-                        sx={{borderRadius: '20px', backgroundColor: '#FEFEFF', m: '3px', width: '40px'}}
-                        selected={selectedIndex === 0}
-                        onClick={(event) => handleListItemClick(event, 0)}
-                    >
-                        <ListItemText primary="SIGN UP" sx={{textAlign: 'center'}}/>
-                    </ListItemButton>
-                    <ListItemButton
-                        sx={{borderRadius: '20px', backgroundColor: '#FEFEFF', width: '40px'}}
-                        selected={selectedIndex === 1}
-                        onClick={(event) => handleListItemClick(event, 1)}
-                    >
-                        <ListItemText primary="LOG IN" sx={{textAlign: 'center'}}/>
-                    </ListItemButton>
-                </List>*/}
+
 
         <Grid container rowSpacing={6} columnSpacing={2}>
           <Grid item xs={6}>
@@ -87,7 +72,7 @@ const SignupAndSignin = () => {
               LOG IN
             </CustomButton>
           </Grid>
-          {selectedIndex === 0 && <Signup />}
+          {selectedIndex === 0 && <Signup setSelectedIndex={setSelectedIndex}/>}
           {selectedIndex === 1 && <Login />}
         </Grid>
 

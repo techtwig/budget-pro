@@ -3,15 +3,8 @@ import { IsNotEmpty, IsPositive, IsString, Min } from 'class-validator';
 export class SignupDto {
   @IsNotEmpty()
   @IsString()
-  name: string;
-
-  @IsNotEmpty()
-  @IsString()
   email: string;
 
-  @IsNotEmpty()
-  @IsString()
-  username: string;
 
   @IsNotEmpty()
   @IsString()
