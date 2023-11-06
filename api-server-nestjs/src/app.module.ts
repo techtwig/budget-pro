@@ -9,9 +9,12 @@ import { ExpenseModule } from './expense/expense.module';
 import { CashbookModule } from './cashbook/cashbook.module';
 import { BudgetModule } from './budget/budget.module';
 import { CategoryModule } from './category/category.module';
+import { WalletModule } from './wallet/wallet.module';
+import 'dotenv/config';
 import { AuthModule } from './auth/auth.module';
 import { SocialAuthModule } from './social-auth/social-auth.module';
 import {ConfigModule} from "@nestjs/config";
+
 
 @Module({
   imports: [
@@ -25,6 +28,7 @@ import {ConfigModule} from "@nestjs/config";
     CategoryModule,
     AuthModule,
     SocialAuthModule,
+    WalletModule,
   ],
   controllers: [AppController],
   providers: [AppService],

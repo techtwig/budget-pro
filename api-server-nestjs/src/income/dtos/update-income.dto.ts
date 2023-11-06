@@ -1,21 +1,11 @@
-import { IsOptional, IsString, IsNumber, IsDate } from "class-validator";
-
 export class UpdateIncomeDto {
-  @IsOptional()
-  @IsString()
-  income_source?: string;
+  title?: string;
 
-  @IsOptional()
-  @IsNumber()
-  income_amount?: number;
+  balance?: number;
 
-  @IsOptional()
-  @IsString()
-  income_month?: string;
+  wallet_id?: number;
 
-  @IsOptional()
-  @IsDate()
-  income_time?: Date;
+  category_ids: string[];
 
-
+  date: string;
 }

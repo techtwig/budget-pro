@@ -1,10 +1,9 @@
-import { Injectable } from "@nestjs/common";
-import { InjectModel } from "@nestjs/mongoose";
-import { Income } from "../income/income.schema";
-import { Model, Types } from "mongoose";
-import { Cashbook } from "./cashbook.schema";
-import { Category } from "../category/category.schema";
-import { Expense } from "../expense/expense.schema";
+import {Injectable} from "@nestjs/common";
+import {InjectModel} from "@nestjs/mongoose";
+import {Model, Types} from "mongoose";
+import {Expense} from "../expense/expense.schema";
+import {Income} from "../income/income.schema";
+import {Cashbook} from "./cashbook.schema";
 
 @Injectable()
 export class CashbookService {

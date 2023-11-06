@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsPositive, IsString, Min } from 'class-validator';
+import {IsNotEmpty, IsString, Min} from 'class-validator';
 
 export class SignupDto {
   @IsNotEmpty()

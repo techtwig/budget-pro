@@ -1,8 +1,6 @@
 import React, {useState} from 'react';
-import {createTheme} from '@mui/material/styles';
 import {
   Box,
-  Button,
   Grid,
   IconButton,
   InputAdornment,
@@ -19,6 +17,7 @@ import {Visibility, VisibilityOff} from '@mui/icons-material';
 import AppleIcon from '@mui/icons-material/Apple';
 import FacebookRoundedIcon from '@mui/icons-material/FacebookRounded';
 import GoogleIcon from '@mui/icons-material/Google';
+import SubmitButton from '@/common/button/SubmitButton';
 import useNotiStack from '@/hooks/useNotifyStack';
 import {useGoogleLogin} from '@react-oauth/google';
 import {useRouter} from 'next/navigation';
@@ -296,19 +295,9 @@ const Signup = ({setSelectedIndex}: any) => {
               </Grid>
             </Grid>
             <Grid item xs={12} sx={{marginLeft: '15px'}}>
-              <Button
-                type='submit'
-                fullWidth
-                variant='contained'
-                sx={{
-                  mt: 3,
-                  mb: 2,
-                  borderRadius: '25px',
-                  backgroundColor: 'primary.dark',
-                  height: '50px',
-                }}>
+              <SubmitButton>
                 Create Account
-              </Button>
+              </SubmitButton>
             </Grid>
           </Grid>
         </Grid>

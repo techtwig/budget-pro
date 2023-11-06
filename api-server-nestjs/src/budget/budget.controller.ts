@@ -1,36 +1,48 @@
-import { Body, Controller, Delete, Get, Post, Put, Req, Res } from "@nestjs/common";
-import { IncomeService } from "../income/income.service";
-import { CustomRequest } from "../middleware/Auth.middleware";
-import { Response } from "express";
-import { CreateIncomeDto } from "../income/dtos/create-income.dto";
-import { UpdateIncomeDto } from "../income/dtos/update-income.dto";
-import { BudgetService } from "./budget.service";
-import { CreateBudgetDto } from "./dtos/create-budget.dto";
-import { UpdateBudgetDto } from "./dtos/update-budget.dto";
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Post,
+  Put,
+  Req,
+  Res,
+} from '@nestjs/common';
+import { Response } from 'express';
+import { CustomRequest } from '../middleware/Auth.middleware';
+import { BudgetService } from './budget.service';
+import { CreateBudgetDto } from './dtos/create-budget.dto';
+import { UpdateBudgetDto } from './dtos/update-budget.dto';
+import { JoiValidationPipe } from '../validation-pipe/validation.pipe';
+import { createBudgetValidationSchema } from './validation-schema/create-budget.validation.schema';
 
-@Controller("budget")
+@Controller('budget')
 export class BudgetController {
-  constructor(private readonly budgetService: BudgetService) {
-  }
+  constructor(private readonly budgetService: BudgetService) {}
 
-  @Post("create")
+  @Post('create')
   async createBudget(
     @Req() req: CustomRequest,
     @Res() res: Response,
-    @Body() body: CreateBudgetDto
+    @Body(new JoiValidationPipe(createBudgetValidationSchema))
+    createBudgetDto: CreateBudgetDto,
   ) {
     try {
-      const budget = await this.budgetService.createBudget(req, body);
+      /**TODO: valid wallet_id check */
+      const budget = await this.budgetService.createBudget(
+        req,
+        createBudgetDto,
+      );
 
       res.json({
         status: 201,
-        message: "success",
-        budget
+        message: 'success',
+        budget,
       });
     } catch (e) {
       res.json({
         status: 500,
-        message: e.message
+        message: e.message,
       });
     }
   }
@@ -42,97 +54,116 @@ export class BudgetController {
 
       res.json({
         status: 200,
-        budget
+        budget,
       });
     } catch (e) {
       res.json({
         status: 500,
-        message: e.message
+        message: e.message,
       });
     }
   }
 
-  @Get("month")
+  @Get('total')
+  async getTotalBudget(@Req() req: CustomRequest, @Res() res: Response) {
+    try {
+      const budget = await this.budgetService.getTotalBudgets();
+
+      res.json({
+        status: 200,
+        budget,
+      });
+    } catch (e) {
+      res.json({
+        status: 500,
+        message: e.message,
+      });
+    }
+  }
+
+  @Get('month')
   async getBudgetsByMonth(@Req() req: CustomRequest, @Res() res: Response) {
     try {
       const budget = await this.budgetService.getBudgetsByMonth(req);
 
       res.json({
         status: 200,
-        budget
+        budget,
       });
     } catch (e) {
       res.json({
         status: 500,
-        message: e.message
+        message: e.message,
       });
     }
   }
 
-  @Get(":id")
+  @Get(':id')
   async getBudgetById(@Req() req: CustomRequest, @Res() res: Response) {
     try {
       const budget = await this.budgetService.getBudgetById(req);
       if (!budget) {
         return res.json({
           status: 200,
-          message: "No budget found"
+          message: 'No budget found',
         });
       }
       res.json({
         status: 200,
-        budget
+        budget,
       });
     } catch (e) {
       res.json({
         status: 500,
-        message: e.message
+        message: e.message,
       });
     }
   }
 
-  @Put(":id")
-
-  async updateBudget(@Req() req: CustomRequest, @Res() res: Response, @Body() body: UpdateBudgetDto) {
+  @Put(':id')
+  async updateBudget(
+    @Req() req: CustomRequest,
+    @Res() res: Response,
+    @Body() body: UpdateBudgetDto,
+  ) {
     try {
       const budget = await this.budgetService.updateBudget(req, body);
       if (!budget) {
         return res.json({
           status: 200,
-          message: "No budget found"
+          message: 'No budget found',
         });
       }
       res.json({
         status: 200,
-        budget
+        budget,
       });
     } catch (e) {
       res.json({
         status: 500,
-        message: e.message
+        message: e.message,
       });
     }
   }
 
-  @Delete(":id")
-
+  @Delete(':id')
   async deleteBudget(@Req() req: CustomRequest, @Res() res: Response) {
     try {
       const budget = await this.budgetService.deleteBudget(req);
       if (!budget) {
         return res.json({
           status: 200,
-          message: "No budget found"
+          message: 'No budget found',
         });
       }
       res.json({
         status: 200,
-        budget: null
+        budget: null,
       });
     } catch (e) {
       res.json({
         status: 500,
-        message: e.message
+        message: e.message,
       });
     }
   }

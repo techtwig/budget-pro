@@ -1,5 +1,5 @@
 import {TypographyOptions} from '@mui/material/styles/createTypography';
-import {Fonts} from '@/core/enums';
+import {Fonts} from '@/utilities/enums';
 
 export default function typography(CustomFontFamily: string) {
   const customTypography: TypographyOptions = {
@@ -38,7 +38,7 @@ export default function typography(CustomFontFamily: string) {
     h6: {
       fontFamily: CustomFontFamily,
       fontWeight: Fonts.MEDIUM,
-      fontSize: '1.25rem',
+      fontSize: '.25rem',
     },
     subtitle1: {
       fontFamily: CustomFontFamily,
