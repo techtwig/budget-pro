@@ -1,10 +1,19 @@
 'use client';
-import {Container, Grid, TextField, Typography} from '@mui/material';
+import {
+  Autocomplete,
+  Chip,
+  Container,
+  FormControl,
+  FormHelperText,
+  Grid,
+  TextField,
+  Typography,
+} from '@mui/material';
 import React, {useEffect} from 'react';
 import SubmitButton from '@/common/button/SubmitButton';
 import {CustomStyles} from '@/utilities/enums';
 import BackButton from '@/common/button/BackButton';
-import {useForm} from 'react-hook-form';
+import {Controller, useForm} from 'react-hook-form';
 import CustomSelectField from '@/common/input/CustomSelectField';
 import {headers, wallets} from '@/utilities/helper';
 import * as yup from 'yup';
@@ -12,13 +21,14 @@ import {yupResolver} from '@hookform/resolvers/yup';
 import axios from 'axios';
 import useNotiStack from '@/hooks/NotiStack';
 import {BASE_URL} from '@/utilities/root';
+import {useRouter} from 'next/navigation';
 
 const schema = yup.object().shape({
   wallet_title: yup
     .string()
     .required('Require wallet name')
     .max(200, 'Title must be less than or equal to 200 words'),
-  type_id: yup.number().required('Required a wallet type'),
+  type_id: yup.object().required('Required a wallet type'),
   balance: yup
     .number()
     .transform((value) => (isNaN(value) ? undefined : value))
@@ -28,10 +38,15 @@ const schema = yup.object().shape({
 });
 interface IWallet {
   wallet_title: string;
-  type_id: number;
+  type_id: object;
   balance: number;
 }
+type IType = {
+  id: number;
+  label: string;
+};
 const AddNewWallet = () => {
+  const Router = useRouter();
   const {successStack, errorStack} = useNotiStack();
   const {
     control,
@@ -45,12 +60,13 @@ const AddNewWallet = () => {
 
   const onSubmit = (data: IWallet) => {
     console.log('wallet data', data);
+    // @ts-ignore
+    data.type_id = data?.type_id?.id;
     axios
       .post(BASE_URL + '/wallet/create', data, {headers})
       .then(function (response) {
         successStack('Wallet created successfully');
-
-        reset();
+        Router.push('/my-wallet');
       })
       .catch(function (response) {
         errorStack('Failed to create wallet');
@@ -111,15 +127,73 @@ const AddNewWallet = () => {
             </Grid>
           </Grid>
           <Grid item xs={12}>
-            <CustomSelectField
-              errors={errors}
-              required={true}
-              label={'Wallet Type'}
-              id={'type_id'}
-              options={wallets}
-              control={control}
-            />
+            <Typography sx={{fontSize: '16px', fontWeight: '700', pb: '3px'}}>
+              Type <span style={{color: 'red'}}>*</span>
+            </Typography>
+            <FormControl
+              sx={{
+                width: '100%',
+                '.MuiOutlinedInput-root': {
+                  borderRadius: '15px',
+                  border: '2px solid #F4F2F3',
+                },
+              }}>
+              <Controller
+                name={'type_id'}
+                control={control}
+                rules={{
+                  required: 'Please select a value',
+                }}
+                render={({field: {onChange}}) => (
+                  <Autocomplete
+                    id='tags-outlined'
+                    options={wallets || []}
+                    onChange={(event, option) => {
+                      onChange(option);
+                    }}
+                    getOptionLabel={(option: IType) => {
+                      return option ? option?.label : '';
+                    }}
+                    renderInput={(params: any) => (
+                      <TextField {...params} placeholder='Type' />
+                    )}
+                    renderOption={(props, option: IType) => {
+                      return (
+                        <li {...props} key={option?.id}>
+                          {option?.label}
+                        </li>
+                      );
+                    }}
+                    renderTags={(tagValue, getTagProps) => {
+                      return tagValue.map((option: IType, index: number) => (
+                        <Chip
+                          {...getTagProps({index})}
+                          key={option?.id}
+                          label={option?.label}
+                        />
+                      ));
+                    }}
+                  />
+                )}
+              />
+              {errors.type_id && (
+                <FormHelperText sx={{color: '#f44336'}}>
+                  <>{errors.type_id.message}</>
+                </FormHelperText>
+              )}
+            </FormControl>
           </Grid>
+
+          {/*<Grid item xs={12}>*/}
+          {/*  <CustomSelectField*/}
+          {/*    errors={errors}*/}
+          {/*    required={true}*/}
+          {/*    label={'Wallet Type'}*/}
+          {/*    id={'type_id'}*/}
+          {/*    options={wallets}*/}
+          {/*    control={control}*/}
+          {/*  />*/}
+          {/*</Grid>*/}
 
           <Grid item xs={12}>
             <Typography sx={{fontSize: '16px', fontWeight: '700', pb: '3px'}}>

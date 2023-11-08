@@ -74,26 +74,7 @@ const Statistics = () => {
         </Grid>
         <Grid item xs={12}>
           <Grid container columnSpacing={2}>
-            <Grid item xs={6}>
-              <TextField
-                sx={{width: '100%'}}
-                id='currency'
-                select
-                defaultValue='wallets'
-                InputProps={{
-                  sx: {
-                    borderRadius: '15px',
-                    border: '2px solid #F4F2F3',
-                    height: '42px',
-                  },
-                }}>
-                {wallets.map((option) => (
-                  <MenuItem key={option.id} value={option.id}>
-                    {option.label}
-                  </MenuItem>
-                ))}
-              </TextField>
-            </Grid>
+            <Grid item xs={6}></Grid>
             <Grid item xs={6}>
               <TextField
                 sx={{width: '100%'}}

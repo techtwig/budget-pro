@@ -20,6 +20,7 @@ import * as yup from 'yup';
 import axios from 'axios';
 import useNotiStack from '@/hooks/NotiStack';
 import {BASE_URL} from '@/utilities/root';
+import {useRouter} from 'next/navigation';
 
 const schema = yup.object({
   title: yup
@@ -68,6 +69,7 @@ interface IData {
 
 const CustomIncomeForm = () => {
   const {successStack, errorStack} = useNotiStack();
+  const Router = useRouter();
   const {
     handleSubmit,
     control,
@@ -83,21 +85,17 @@ const CustomIncomeForm = () => {
     });
   };
   const handleTransaction = (data: any) => {
-    // data.transaction_type = selectedIndex;
-    console.log('data000', data);
-
     let catData = getValues('category_ids');
     data.category_ids = handleCategoryData(catData);
 
     data.wallet_id = data.wallet_id._id;
-
-    console.log('data000000000000', data);
     axios
       .post(BASE_URL + '/expense/create', data, {headers})
       .then(function (response) {
         //handle success
         successStack('Expense created successfully');
-        reset();
+        Router.push('/dashboard');
+
         console.log('response', response);
       })
       .catch(function (response) {

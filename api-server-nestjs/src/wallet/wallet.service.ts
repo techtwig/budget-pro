@@ -17,6 +17,7 @@ export class WalletService {
     body: CreateWalletDto,
   ): Promise<Wallet> {
     try {
+      console.log('wallet');
       return await this.walletModel.create({ ...body, user_id: '3' });
     } catch (e) {
       throw new Error(e.message);

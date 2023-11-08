@@ -28,8 +28,6 @@ const classes = {
   facebookBackground: `${PREFIX}-background`,
   bannerImage: `${PREFIX}-image`,
 };
-
-const defaultTheme = createTheme();
 const Signup = ({setSelectedIndex}: any) => {
   const {successStack} = useNotiStack();
   const [isUserExist, setIsUserExist] = useState<boolean>(false);
@@ -295,9 +293,7 @@ const Signup = ({setSelectedIndex}: any) => {
               </Grid>
             </Grid>
             <Grid item xs={12} sx={{marginLeft: '15px'}}>
-              <SubmitButton>
-                Create Account
-              </SubmitButton>
+              <SubmitButton>Create Account</SubmitButton>
             </Grid>
           </Grid>
         </Grid>

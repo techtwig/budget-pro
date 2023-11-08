@@ -1,4 +1,4 @@
-import {Box, Grid} from '@mui/material';
+import {Box, Button, Grid, Tooltip} from '@mui/material';
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
 import React, {FC, useEffect, useState} from 'react';
@@ -26,7 +26,9 @@ const Footer: FC<IFooter> = ({currentOption, newPage}) => {
   useEffect(() => {
     console.log('Router', Router);
     console.log('selectOption', selectOption);
+    console.log('selectNewPage', selectNewPage);
     if (selectOption === 0 && !selectNewPage) {
+      
       Router.push('/dashboard', {scroll: false});
     }
     if (selectOption === 1 && !selectNewPage) {
@@ -81,12 +83,21 @@ const Footer: FC<IFooter> = ({currentOption, newPage}) => {
             justifyContent: 'center',
             alignItems: 'center',
           }}>
-          <CustomBottomIcon
-            backGround={selectOption === 0 ? '#E7E6E6' : '#fff'}
-            onClickBtn={() => handleFooterClick(0)}
-            icon={<HomeRoundedIcon sx={{color: '#7F7E80', fontSize: '180%'}} />}
-          />
+          <Tooltip title='Dashboard' placement='top'>
+            <Box>
+              <CustomBottomIcon
+                backGround={selectOption === 0 ? '#E7E6E6' : '#fff'}
+                onClickBtn={() => handleFooterClick(0)}
+                icon={
+                  <HomeRoundedIcon sx={{color: '#7F7E80', fontSize: '180%'}} />
+                }
+              />
+            </Box>
+
+            {/*<Button>Data</Button>*/}
+          </Tooltip>
         </Grid>
+
         <Grid
           item
           xs={2}
@@ -95,13 +106,19 @@ const Footer: FC<IFooter> = ({currentOption, newPage}) => {
             justifyContent: 'center',
             alignItems: 'center',
           }}>
-          <CustomBottomIcon
-            backGround={selectOption === 1 ? '#E7E6E6' : '#fff'}
-            onClickBtn={() => handleFooterClick(1)}
-            icon={
-              <PendingRoundedIcon sx={{color: '#7F7E80', fontSize: '180%'}} />
-            }
-          />
+          <Tooltip title='Statistics' placement='top'>
+            <Box>
+              <CustomBottomIcon
+                backGround={selectOption === 1 ? '#E7E6E6' : '#fff'}
+                onClickBtn={() => handleFooterClick(1)}
+                icon={
+                  <PendingRoundedIcon
+                    sx={{color: '#7F7E80', fontSize: '180%'}}
+                  />
+                }
+              />
+            </Box>
+          </Tooltip>
         </Grid>
         <Grid item xs={3}></Grid>
         <Grid
@@ -113,24 +130,39 @@ const Footer: FC<IFooter> = ({currentOption, newPage}) => {
             right: '45%',
             bottom: '30px',
           }}>
-          <CustomBottomIcon
-            // backGround={selectOption === 2 ? '#E7E6E6' : 'transparent'}
-            onClickBtn={() => handleAddButton(true)}
-            icon={
-              <AddCircleOutlinedIcon
-                sx={{
-                  color: '#040303',
-                  borderRadius: '50%',
-                  textAlign: 'center',
-                  fontWeight: '600',
-                  cursor: 'pointer',
-                  fontSize: '450%',
-                  backgroundColor: '#F0EFEF',
-                  m: '10px',
-                }}
-              />
+          <Tooltip
+            title={
+              selectOption === 0
+                ? 'Add Transaction'
+                : selectOption == 1
+                ? 'Eating out'
+                : selectOption === 3
+                ? 'Add Budget'
+                : 'Settings'
             }
-          />
+            placement='top'>
+            <Box>
+              <CustomBottomIcon
+                onClickBtn={() => handleAddButton(true)}
+                icon={
+                  <AddCircleOutlinedIcon
+                    sx={{
+                      color: '#040303',
+                      borderRadius: '50%',
+                      textAlign: 'center',
+                      fontWeight: '600',
+                      cursor: 'pointer',
+                      fontSize: '450%',
+                      backgroundColor: '#F0EFEF',
+                      m: '10px',
+                    }}
+                  />
+                }
+              />
+            </Box>
+
+            {/*<Button>Data</Button>*/}
+          </Tooltip>
         </Grid>
         <Grid
           item
@@ -140,18 +172,24 @@ const Footer: FC<IFooter> = ({currentOption, newPage}) => {
             justifyContent: 'center',
             alignItems: 'center',
           }}>
-          <CustomBottomIcon
-            backGround={selectOption === 3 ? '#E7E6E6' : '#fff'}
-            onClickBtn={() => handleFooterClick(3)}
-            icon={
-              <TypeSpecimenIcon
-                sx={{
-                  color: '#7F7E80',
-                  fontSize: '180%',
-                }}
+          <Tooltip title='Wallet' placement='top'>
+            <Box>
+              <CustomBottomIcon
+                backGround={selectOption === 3 ? '#E7E6E6' : '#fff'}
+                onClickBtn={() => handleFooterClick(3)}
+                icon={
+                  <TypeSpecimenIcon
+                    sx={{
+                      color: '#7F7E80',
+                      fontSize: '180%',
+                    }}
+                  />
+                }
               />
-            }
-          />
+            </Box>
+
+            {/*<Button>Data</Button>*/}
+          </Tooltip>
         </Grid>
         <Grid
           item
@@ -161,18 +199,24 @@ const Footer: FC<IFooter> = ({currentOption, newPage}) => {
             justifyContent: 'center',
             alignItems: 'center',
           }}>
-          <CustomBottomIcon
-            backGround={selectOption === 4 ? '#E7E6E6' : '#fff'}
-            onClickBtn={() => handleFooterClick(4)}
-            icon={
-              <MemoryRoundedIcon
-                sx={{
-                  color: '#7F7E80',
-                  fontSize: '180%',
-                }}
+          <Tooltip title='Settings' placement='top'>
+            <Box>
+              <CustomBottomIcon
+                backGround={selectOption === 4 ? '#E7E6E6' : '#fff'}
+                onClickBtn={() => handleFooterClick(4)}
+                icon={
+                  <MemoryRoundedIcon
+                    sx={{
+                      color: '#7F7E80',
+                      fontSize: '180%',
+                    }}
+                  />
+                }
               />
-            }
-          />
+            </Box>
+
+            {/*<Button>Data</Button>*/}
+          </Tooltip>
         </Grid>
       </Grid>
     </>

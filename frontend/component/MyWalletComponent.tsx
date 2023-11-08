@@ -5,7 +5,6 @@ import CustomCardMyWallet from '@/common/CustomMyWalletCart';
 import CustomCardMyWallet2 from '@/common/CustomCardMyWallet2';
 import Footer from '@/common/footer/Footer';
 import {CustomStyles} from '@/utilities/enums';
-import OtherHousesIcon from '@mui/icons-material/OtherHouses';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 import {useEffect, useState} from 'react';
@@ -113,25 +112,25 @@ const MyWalletComponent = () => {
         </Grid>
         <Grid item xs={12}>
           <Grid container spacing={2}>
-            <Grid item xs={6}>
-              <CustomCardMyWallet
-                onClickBtn={() => handleClick(0)}
-                title={'Add a bank account'}
-                icons={
-                  <AccountBalanceIcon
-                    sx={{
-                      color: '#fff',
-                      backgroundColor: '#ACAAAC',
-                      borderRadius: '10px',
-                      border: '2px solid #EFEDEE',
-                      m: '10px',
-                      fontSize: '200%',
-                    }}
-                  />
-                }
-              />
-            </Grid>
-            <Grid item xs={6}>
+            {/*<Grid item xs={6}>*/}
+            {/*  <CustomCardMyWallet*/}
+            {/*    onClickBtn={() => handleClick(0)}*/}
+            {/*    title={'Add a bank account'}*/}
+            {/*    icons={*/}
+            {/*      <AccountBalanceIcon*/}
+            {/*        sx={{*/}
+            {/*          color: '#fff',*/}
+            {/*          backgroundColor: '#ACAAAC',*/}
+            {/*          borderRadius: '10px',*/}
+            {/*          border: '2px solid #EFEDEE',*/}
+            {/*          m: '10px',*/}
+            {/*          fontSize: '200%',*/}
+            {/*        }}*/}
+            {/*      />*/}
+            {/*    }*/}
+            {/*  />*/}
+            {/*</Grid>*/}
+            <Grid item xs={12}>
               <CustomCardMyWallet
                 onClickBtn={() => handleClick(1)}
                 title={'Create new wallet'}
@@ -144,42 +143,6 @@ const MyWalletComponent = () => {
                       border: '2px solid #EFEDEE',
                       m: '10px',
                       fontSize: '210%',
-                    }}
-                  />
-                }
-              />
-            </Grid>
-            <Grid item xs={6}>
-              <CustomCardMyWallet
-                onClickBtn={() => handleClick(2)}
-                title={'Connect an e-wallet'}
-                icons={
-                  <AccountBalanceWalletIcon
-                    sx={{
-                      color: '#fff',
-                      backgroundColor: '#ACAAAC',
-                      borderRadius: '10px',
-                      border: '2px solid #EFEDEE',
-                      m: '10px',
-                      fontSize: '200%',
-                    }}
-                  />
-                }
-              />
-            </Grid>
-            <Grid item xs={6}>
-              <CustomCardMyWallet
-                onClickBtn={() => handleClick(3)}
-                title={'Add a crypto wallet'}
-                icons={
-                  <OtherHousesIcon
-                    sx={{
-                      color: '#fff',
-                      backgroundColor: '#ACAAAC',
-                      borderRadius: '10px',
-                      border: '2px solid #EFEDEE',
-                      m: '10px',
-                      fontSize: '200%',
                     }}
                   />
                 }

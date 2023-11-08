@@ -21,7 +21,7 @@ export class IncomeService {
     body: CreateIncomeDto,
   ): Promise<Income> {
     try {
-      const userId = new Types.ObjectId(req.userId);
+      // const userId = new Types.ObjectId(req.userId);
       body.user_id = '3';
       //
       // const categoryName = body.category;
