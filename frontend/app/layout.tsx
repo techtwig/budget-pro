@@ -1,11 +1,12 @@
 'use client';
 import './globals.css';
 import {Inter} from 'next/font/google';
-import {responsiveFontSizes, ThemeProvider} from '@mui/material';
-import defaultTheme from '@/core/layouts/DefaultTheme/defaultTheme';
+import ThemeRegistry from '@/core/layouts/ThemeRegistry';
 import Head from 'next/head';
 import {SnackbarProvider} from 'notistack';
 import {GoogleOAuthProvider} from '@react-oauth/google';
+import { AppProgressBar as ProgressBar } from 'next-nprogress-bar';
+
 
 const inter = Inter({subsets: ['latin']});
 
@@ -22,13 +23,19 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
             clientId={
               '690063727023-jvbaff4i02iqv5hhgvjlj6rr8f07m492.apps.googleusercontent.com'
             }>
-            <ThemeProvider theme={responsiveFontSizes(defaultTheme)}>
+            <ThemeRegistry options={{ key: 'mui' }}>
               <SnackbarProvider
                 maxSnack={3}
                 anchorOrigin={{vertical: 'top', horizontal: 'right'}}>
+                  <ProgressBar
+                    height="40px"
+                    color="#000"
+                    options={{ showSpinner: false }}
+                    shallowRouting
+                  />
                 {children}
               </SnackbarProvider>
-            </ThemeProvider>
+            </ThemeRegistry>
           </GoogleOAuthProvider>
         </body>
       </html>
