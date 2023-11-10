@@ -1,5 +1,4 @@
 'use client';
-import './globals.css';
 import {Inter} from 'next/font/google';
 import ThemeRegistry from '@/core/layouts/ThemeRegistry';
 import Head from 'next/head';
