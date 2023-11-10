@@ -1,5 +1,3 @@
-import {USER_ACCESS_TOKEN} from '@/constants/defaultConstant';
-
 export const currencies = [
   {
     id: 1,
@@ -137,5 +135,6 @@ export const months: Month[] = [
 
 export const headers = {
   'Content-Type': 'application/json',
-  Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1M2UzYzgzYzZkNzA5OWFlYjlkYTJmOCIsImVtYWlsIjoiYWJAZ21haWwuY29tIiwiaWF0IjoxNjk5NTIwNzYyLCJleHAiOjE2OTk1NTA3NjJ9.LlvhubWG9Ieg15RE960dhllmnpX2U1L_13Rkp6OcY1c`,
+  Authorization:
+    'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1M2UzYzgzYzZkNzA5OWFlYjlkYTJmOCIsImVtYWlsIjoiYWJAZ21haWwuY29tIiwiaWF0IjoxNjk5MzQ4NTAzLCJleHAiOjE2OTkzNzg1MDN9.6G4OMax1gW2PUktKwF-2v68yf_S9oS53piMoqffI2uo',
 };

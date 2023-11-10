@@ -18,9 +18,6 @@ import {useForm} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup';
 import axios from 'axios';
 import useNotiStack from '@/hooks/NotiStack';
-import {USER_ACCESS_TOKEN} from '@/constants/defaultConstant';
-import {Cookies} from 'react-cookie';
-// import {Cookies} from 'react-cookie';
 
 const userSchema = yup.object().shape({
   email: yup
@@ -61,26 +58,10 @@ const Login = () => {
       }
       if (response && response.data.status === 200) {
         setIsUserExist(false);
-
-        const token = response.data.token;
-
-        // @ts-ignore
-        // Cookies.set(USER_ACCESS_TOKEN, JSON.stringify(token), {
-        //   expires: 7,
-        //   secure: true,
-        // });
-        //
-        // let cookie = Cookies.get(USER_ACCESS_TOKEN);
-        // console.log(cookie);
-        localStorage.setItem(USER_ACCESS_TOKEN, JSON.stringify(token));
-        const data = localStorage.getItem(USER_ACCESS_TOKEN);
-        // @ts-ignore
-        console.log('local storage', JSON.parse(data));
-
         successStack('Login Successful');
-        // reset();
+        reset();
 
-        // return Router.push('/dashboard', {scroll: false});
+        return Router.push('/dashboard', {scroll: false});
       }
     } catch (error: any) {
       console.error('Error:', error);

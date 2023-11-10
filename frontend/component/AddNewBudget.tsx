@@ -80,7 +80,6 @@ const AddNewBudget = () => {
     register,
     handleSubmit,
     getValues,
-    watch,
     reset,
     formState: {errors},
   } = useForm<walletData | any>({
@@ -121,7 +120,6 @@ const AddNewBudget = () => {
   };
   let date = new Date();
   let currentMonth = date.getMonth() + 1;
-  console.log('watch', watch());
   return (
     <Container
       maxWidth={'xs'}
@@ -163,7 +161,6 @@ const AddNewBudget = () => {
                 rules={{
                   required: true,
                 }}
-                defaultValue={currentMonth}
                 render={({field: {onChange, value}}) => (
                   <Select
                     sx={{

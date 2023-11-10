@@ -77,7 +77,6 @@ const CustomIncomeForm = () => {
     register,
     reset,
     getValues,
-    setValue,
     formState: {errors, isSubmitSuccessful},
   } = useForm<IData | any>({resolver: yupResolver(schema)});
 
@@ -107,7 +106,7 @@ const CustomIncomeForm = () => {
       });
   };
 
-  const [wallets, setWallets] = useState<IWallet[] | any[]>([]);
+  const [wallets, setWallets] = useState<IWallet[] | null>();
   const [categories, setCategories] = useState<AutoSelectOption[] | null>();
 
   useEffect(() => {
@@ -115,10 +114,9 @@ const CustomIncomeForm = () => {
       .get(BASE_URL + '/category')
       .then((response) => setCategories(response.data.data));
 
-    axios.get(BASE_URL + '/wallet').then((response) => {
-      setWallets(response.data.data);
-      setValue('wallet_id', response.data.data?.[0], {shouldDirty: true});
-    });
+    axios
+      .get(BASE_URL + '/wallet')
+      .then((response) => setWallets(response.data.data));
   }, []);
 
   return (
@@ -193,7 +191,6 @@ const CustomIncomeForm = () => {
             }}
             render={({field: {onChange}}) => (
               <Autocomplete
-                value={wallets && wallets.length ? wallets[0] : ''}
                 id='tags-outlined'
                 options={wallets || []}
                 onChange={(event, option) => {
