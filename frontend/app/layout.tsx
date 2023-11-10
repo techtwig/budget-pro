@@ -18,7 +18,7 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
         <meta property='og:title' content='My page title' key='title' />
       </Head>
       <html lang='en'>
-        <body className={inter.className}>
+        <body className={inter.className} style={{background: '#ebebeb'}}>
           <GoogleOAuthProvider
             clientId={
               '690063727023-jvbaff4i02iqv5hhgvjlj6rr8f07m492.apps.googleusercontent.com'
