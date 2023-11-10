@@ -74,6 +74,7 @@ const CustomIncomeForm = () => {
     handleSubmit,
     control,
     register,
+    setValue,
     reset,
     getValues,
     formState: {errors, isSubmitSuccessful},
@@ -105,19 +106,22 @@ const CustomIncomeForm = () => {
       });
   };
 
-  const [wallets, setWallets] = useState<IWallet[] | null>();
+  const [wallets, setWallets] = useState<IWallet[] | any[]>([]);
   const [categories, setCategories] = useState<AutoSelectOption[] | null>();
+  const [defaulWallet, setDefaulWallet] = useState<AutoSelectOption | null>();
 
   useEffect(() => {
     axios
       .get(BASE_URL + '/category')
       .then((response) => setCategories(response.data.data));
 
-    axios
-      .get(BASE_URL + '/wallet')
-      .then((response) => setWallets(response.data.data));
-  }, []);
+    axios.get(BASE_URL + '/wallet').then((response) => {
+      setWallets(response.data.data);
+      setDefaulWallet(response.data.data?.[0]);
 
+      setValue('wallet_id', response.data.data?.[0], {shouldDirty: true});
+    });
+  }, []);
   return (
     <form onSubmit={handleSubmit(handleTransaction)} style={{width: '100%'}}>
       <Grid item xs={12} sx={{mb: '16px'}}>
@@ -190,8 +194,9 @@ const CustomIncomeForm = () => {
             }}
             render={({field: {onChange}}) => (
               <Autocomplete
+                value={wallets && wallets.length ? wallets[0] : ''}
                 id='tags-outlined'
-                options={wallets || []}
+                options={wallets}
                 onChange={(event, option) => {
                   onChange(option);
                 }}
