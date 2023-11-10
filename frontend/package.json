@@ -27,7 +27,6 @@
     "react-cookie": "^6.1.1",
     "react-dom": "^18",
     "react-google-charts": "^4.0.1",
-    "react-google-login": "^5.2.2",
     "react-hook-form": "^7.47.0",
     "react-hook-form-resolvers": "^0.0.1",
     "react-native-chart-kit": "^6.12.0",
