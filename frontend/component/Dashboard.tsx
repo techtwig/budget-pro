@@ -33,7 +33,6 @@ const DashBoard = () => {
           xs={12}
           sx={{
             backgroundColor: '#D1CED8',
-            // backgroundColor: 'red',
             width: '100%',
             pt: CustomStyles.CONTAINER_TOP,
             pl: CustomStyles.CONTAINER_LEFT,
@@ -58,10 +57,10 @@ const DashBoard = () => {
               item
               xs={12}
               sx={{
-                mb: '15px',
-                overflowX: 'scroll',
-                overflowY: 'hidden',
-                display: 'inline-flex',
+                // mb: '0px',
+                overflowX: 'auto',
+                // overflowY: 'hidden',
+                display: 'flex',
               }}>
               <Box>
                 <DashboardCard
@@ -87,7 +86,7 @@ const DashBoard = () => {
               </Box>
               <Box>
                 <DashboardCard
-                  title={'Monobank'}
+                  title={'Dhaka bank'}
                   amount={1250}
                   icons={
                     <AccountBalanceIcon

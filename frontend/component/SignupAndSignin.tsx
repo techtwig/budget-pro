@@ -6,9 +6,10 @@ import * as yup from 'yup';
 import {createTheme} from '@mui/material/styles';
 import Signup from '@/component/SignUp';
 import Login from '@/component/LogIn';
+import {CustomStyles} from '@/utilities/enums';
 
 const SignupAndSignin = () => {
-    const[isSignedUp, setIsSignedUp]=useState<boolean>(false)
+  const [isSignedUp, setIsSignedUp] = useState<boolean>(false);
   const userSchema = yup.object().shape({
     email: yup
       .string()
@@ -42,7 +43,18 @@ const SignupAndSignin = () => {
   };
 
   return (
-    <Container maxWidth='xs'>
+    <Container
+      maxWidth={'xs'}
+      disableGutters={true}
+      sx={{
+        minHeight: '100vh',
+        backgroundColor: '#FEFEFF',
+        pt: CustomStyles.CONTAINER_TOP,
+        pl: CustomStyles.CONTAINER_LEFT,
+        pr: CustomStyles.CONTAINER_RIGHT,
+        pb: '100px',
+        position: 'relative',
+      }}>
       <Box
         sx={{
           marginTop: 8,
@@ -55,8 +67,6 @@ const SignupAndSignin = () => {
           pt: '50px',
           mt: '0px',
         }}>
-
-
         <Grid container rowSpacing={6} columnSpacing={2}>
           <Grid item xs={6}>
             <CustomButton
@@ -72,7 +82,9 @@ const SignupAndSignin = () => {
               LOG IN
             </CustomButton>
           </Grid>
-          {selectedIndex === 0 && <Signup setSelectedIndex={setSelectedIndex}/>}
+          {selectedIndex === 0 && (
+            <Signup setSelectedIndex={setSelectedIndex} />
+          )}
           {selectedIndex === 1 && <Login />}
         </Grid>
 

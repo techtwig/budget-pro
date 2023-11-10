@@ -25,14 +25,10 @@ export class BudgetController {
     @Req() req: CustomRequest,
     @Res() res: Response,
     @Body(new JoiValidationPipe(createBudgetValidationSchema))
-    createBudgetDto: CreateBudgetDto,
+    body: CreateBudgetDto,
   ) {
     try {
-      /**TODO: valid wallet_id check */
-      const budget = await this.budgetService.createBudget(
-        req,
-        createBudgetDto,
-      );
+      const budget = await this.budgetService.createBudget(req, body);
 
       res.json({
         status: 201,

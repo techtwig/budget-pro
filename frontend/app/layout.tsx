@@ -1,7 +1,7 @@
 'use client';
 import './globals.css';
 import {Inter} from 'next/font/google';
-import {ThemeProvider} from '@mui/material';
+import {responsiveFontSizes, ThemeProvider} from '@mui/material';
 import defaultTheme from '@/core/layouts/DefaultTheme/defaultTheme';
 import Head from 'next/head';
 import {SnackbarProvider} from 'notistack';
@@ -32,6 +32,6 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
           </GoogleOAuthProvider>
         </body>
       </html>
-    </>
+    </html>
   );
 }

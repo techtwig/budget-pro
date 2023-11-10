@@ -22,7 +22,6 @@ export class BudgetService {
   ): Promise<Budget> {
     try {
       // body.user_id = new Types.ObjectId(req.userId);
-      /*TODO wallet_id exists in walllet schema && if wallet_id is valid objectId */
       body.user_id = '2';
 
       return await this.budgetModel.create(body);

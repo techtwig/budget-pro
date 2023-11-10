@@ -1,0 +1,7 @@
+export const COOKIE_KEY_USER_REFRESH_TOKEN = 'userRefreshToken';
+export const COOKIE_KEY_USER_ACCESS_TOKEN = 'userToken';
+export const USER_ACCESS_TOKEN =
+  'ueyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1M2UzYzgzYzZkNzA5OWFlYjlkYTJmOCIsImVtYWlsIjoiYWJAZ21haWwuY29tIiwiaWF0IjoxNjk5MzI3MTk0LCJleHAiOjE2OTkzMjc0OTR9.AgcaN6u0eVz3AZsjUAYQCU7Rtgu1rMQetIszpePlzfg';
+export const API_BASE_URL = 'http://localhost:5000';
+export const USER_REFRESH_TOKEN =
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1M2UzYzgzYzZkNzA5OWFlYjlkYTJmOCIsImVtYWlsIjoiYWJAZ21haWwuY29tIiwiaWF0IjoxNjk5MzI3MTk0LCJleHAiOjE2OTkzMzA3OTR9.YBn2lE9plfzSk5wwc9mTLU_cdIIBq_eUKj2FcdpSCHw';

@@ -24,6 +24,7 @@ import useNotiStack from '@/hooks/NotiStack';
 import {date} from 'yup';
 import {getValue} from '@mui/system';
 import {BASE_URL} from '@/utilities/root';
+import {useRouter} from 'next/navigation';
 
 const schema = yup.object().shape({
   budget_title: yup
@@ -41,8 +42,7 @@ const schema = yup.object().shape({
     .array(yup.object().required())
     .min(1, 'Minimum one item is required')
     .required('Category selection is required'),
-  wallet_id: yup.string().required('Required wallet type'),
-  month: yup.date().required('Date is required'),
+  month: yup.date().required('Month is required'),
 });
 
 interface ISelect {
@@ -58,7 +58,6 @@ interface walletData {
   budget_title: string;
   amount: number;
   category_ids: [ISelect];
-  wallet_id: string;
   month: any;
 }
 
@@ -74,6 +73,7 @@ function formatDate(month_id: number) {
 }
 
 const AddNewBudget = () => {
+  const Router = useRouter();
   const {successStack, errorStack} = useNotiStack();
   const {
     control,
@@ -87,7 +87,6 @@ const AddNewBudget = () => {
   });
 
   const [categories, setCategories] = useState<AutoSelectOption[] | null>();
-  const [wallets, setWallets] = useState([{}]);
 
   const handleCategoryData = (data: any) => {
     return data.map((item: any) => {
@@ -99,10 +98,6 @@ const AddNewBudget = () => {
     axios
       .get(BASE_URL + '/category')
       .then((response) => setCategories(response.data.data));
-
-    axios
-      .get(BASE_URL + '/wallet')
-      .then((response) => setWallets(response.data.data));
   }, []);
 
   const handleSubmitData = (data: any) => {
@@ -115,8 +110,7 @@ const AddNewBudget = () => {
       .then(function (response) {
         //handle success
         successStack('Budget created successfully');
-        reset();
-        console.log('response', response);
+        Router.push('/monthly-budget');
       })
       .catch(function (response) {
         errorStack('Failed to create budget');
@@ -124,6 +118,8 @@ const AddNewBudget = () => {
         console.log(response);
       });
   };
+  let date = new Date();
+  let currentMonth = date.getMonth() + 1;
   return (
     <Container
       maxWidth={'xs'}
@@ -151,110 +147,6 @@ const AddNewBudget = () => {
 
           <Grid item xs={12}>
             <Typography sx={{fontSize: '16px', fontWeight: '700', pb: '3px'}}>
-              Budget Name <span style={{color: 'red'}}>*</span>
-            </Typography>
-            <TextField
-              InputLabelProps={{
-                required: true,
-              }}
-              {...register('budget_title')}
-              sx={{
-                width: '100%',
-              }}
-              placeholder='Budget name'
-              InputProps={{
-                sx: {
-                  borderRadius: '15px',
-                  border: '2px solid #F4F2F3',
-                },
-              }}
-              type='text'
-              error={!!errors.budget_title}
-              helperText={errors.budget_title?.message?.toString()}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <Typography sx={{fontSize: '16px', fontWeight: '700', pb: '3px'}}>
-              Amount <span style={{color: 'red'}}>*</span>
-            </Typography>
-            <TextField
-              InputLabelProps={{
-                required: true,
-              }}
-              {...register('amount', {valueAsNumber: true})}
-              sx={{
-                width: '100%',
-              }}
-              placeholder='0'
-              InputProps={{
-                sx: {
-                  borderRadius: '15px',
-                  border: '2px solid #F4F2F3',
-                },
-              }}
-              type='number'
-              error={!!errors.amount}
-              helperText={errors.amount?.message?.toString()}
-            />
-          </Grid>
-
-          <Grid item xs={12}>
-            {/*<CustomSelectField*/}
-            {/*  errors={errors}*/}
-            {/*  required={true}*/}
-            {/*  label={'Wallet'}*/}
-            {/*  id={'wallet_id'}*/}
-            {/*  options={wallets}*/}
-            {/*  optionId={'_id'}*/}
-            {/*  optionLabel={'wallet_title'}*/}
-            {/*  control={control}*/}
-
-            <Typography sx={{fontSize: '16px', fontWeight: '700', pb: '3px'}}>
-              Wallet<span style={{color: 'red'}}>*</span>
-            </Typography>
-
-            <FormControl
-              sx={{
-                width: '100%',
-              }}>
-              {/*<InputLabel id='demo-multiple-name-label'>Name</InputLabel>*/}
-              <Controller
-                control={control}
-                name={'wallet_id'}
-                rules={{
-                  required: true,
-                }}
-                render={({field: {onChange, value}}) => (
-                  <Select
-                    sx={{
-                      borderRadius: '15px',
-                      border: '2px solid #F4F2F3',
-                      height: '55px',
-                    }}
-                    labelId='level-label'
-                    value={value || ''}
-                    onChange={onChange}
-                    // displayEmpty
-                  >
-                    {wallets.map((option: any, index: number) => (
-                      <MenuItem key={index} value={option._id}>
-                        {option.wallet_title}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                )}
-              />
-
-              {errors.wallet_id && (
-                <FormHelperText error>
-                  <>{errors?.wallet_id?.message}</>
-                </FormHelperText>
-              )}
-            </FormControl>
-          </Grid>
-
-          <Grid item xs={12}>
-            <Typography sx={{fontSize: '16px', fontWeight: '700', pb: '3px'}}>
               Budget month<span style={{color: 'red'}}>*</span>
             </Typography>
 
@@ -277,12 +169,13 @@ const AddNewBudget = () => {
                       height: '55px',
                     }}
                     labelId='level-label'
-                    value={value || ''}
+                    value={value || currentMonth}
                     onChange={onChange}
+                    defaultValue={currentMonth}
                     // displayEmpty
                   >
                     {months.map((month: Month, index: number) => (
-                      <MenuItem key={index} value={month.id}>
+                      <MenuItem key={index} value={month.id || currentMonth}>
                         {month.label}
                       </MenuItem>
                     ))}
@@ -297,6 +190,7 @@ const AddNewBudget = () => {
               )}
             </FormControl>
           </Grid>
+
           <Grid item xs={12} sx={{mb: '16px'}}>
             <Typography sx={{fontSize: '16px', fontWeight: '700', pb: '3px'}}>
               Budget For <span style={{color: 'red'}}>*</span>
@@ -362,6 +256,56 @@ const AddNewBudget = () => {
               )}
             </FormControl>
           </Grid>
+
+          <Grid item xs={12}>
+            <Typography sx={{fontSize: '16px', fontWeight: '700', pb: '3px'}}>
+              Budget Name <span style={{color: 'red'}}>*</span>
+            </Typography>
+            <TextField
+              InputLabelProps={{
+                required: true,
+              }}
+              {...register('budget_title')}
+              sx={{
+                width: '100%',
+              }}
+              placeholder='Budget name'
+              InputProps={{
+                sx: {
+                  borderRadius: '15px',
+                  border: '2px solid #F4F2F3',
+                },
+              }}
+              type='text'
+              error={!!errors.budget_title}
+              helperText={errors.budget_title?.message?.toString()}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <Typography sx={{fontSize: '16px', fontWeight: '700', pb: '3px'}}>
+              Amount <span style={{color: 'red'}}>*</span>
+            </Typography>
+            <TextField
+              InputLabelProps={{
+                required: true,
+              }}
+              {...register('amount', {valueAsNumber: true})}
+              sx={{
+                width: '100%',
+              }}
+              placeholder='0'
+              InputProps={{
+                sx: {
+                  borderRadius: '15px',
+                  border: '2px solid #F4F2F3',
+                },
+              }}
+              type='number'
+              error={!!errors.amount}
+              helperText={errors.amount?.message?.toString()}
+            />
+          </Grid>
+
           <Grid item xs={12} sx={{bottom: '10px', position: 'sticky'}}>
             <SubmitButton>ADD A BUDGET</SubmitButton>
           </Grid>

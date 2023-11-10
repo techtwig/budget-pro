@@ -20,13 +20,8 @@ import * as yup from 'yup';
 import axios from 'axios';
 import useNotiStack from '@/hooks/NotiStack';
 import {BASE_URL} from '@/utilities/root';
-
-const Categories = category.map((e) => {
-  return {
-    id: String(e.id),
-    label: e.label,
-  };
-});
+import {useRouter} from 'next/navigation';
+import {API_BASE_URL} from '@/constants/defaultConstant';
 
 const schema = yup.object({
   title: yup
@@ -38,9 +33,8 @@ const schema = yup.object({
     .transform((value) => (isNaN(value) ? undefined : value))
     .min(100, 'minimum amount is greater than or equal to 100')
     .max(2000000, 'maximum amount is less than or equal to 2000000')
-
     .required('Balance is required'),
-  wallet_id: yup.string().required('Wallet is required'),
+  wallet_id: yup.object().required('Wallet is required'),
   category_ids: yup
     .array(yup.object().required())
     .min(1, 'Minimum one item is required')
@@ -61,6 +55,10 @@ type AutoSelectOption = {
   _id: string;
   label: string;
 };
+type IWallet = {
+  _id: string;
+  wallet_title: string;
+};
 
 interface IData {
   title: string;
@@ -72,6 +70,7 @@ interface IData {
 
 const CustomIncomeForm = () => {
   const {successStack, errorStack} = useNotiStack();
+  const Router = useRouter();
   const {
     handleSubmit,
     control,
@@ -80,44 +79,35 @@ const CustomIncomeForm = () => {
     getValues,
     formState: {errors, isSubmitSuccessful},
   } = useForm<IData | any>({resolver: yupResolver(schema)});
-  // } = useForm<IData | any>();
 
   const handleCategoryData = (data: any) => {
-    // @ts-ignore
-    let arr = [];
-    data.map((item: any) => {
-      arr.push(item._id);
+    return data.map((item: any) => {
+      return item._id;
     });
-    // @ts-ignore
-    return arr;
   };
   const handleTransaction = (data: any) => {
-    // data.transaction_type = selectedIndex;
     let catData = getValues('category_ids');
     data.category_ids = handleCategoryData(catData);
+
+    data.wallet_id = data.wallet_id._id;
     axios
-      .post(BASE_URL + '/income/create', data, {headers})
+      .post(API_BASE_URL + '/income/create', data, {headers})
       .then(function (response) {
         //handle success
-        successStack('Expense created successfully');
+        successStack('Income created successfully');
+        Router.push('/dashboard');
 
         console.log('response', response);
       })
       .catch(function (response) {
-        errorStack('Failed to create expense');
+        errorStack(response.message);
         //handle error
         console.log(response);
       });
   };
 
-  const [wallets, setWallets] = useState([{}]);
+  const [wallets, setWallets] = useState<IWallet[] | null>();
   const [categories, setCategories] = useState<AutoSelectOption[] | null>();
-
-  useEffect(() => {
-    if (isSubmitSuccessful) {
-      // reset();
-    }
-  }, [isSubmitSuccessful, reset]);
 
   useEffect(() => {
     axios
@@ -128,9 +118,6 @@ const CustomIncomeForm = () => {
       .get(BASE_URL + '/wallet')
       .then((response) => setWallets(response.data.data));
   }, []);
-
-  console.log('error', errors);
-  console.log('form getvalues', getValues());
 
   return (
     <form onSubmit={handleSubmit(handleTransaction)} style={{width: '100%'}}>
@@ -176,45 +163,67 @@ const CustomIncomeForm = () => {
         />
       </Grid>
       <Grid item xs={12} sx={{mb: '16px'}}>
+        {/*<CustomSelectField*/}
+        {/*  errors={errors}*/}
+        {/*  required={true}*/}
+        {/*  label={'Wallet Type'}*/}
+        {/*  id={'wallet_id'}*/}
+        {/*  options={wallets}*/}
+        {/*  control={control}*/}
+        {/*/>*/}
+
         <Typography sx={{fontSize: '16px', fontWeight: '700', pb: '3px'}}>
           Wallet <span style={{color: 'red'}}>*</span>
         </Typography>
-
         <FormControl
           sx={{
             width: '100%',
+            '.MuiOutlinedInput-root': {
+              borderRadius: '15px',
+              border: '2px solid #F4F2F3',
+            },
           }}>
-          {/*<InputLabel id='demo-multiple-name-label'>Name</InputLabel>*/}
           <Controller
-            control={control}
             name={'wallet_id'}
+            control={control}
             rules={{
-              required: true,
+              required: 'Please select a value',
             }}
-            render={({field: {onChange, value}}) => (
-              <Select
-                sx={{
-                  borderRadius: '15px',
-                  border: '2px solid #F4F2F3',
-                  height: '55px',
+            render={({field: {onChange}}) => (
+              <Autocomplete
+                id='tags-outlined'
+                options={wallets || []}
+                onChange={(event, option) => {
+                  onChange(option);
                 }}
-                labelId='level-label'
-                value={value || ''}
-                onChange={onChange}
-                // displayEmpty
-              >
-                {wallets.map((option: any, index: number) => (
-                  <MenuItem key={index} value={option._id}>
-                    {option.wallet_title}
-                  </MenuItem>
-                ))}
-              </Select>
+                getOptionLabel={(option: IWallet) => {
+                  return option ? option?.wallet_title : '';
+                }}
+                renderInput={(params: any) => (
+                  <TextField {...params} placeholder='Wallet' />
+                )}
+                renderOption={(props, option: IWallet) => {
+                  return (
+                    <li {...props} key={option?._id}>
+                      {option?.wallet_title}
+                    </li>
+                  );
+                }}
+                renderTags={(tagValue, getTagProps) => {
+                  return tagValue.map((option: IWallet, index: number) => (
+                    <Chip
+                      {...getTagProps({index})}
+                      key={option?._id}
+                      label={option?.wallet_title}
+                    />
+                  ));
+                }}
+              />
             )}
           />
-
           {errors.wallet_id && (
-            <FormHelperText error>
-              <>{errors?.wallet_id?.message}</>
+            <FormHelperText sx={{color: '#f44336'}}>
+              <>{errors.wallet_id.message}</>
             </FormHelperText>
           )}
         </FormControl>
