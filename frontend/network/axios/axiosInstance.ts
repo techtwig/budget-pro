@@ -11,6 +11,10 @@ import {
   USER_ACCESS_TOKEN,
 } from '@/constants/defaultConstant';
 
+const token = localStorage.getItem(USER_ACCESS_TOKEN);
+// @ts-ignore
+const parsed = JSON.parse(token);
+
 const cookieInstance = new Cookies();
 
 export const getBrowserCookie = (name: string, options?: CookieGetOptions) => {

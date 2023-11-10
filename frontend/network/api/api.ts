@@ -1,5 +1,5 @@
 import {AxiosRequestConfig, AxiosResponse} from 'axios';
-import axiosInstance from '@/public/axios/axiosInstance';
+import axiosInstance from '@/network/axios/axiosInstance';
 
 /** Axios catch block handler */
 const errorHandler = (error: {response: any; request?: any; message?: any}) => {

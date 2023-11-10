@@ -75,7 +75,9 @@ const CustomIncomeForm = () => {
     control,
     register,
     reset,
+    watch,
     getValues,
+    setValue,
     formState: {errors, isSubmitSuccessful},
   } = useForm<IData | any>({resolver: yupResolver(schema)});
 
@@ -85,6 +87,7 @@ const CustomIncomeForm = () => {
     });
   };
   const handleTransaction = (data: any) => {
+    console.log('form data', data);
     let catData = getValues('category_ids');
     data.category_ids = handleCategoryData(catData);
 
@@ -105,17 +108,21 @@ const CustomIncomeForm = () => {
       });
   };
 
-  const [wallets, setWallets] = useState<IWallet[] | null>();
+  const [wallets, setWallets] = useState<IWallet[] | any[]>([]);
   const [categories, setCategories] = useState<AutoSelectOption[] | null>();
+  const [defaulWallet, setDefaulWallet] = useState<AutoSelectOption | null>();
 
   useEffect(() => {
     axios
       .get(BASE_URL + '/category')
       .then((response) => setCategories(response.data.data));
 
-    axios
-      .get(BASE_URL + '/wallet')
-      .then((response) => setWallets(response.data.data));
+    axios.get(BASE_URL + '/wallet').then((response) => {
+      setWallets(response.data.data);
+      setDefaulWallet(response.data.data?.[0]);
+
+      setValue('wallet_id', response.data.data?.[0], {shouldDirty: true});
+    });
   }, []);
 
   return (
@@ -188,19 +195,27 @@ const CustomIncomeForm = () => {
             rules={{
               required: 'Please select a value',
             }}
-            render={({field: {onChange}}) => (
+            // defaultValue={wallets ? wallets[0] : []}
+            render={({field: {onChange, value}}) => (
               <Autocomplete
+                value={wallets && wallets.length ? wallets[0] : ''}
                 id='tags-outlined'
-                options={wallets || []}
+                options={wallets}
                 onChange={(event, option) => {
                   onChange(option);
                 }}
                 getOptionLabel={(option: IWallet) => {
                   return option ? option?.wallet_title : '';
                 }}
-                renderInput={(params: any) => (
-                  <TextField {...params} placeholder='Wallet' />
-                )}
+                renderInput={(params: any) => {
+                  return (
+                    <TextField
+                      {...params}
+                      placeholder='Wallet'
+                      // defaultValue={wallets && wallets.length ? wallets[0] : []}
+                    />
+                  );
+                }}
                 renderOption={(props, option: IWallet) => {
                   return (
                     <li {...props} key={option?._id}>
