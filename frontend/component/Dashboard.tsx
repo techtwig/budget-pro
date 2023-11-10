@@ -236,7 +236,9 @@ const DashBoard = () => {
           </Grid>
         </Grid>
       </Grid>
-      <Footer currentOption={0} />
+      <Grid sx={{ml: '13px'}}>
+        <Footer currentOption={0} />
+      </Grid>
     </Container>
   );
 };
