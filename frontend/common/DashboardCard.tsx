@@ -19,7 +19,6 @@ const DashboardCard: FC<Props> = ({title, amount}) => {
         borderRadius: '10px',
         width: '125px',
         float: 'left',
-        marginRight: '12px',
         mb: '7px',
       }}>
       <Box
