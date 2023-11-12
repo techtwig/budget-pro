@@ -3,7 +3,7 @@ import {Box, Container, Typography} from '@mui/material';
 import {CustomStyles} from '@/utilities/enums';
 import BackButton from '@/common/button/BackButton';
 
-const TermsAndSupports = () => {
+const ContactSupport = () => {
   return (
     <Container
       maxWidth={'xs'}
@@ -20,14 +20,11 @@ const TermsAndSupports = () => {
       <Box>
         <BackButton />
       </Box>
-      <Typography sx={{fontSize: '20px', fontWeight: '700'}}>
-        This is terms and conditions page
+      <Typography sx={{fontSize: '20px', mb: '20px', fontWeight: '700'}}>
+        Contract support
       </Typography>
-      <Typography>
-        Budget pro is a financial web app. It is very much helpful for those who
-        use this app
-      </Typography>
+      <Typography>For details visit out web page</Typography>
     </Container>
   );
 };
-export default TermsAndSupports;
+export default ContactSupport;

@@ -26,7 +26,6 @@ const axiosInstance: AxiosInstance = axios.create({
   baseURL: API_BASE_URL,
   timeout: 300000,
 });
-
 axiosInstance.defaults.headers.common['Accept'] = 'application/json';
 axiosInstance.defaults.headers.common['Content-Type'] = 'application/json';
 
@@ -44,6 +43,7 @@ axiosInstance.interceptors.request.use(
 );
 axiosInstance.interceptors.response.use(
   (response) => {
+    console.log('config', response);
     return response;
   },
   async function (error) {
