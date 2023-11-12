@@ -292,7 +292,7 @@ const Signup = ({setSelectedIndex}: any) => {
                 </Grid>
               </Grid>
             </Grid>
-            <Grid item xs={12} sx={{marginLeft: '15px'}}>
+            <Grid item xs={12}>
               <SubmitButton>Create Account</SubmitButton>
             </Grid>
           </Grid>
