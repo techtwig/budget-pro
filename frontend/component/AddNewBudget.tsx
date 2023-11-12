@@ -161,6 +161,7 @@ const AddNewBudget = () => {
                 rules={{
                   required: true,
                 }}
+                defaultValue={currentMonth}
                 render={({field: {onChange, value}}) => (
                   <Select
                     sx={{

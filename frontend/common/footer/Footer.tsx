@@ -1,4 +1,4 @@
-import {Box, Button, Grid, Tooltip} from '@mui/material';
+import {Box, Grid, Tooltip} from '@mui/material';
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
 import React, {FC, useEffect, useState} from 'react';
@@ -11,7 +11,7 @@ interface IFooter {
   currentOption?: number;
   newPage?: boolean;
 }
-const Footer: FC<IFooter> = ({currentOption, newPage}) => {
+const Footer: FC<IFooter> = ({currentOption}) => {
   const Router = useRouter();
   const [selectNewPage, setSelectNewPage] = useState(false);
   const [selectOption, setSelectOption] = useState(currentOption);
@@ -24,11 +24,7 @@ const Footer: FC<IFooter> = ({currentOption, newPage}) => {
     return;
   };
   useEffect(() => {
-    console.log('Router', Router);
-    console.log('selectOption', selectOption);
-    console.log('selectNewPage', selectNewPage);
     if (selectOption === 0 && !selectNewPage) {
-      
       Router.push('/dashboard', {scroll: false});
     }
     if (selectOption === 1 && !selectNewPage) {
@@ -71,7 +67,7 @@ const Footer: FC<IFooter> = ({currentOption, newPage}) => {
           alignItems: 'center',
           backgroundColor: '#fff',
           borderTop: '2px solid #F6F5F6',
-          width: '429px',
+          width: '418px',
           pb: '15px',
           pt: '15px',
         }}>

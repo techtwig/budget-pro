@@ -17,7 +17,7 @@ import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import {CustomStyles} from '@/utilities/enums';
 import {BarChartComponent} from '@/component/statisticsData/BarChart';
 import {useRouter} from 'next/navigation';
-import {timeDuration, wallets} from '@/utilities/helper';
+import {timeDuration} from '@/utilities/helper';
 
 const Statistics = () => {
   const Router = useRouter();
@@ -227,8 +227,9 @@ const Statistics = () => {
             percentage={'1%'}
           />
         </Grid>
-        <Footer currentOption={1} />
       </Grid>
+
+      <Footer currentOption={1} />
     </Container>
   );
 };

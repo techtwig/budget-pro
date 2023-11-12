@@ -40,7 +40,7 @@ const DashBoard = () => {
             borderBottomRightRadius: '20px',
             borderBottomLeftRadius: '20px',
           }}>
-          <Grid container spacing={1}>
+          <Grid container rowSpacing={1}>
             <Grid item xs={12}>
               <Typography
                 sx={{fontSize: '18px', fontWeight: '700', mt: '40px'}}>
@@ -61,6 +61,7 @@ const DashBoard = () => {
                 overflowX: 'auto',
                 // overflowY: 'hidden',
                 display: 'flex',
+                gap: '12px',
               }}>
               <Box>
                 <DashboardCard
@@ -236,7 +237,9 @@ const DashBoard = () => {
           </Grid>
         </Grid>
       </Grid>
-      <Footer currentOption={0} />
+      <Grid sx={{ml: '13px'}}>
+        <Footer currentOption={0} />
+      </Grid>
     </Container>
   );
 };

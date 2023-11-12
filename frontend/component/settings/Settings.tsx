@@ -1,11 +1,28 @@
 'use client';
 import {Button, Container, Grid, Typography} from '@mui/material';
 import Footer from '@/common/footer/Footer';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import CustomCardForSetting from '@/common/CustomCardForSettings';
 import {CustomStyles} from '@/utilities/enums';
+import {useRouter} from 'next/navigation';
 
 const Settings = () => {
+  const [setting, setSetting] = useState<number>(0);
+  const Router = useRouter();
+  const habdleClick = (index: number) => {
+    console.log('already clicked');
+    setSetting(index);
+  };
+  useEffect(() => {
+    if (setting === 5) {
+      Router.push('/settings/terms-and-support', {scroll: false});
+    } else if (setting === 2) {
+      Router.push('/settings/notification', {scroll: false});
+    } else if (setting === 6) {
+      Router.push('/settings/contact-support', {scroll: false});
+    }
+  }, [setting]);
+  console.log('val', setting);
   return (
     <Container
       maxWidth={'xs'}
@@ -45,12 +62,22 @@ const Settings = () => {
               borderRadius: '40px',
             }}>
             <CustomCardForSetting title={'Premium'} />
-            <CustomCardForSetting title={'Notification'} subTitle={'USD'} />
+            <CustomCardForSetting
+              title={'Notification'}
+              subTitle={'USD'}
+              onClk={() => habdleClick(2)}
+            />
             <CustomCardForSetting title={'Main currency'} subTitle={'TK'} />
             <CustomCardForSetting title={'Language'} />
             <CustomCardForSetting title={'Export'} />
-            <CustomCardForSetting title={'Terms and policies'} />
-            <CustomCardForSetting title={'Contract support'} />
+            <CustomCardForSetting
+              title={'Terms and Support'}
+              onClk={() => habdleClick(5)}
+            />
+            <CustomCardForSetting
+              title={'Contract support'}
+              onClk={() => habdleClick(6)}
+            />
           </Grid>
         </Grid>
         <Grid
