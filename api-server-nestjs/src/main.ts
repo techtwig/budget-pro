@@ -11,11 +11,13 @@ const PORT = 5000;
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const options = new DocumentBuilder()
-      .setTitle('Your API Title')
-      .setDescription('Your API description')
+      .setTitle('Budget pro')
+      .setDescription('Budget pro API description')
       .setVersion('1.0')
       .addServer('http://localhost:5000/', 'Local environment')
-      .addTag('Your API Tag')
+      .addTag('API Tag')
+      .addBearerAuth(undefined, 'Apikey')
+      .addBearerAuth(undefined, 'Authorization')
       .build();
 
   const document = SwaggerModule.createDocument(app, options);
