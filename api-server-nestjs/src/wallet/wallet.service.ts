@@ -13,12 +13,12 @@ export class WalletService {
 
   async createWallet(
     req: CustomRequest,
-    res: Response,
     body: CreateWalletDto,
   ): Promise<Wallet> {
     try {
-      console.log('wallet');
-      return await this.walletModel.create({ ...body, user_id: '3' });
+      console.log("request", req);
+      body.user_id= req.user_id
+      return await this.walletModel.create(body);
     } catch (e) {
       throw new Error(e.message);
     }

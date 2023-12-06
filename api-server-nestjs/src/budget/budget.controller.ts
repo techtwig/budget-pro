@@ -28,6 +28,8 @@ export class BudgetController {
     body: CreateBudgetDto,
   ) {
     try {
+      console.log("CustomRequest",req)
+      console.log("body",body)
       const budget = await this.budgetService.createBudget(req, body);
 
       res.json({

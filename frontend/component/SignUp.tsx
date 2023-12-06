@@ -21,6 +21,7 @@ import SubmitButton from '@/common/button/SubmitButton';
 import useNotiStack from '@/hooks/useNotifyStack';
 import {useGoogleLogin} from '@react-oauth/google';
 import {useRouter} from 'next/navigation';
+import {apiPost} from "@/network/api/api";
 
 const PREFIX = 'facebook-style';
 
@@ -52,8 +53,8 @@ const Signup = ({setSelectedIndex}: any) => {
   const onSubmitHandler = async (data: any) => {
     console.log('data-->', data);
     try {
-      const response = await axios.post(
-        'http://localhost:5000/user/signup',
+      const response = await apiPost(
+        '/user/signup',
         data,
       );
       console.log('Response:', response.data);

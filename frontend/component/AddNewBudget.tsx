@@ -21,10 +21,9 @@ import * as yup from 'yup';
 import axios from 'axios';
 import {headers, Month, months} from '@/utilities/helper';
 import useNotiStack from '@/hooks/NotiStack';
-import {date} from 'yup';
-import {getValue} from '@mui/system';
 import {BASE_URL} from '@/utilities/root';
 import {useRouter} from 'next/navigation';
+import {apiGet, apiPost} from "@/network/api/api";
 
 const schema = yup.object().shape({
   budget_title: yup
@@ -95,8 +94,7 @@ const AddNewBudget = () => {
   };
 
   useEffect(() => {
-    axios
-      .get(BASE_URL + '/category')
+    apiGet( '/category')
       .then((response) => setCategories(response.data.data));
   }, []);
 
@@ -105,8 +103,7 @@ const AddNewBudget = () => {
     data.month = formatDate(month_id);
     let catData = getValues('category_ids');
     data.category_ids = handleCategoryData(catData);
-    axios
-      .post(BASE_URL + '/budget/create', data, {headers})
+    apiPost( '/budget/create', data)
       .then(function (response) {
         //handle success
         successStack('Budget created successfully');

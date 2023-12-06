@@ -28,7 +28,7 @@ export class WalletController {
     body: CreateWalletDto,
   ) {
     try {
-      const wallet = await this.walletService.createWallet(req, res, body);
+      const wallet = await this.walletService.createWallet(req, body);
 
       res.json({
         status: 201,

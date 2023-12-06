@@ -69,10 +69,10 @@ export class UserService {
       );
 
       const access_token = sign(payload, access_token_secret, {
-        expiresIn: '500m',
+        expiresIn: '1m',
       });
       const refresh_token = sign(payload, refresh_token_secret, {
-        expiresIn: '600m',
+        expiresIn: '30m',
       });
 
       return { access_token: access_token, refresh_token: refresh_token };
@@ -98,7 +98,7 @@ export class UserService {
 
       const payload = { id: decoded.id, email: decoded.email };
       const access_token = sign(payload, access_token_secret, {
-        expiresIn: '5m',
+        expiresIn: '500m',
       });
 
       return { access_token };

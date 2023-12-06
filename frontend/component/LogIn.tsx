@@ -18,6 +18,7 @@ import {useForm} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup';
 import axios from 'axios';
 import useNotiStack from '@/hooks/NotiStack';
+import {apiPost} from "@/network/api/api";
 
 const userSchema = yup.object().shape({
   email: yup
@@ -47,16 +48,19 @@ const Login = () => {
   const handleLogin = async (data: any) => {
     console.log('data', data);
     try {
-      const response = await axios.post(
-        'http://localhost:5000/user/login',
+      const response = await apiPost(
+        '/user/login',
         data,
       );
 
-      console.log('Response:', response.data);
+      console.log('login page Response:', response);
       if (response && response.data.status === 500) {
         successStack(`response.data.message`);
       }
       if (response && response.data.status === 200) {
+          const token = response.data.token;
+          localStorage.setItem('accessToken', token.access_token);
+          localStorage.setItem('refreshToken', token.refresh_token);
         setIsUserExist(false);
         successStack('Login Successful');
         reset();

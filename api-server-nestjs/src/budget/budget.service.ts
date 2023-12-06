@@ -1,7 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
-import { Cashbook } from '../cashbook/cashbook.schema';
 import { Category } from '../category/category.schema';
 import { Budget } from './budget.schema';
 import { CustomRequest } from '../middleware/Auth.middleware';
@@ -12,7 +11,6 @@ import { UpdateBudgetDto } from './dtos/update-budget.dto';
 export class BudgetService {
   constructor(
     @InjectModel(Budget.name) private budgetModel: Model<Budget>,
-    @InjectModel(Cashbook.name) private cashbookModel: Model<Cashbook>,
     @InjectModel(Category.name) private categoryModel: Model<Category>,
   ) {}
 
@@ -23,7 +21,6 @@ export class BudgetService {
     try {
       // body.user_id = new Types.ObjectId(req.userId);
       body.user_id = '2';
-
       return await this.budgetModel.create(body);
     } catch (e) {
       throw new Error(e.message);

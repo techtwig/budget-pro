@@ -52,7 +52,7 @@ export class UserController {
   async refreshToken(@Body() body: any, @Res() res: Response) {
     try {
       if (!body || !body.refreshToken) {
-        throw new BadRequestException("No refreshtoken provided");
+        throw new BadRequestException("No refresh token provided");
       }
 
       const token = await this.userService.refresh(body);

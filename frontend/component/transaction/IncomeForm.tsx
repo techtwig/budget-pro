@@ -22,6 +22,7 @@ import useNotiStack from '@/hooks/NotiStack';
 import {BASE_URL} from '@/utilities/root';
 import {useRouter} from 'next/navigation';
 import {API_BASE_URL} from '@/constants/defaultConstant';
+import {apiGet, apiPost} from "@/network/api/api";
 
 const schema = yup.object({
   title: yup
@@ -91,8 +92,7 @@ const CustomIncomeForm = () => {
     data.category_ids = handleCategoryData(catData);
 
     data.wallet_id = data.wallet_id._id;
-    axios
-      .post(API_BASE_URL + '/income/create', data, {headers})
+    apiPost( '/income/create', data)
       .then(function (response) {
         //handle success
         successStack('Income created successfully');
@@ -112,11 +112,10 @@ const CustomIncomeForm = () => {
   const [defaulWallet, setDefaulWallet] = useState<AutoSelectOption | null>();
 
   useEffect(() => {
-    axios
-      .get(BASE_URL + '/category')
+    apiGet( '/category')
       .then((response) => setCategories(response.data.data));
 
-    axios.get(BASE_URL + '/wallet').then((response) => {
+    apiGet( '/wallet').then((response) => {
       setWallets(response.data.data);
       setDefaulWallet(response.data.data?.[0]);
 

@@ -22,6 +22,7 @@ import axios from 'axios';
 import useNotiStack from '@/hooks/NotiStack';
 import {BASE_URL} from '@/utilities/root';
 import {useRouter} from 'next/navigation';
+import {apiPost} from "@/network/api/api";
 
 const schema = yup.object().shape({
   wallet_title: yup
@@ -32,7 +33,7 @@ const schema = yup.object().shape({
   balance: yup
     .number()
     .transform((value) => (isNaN(value) ? undefined : value))
-    .min(100, 'minimun amount is greater than or equal to 100')
+    .min(100, 'minimum amount is greater than or equal to 100')
     .max(2000000, 'maximum amount is less than or equal to 2000000')
     .required('Required a minimum amount'),
 });
@@ -62,8 +63,7 @@ const AddNewWallet = () => {
     console.log('wallet data', data);
     // @ts-ignore
     data.type_id = data?.type_id?.id;
-    axios
-      .post(BASE_URL + '/wallet/create', data, {headers})
+    apiPost( '/wallet/create', data )
       .then(function (response) {
         successStack('Wallet created successfully');
         Router.push('/my-wallet');
@@ -183,17 +183,6 @@ const AddNewWallet = () => {
               )}
             </FormControl>
           </Grid>
-
-          {/*<Grid item xs={12}>*/}
-          {/*  <CustomSelectField*/}
-          {/*    errors={errors}*/}
-          {/*    required={true}*/}
-          {/*    label={'Wallet Type'}*/}
-          {/*    id={'type_id'}*/}
-          {/*    options={wallets}*/}
-          {/*    control={control}*/}
-          {/*  />*/}
-          {/*</Grid>*/}
 
           <Grid item xs={12}>
             <Typography sx={{fontSize: '16px', fontWeight: '700', pb: '3px'}}>

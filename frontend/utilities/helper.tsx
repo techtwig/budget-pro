@@ -136,5 +136,5 @@ export const months: Month[] = [
 export const headers = {
   'Content-Type': 'application/json',
   Authorization:
-    'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1M2UzYzgzYzZkNzA5OWFlYjlkYTJmOCIsImVtYWlsIjoiYWJAZ21haWwuY29tIiwiaWF0IjoxNjk5MzQ4NTAzLCJleHAiOjE2OTkzNzg1MDN9.6G4OMax1gW2PUktKwF-2v68yf_S9oS53piMoqffI2uo',
+    'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1M2UzYzgzYzZkNzA5OWFlYjlkYTJmOCIsImVtYWlsIjoiYWJAZ21haWwuY29tIiwiaWF0IjoxNzAxODM3MjM5LCJleHAiOjE3MDE4NjcyMzl9.7thMPPLKZ2atHBOwfzT1DUlPGjjxsLYtHwcGY6oi9kM',
 };
